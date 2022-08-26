@@ -1,13 +1,13 @@
-import {View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, FlatList} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity, FlatList} from 'react-native';
 import React from 'react';
 import Star from 'react-native-vector-icons/FontAwesome'
 import HalfStar from 'react-native-vector-icons/FontAwesome'
-import { upcomingMovies } from '../../../model/data';
 import { useNavigation } from '@react-navigation/native';
 import { commonStyle } from '../../../utils/commonStyle';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { GetMovies } from '../../../redux/actions/Movies';
+import moment from 'moment';
 
 const Upcoming = () => {
   const navigation = useNavigation();
@@ -31,7 +31,19 @@ const Upcoming = () => {
       </View>
       <FlatList data={data?.data?.results} showsVerticalScrollIndicator={false} style={{paddingBottom: 30}} renderItem={({item, index})=> {
           return (
-            <TouchableOpacity style={styles.imageBox} key={index} onPress={()=> navigation.navigate('MovieDetails', item)}>
+            <TouchableOpacity style={styles.imageBox} key={index} onPress={()=> navigation.navigate('MovieDetails', {
+              title: item.title,
+              genre: item.genre,
+              durationHours: item.durationHours,
+              durationMinute: item.durationMinute,
+              rating: item.rating,
+              director: item.director,
+              writer: item.writer,
+              releaseDate: moment(item.releaseDate).format('YYYY'),
+              cast: item.cast,
+              description: item.description,
+              cover: item.cover
+          })}>
                     <View style={styles.imageCard}>
                       <Image source={{uri: `http://192.168.100.39:3006/uploads/${item.cover}`}} style={styles.imageSize} />
                     </View>
@@ -44,8 +56,8 @@ const Upcoming = () => {
                         <Star name='star' size={16} color={'darkorange'} style={{marginRight: 5}}/>
                         <HalfStar name='star-half-empty' size={18} style={{marginRight: 5}} color={'darkorange'}/>
                       </View>
-                      <Text style={{fontFamily: 'Poppins-Regular', color: 'lightgray', fontSize: 14, marginVertical: 3}}>{item.durationHours}h {item.durationMinute}m</Text>
-                      <Text style={{fontFamily: 'Poppins-Regular', letterSpacing: 1, color: 'lightgray', fontSize: 14, marginVertical: 3}}>{item.releaseDate}</Text>
+                      <Text style={{fontFamily: 'Poppins-Regular', color: 'lightgray', fontSize: 14, marginVertical: 3}}>{item.durationHours} hour {item.durationMinute} minute</Text>
+                      <Text style={{fontFamily: 'Poppins-Regular', letterSpacing: 1, color: 'lightgray', fontSize: 14, marginVertical: 3}}>{moment(item.releaseDate).format('YYYY')}</Text>
                       <Text style={{fontFamily: 'Poppins-Regular', color: 'lightgray', fontSize: 14, marginVertical: 3}}>{item.genre}</Text>
                     </View>
                   </TouchableOpacity>

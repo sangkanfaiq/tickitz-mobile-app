@@ -13,7 +13,19 @@ import BackIcon from 'react-native-vector-icons/Feather'
 
 
 const MovieDetails = ({route}) => {
-  const {title, cover, genre, releaseDate,releaseYear, director, rating, description, duration} = route.params
+  const {
+    title, 
+    cover, 
+    genre, 
+    releaseDate, 
+    durationHours, 
+    durationMinute,
+    cast, 
+    rating, 
+    description, 
+    writer,
+    director
+  } = route.params
   const [ selectTime, setSelectTime ] = useState('')
   const navigation = useNavigation();
 
@@ -32,7 +44,7 @@ const MovieDetails = ({route}) => {
           <TouchableOpacity style={styles.backIconBox} onPress={() => navigation.goBack()}>
             <BackIcon name='chevron-left' size={25} color={'#fff'} style={{marginLeft: -2}}/>
           </TouchableOpacity>
-          <Image source={cover} style={styles.image}/>
+          <Image source={{uri: `http://192.168.100.39:3006/uploads/${cover}`}} style={styles.image}/>
         </View>
 
       {/* Details */}
@@ -48,13 +60,19 @@ const MovieDetails = ({route}) => {
             <Star name='star' size={20} color={'darkorange'} style={{marginRight: 5}}/>
             <Star name='star' size={20} color={'darkorange'} style={{marginRight: 5}}/>
             <HalfStar name='star-half-empty' size={20} color={'darkorange'} style={{marginRight: 5}}/>
-            <Text style={{color: '#000', fontSize: 16, fontWeight: 'bold',marginLeft: 10, backgroundColor: 'darkorange', paddingHorizontal: 10, borderRadius: 30}}>{rating}</Text>
+            <Text style={{color: '#000', fontSize: 14, fontWeight: 'bold', fontFamily: 'Nunito-Regular',marginLeft: 10, backgroundColor: 'darkorange', paddingHorizontal: 10, borderRadius: 30}}>{rating}</Text>
           </View>
           <View style={styles.details}>
-              <Text style={styles.text}>{duration}</Text>
+              <Text style={styles.text}>{durationHours} hours {durationMinute} minute</Text>
           </View>
-          <View style={styles.details}>
-              <Text style={styles.genre}>{genre}</Text>
+          <View style={{flexDirection: 'row', marginHorizontal: 30}}>
+            {genre.split(',').map((item, index)=> {
+              return (
+                <View style={{marginRight: 7}} key={index}>
+                    <Text style={styles.genre}>{item}</Text>
+                </View>
+              )
+            })}
           </View>
         </View>
       </View>
@@ -64,60 +82,27 @@ const MovieDetails = ({route}) => {
         <View style={styles.informationBox}>
           <Text style={styles.informationText}>Information</Text>
         </View>
-        <View style={{flexDirection: 'row', marginBottom: 40}}>
-          <Text style={styles.detailsText}>Director : </Text>
-          <Text style={styles.detailsTextLight}>{director}</Text>
+        <View style={{marginVertical: 20}}>
+          <View style={{flexDirection: 'row', paddingVertical: 2}}>
+            <Text style={styles.detailsText}>Director : </Text>
+            <Text style={styles.detailsTextLight}>{director}</Text>
+          </View>
+          <View style={{flexDirection: 'row', paddingVertical: 2}}>
+            <Text style={styles.detailsText}>Writer : </Text>
+            <Text style={styles.detailsTextLight}>{writer}</Text>
+          </View>
+          <View style={{flexDirection: 'row', paddingVertical: 2}}>
+            <Text style={styles.detailsText}>Cast : </Text>
+            <Text style={styles.detailsTextLight}>{cast}</Text>
+          </View>
         </View>
-        <Text style={{color: '#f0f0f0', fontFamily: 'Poppins-Regular', lineHeight: 25, fontSize: 16}}>{description}</Text>
+        <Text style={{color: '#f0f0f0', fontFamily: 'Poppins-Regular', lineHeight: 25, fontSize: 14}}>{description}</Text>
       </View>
 
       {/* Jadwal Tayang */}
       <View style={{marginTop: 40}}>
-        {/* <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 23}}>Jadwal Tayang</Text>
-        <View style={{width: '100%', height: 1, backgroundColor: 'gray', marginVertical: 20}}></View>
-        <View style={{marginVertical: 10, marginHorizontal: 10, justifyContent: 'space-between', flexDirection: 'row'}}>
-          <View>
-            <Text style={styles.cinemaName}>CGV Blitz Braga</Text>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Location name='location-sharp' color={'gray'} size={14}/>
-              <Text style={styles.locationInfo}>Braga Mall (Bandung)</Text>
-            </View>
-          </View>
-          <Text style={styles.cgv}>CGV</Text>
-        </View>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
-          {time.map((item2, index)=> {
-            return (
-                <Pressable style={selectTime2 === item2 ? styles.bg1 : styles.bg2} key={index} onPress={()=> onSelect2(item2)}>
-                  <Text style={styles.time}>{item2.time}</Text>
-                </Pressable>
-            )
-          })}
-        </View>
-        <View style={{width: '100%', height: 1, backgroundColor: 'gray', marginVertical:20}}></View>
-        <View style={{marginVertical: 10, marginHorizontal: 10, justifyContent: 'space-between', flexDirection: 'row'}}>
-          <View>
-            <Text style={styles.cinemaName}>XXI Premiere</Text>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Location name='location-sharp' color={'gray'} size={14}/>
-              <Text style={styles.locationInfo}>Bandung Indah Plaza (Bandung)</Text>
-            </View>
-          </View>
-          <Text style={styles.xxi}>XXI</Text>
-        </View>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
-          {time.map((item, index)=> {
-            return (
-                <Pressable style={selectTime === item ? styles.bg1 : styles.bg2} key={index} onPress={()=> onSelect(item)}>
-                  <Text style={styles.time}>{item.time}</Text>
-                </Pressable>
-            )
-          })}
-        </View> */}
-        {/* <View style={{width: '100%', height: 1, backgroundColor: 'gray', marginVertical: 20}}></View> */}
         <View style={{backgroundColor: commonStyle.bgSecondary, height: 100, alignItems: 'center', justifyContent: 'center'}}>
           <TouchableOpacity style={styles.buyTicketSquare} onPress={()=> navigation.navigate('Booking')}>
-            {/* <Ticket name='ticket-alt' color={'lightgray'} size={20}/> */}
             <Text style={styles.buyTicketText}>Book Seat</Text>
           </TouchableOpacity>
         </View>        
@@ -143,14 +128,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     color: 'lightgray',
     fontSize: 14,
-    marginTop: 20,
     marginLeft: 10
   },
   detailsText: {
     fontFamily: 'Poppins-Medium',
     color: 'gray',
     fontSize: 14,
-    marginTop: 20
   },
   informationBox: {
     borderBottomWidth: 2, 
@@ -201,14 +184,12 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'stretch',
+    resizeMode: 'contain',
   },
   details: {
     flexDirection: 'row',
-    justifyContent: 'space-between', 
-    width: '100%',
     marginVertical: 8,
-    marginHorizontal: 30
+    marginHorizontal: 30,
   },
   title: {
     fontFamily: 'Poppins-Medium', 
@@ -217,17 +198,17 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   text: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Regular',
     color: 'gray',
     fontSize: 14,
   },
   genre: {
-    fontFamily: 'Nunito-SemiBold',
+    fontFamily: 'Nunito-Medium',
     color: 'gray',
-    fontSize: 16,
+    fontSize: 14,
     backgroundColor: commonStyle.bgSecondary,
     paddingVertical: 5,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     borderRadius: 30,
   },
   line: {
