@@ -2,10 +2,7 @@ import { View, Text, Image, StyleSheet, ScrollView, Pressable, TouchableOpacity 
 import React from 'react'
 import Star from 'react-native-vector-icons/FontAwesome'
 import HalfStar from 'react-native-vector-icons/FontAwesome'
-import { time } from '../../model/data'
-import Location from 'react-native-vector-icons/Ionicons';
 import { useState } from 'react'
-import Ticket from 'react-native-vector-icons/FontAwesome5'
 import { useNavigation } from '@react-navigation/native';
 import Heart from 'react-native-vector-icons/Ionicons'
 import { commonStyle } from '../../utils/commonStyle'
@@ -26,17 +23,8 @@ const MovieDetails = ({route}) => {
     writer,
     director
   } = route.params
-  const [ selectTime, setSelectTime ] = useState('')
+  const [ wishlist, setWishlist ] = useState(false)
   const navigation = useNavigation();
-
-  // const onSelect = (item) => {
-  //   if(selectTime === item) {
-  //     setSelectTime('')
-  //   } else {
-  //     setSelectTime(item)
-  //   }
-    
-  // }
 
   return (
     <ScrollView style={{backgroundColor: commonStyle.bgPrimary}}>
@@ -51,8 +39,10 @@ const MovieDetails = ({route}) => {
       <View style={{backgroundColor: commonStyle.bgPrimary, marginTop: -40, borderTopLeftRadius: 30, borderTopRightRadius: 30}}>
         <View style={{width: '100%'}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 30, marginTop: 30}}>
-            <Text style={styles.title}>{title}</Text>
-            <Heart name='ios-heart-outline' size={30} color={'#fff'}/>
+            <Text style={styles.title}>{title} {`( ${releaseDate} )`}</Text>
+            <TouchableOpacity onPress={()=> setWishlist(!wishlist)}>
+              {wishlist ? <Heart name='ios-heart-sharp' size={30} color={'#20c781'}/> : <Heart name='ios-heart-outline' size={30} color={'#fff'}/> }
+            </TouchableOpacity>
           </View>
           <View style={{marginLeft: 30, marginBottom: 5,flexDirection: 'row'}}>
             <Star name='star' size={20} color={'darkorange'} style={{marginRight: 5}}/>
@@ -96,7 +86,9 @@ const MovieDetails = ({route}) => {
             <Text style={styles.detailsTextLight}>{cast}</Text>
           </View>
         </View>
-        <Text style={{color: '#f0f0f0', fontFamily: 'Poppins-Regular', lineHeight: 25, fontSize: 14}}>{description}</Text>
+        <View style={{marginTop: 20}}>
+          <Text style={{color: '#f0f0f0', fontFamily: 'Poppins-Regular', lineHeight: 25, fontSize: 14}}>{description}</Text>
+        </View>
       </View>
 
       {/* Jadwal Tayang */}
@@ -184,7 +176,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'contain',
+    resizeMode: 'stretch',
   },
   details: {
     flexDirection: 'row',

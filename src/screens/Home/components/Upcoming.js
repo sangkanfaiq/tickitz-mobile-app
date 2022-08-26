@@ -47,20 +47,20 @@ const Upcoming = () => {
                     <View style={styles.imageCard}>
                       <Image source={{uri: `http://192.168.100.39:3006/uploads/${item.cover}`}} style={styles.imageSize} />
                     </View>
-                    <View style={styles.cardDetails}>
-                      <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 18, color: '#fff', marginTop: 10}}>{item.title}</Text>
-                      <View style={{flexDirection: 'row', marginVertical: 10}}>
-                        <Star name='star' size={16} color={'darkorange'} style={{marginRight: 5}}/>
-                        <Star name='star' size={16} color={'darkorange'} style={{marginRight: 5}}/>
-                        <Star name='star' size={16} color={'darkorange'} style={{marginRight: 5}}/>
-                        <Star name='star' size={16} color={'darkorange'} style={{marginRight: 5}}/>
-                        <HalfStar name='star-half-empty' size={18} style={{marginRight: 5}} color={'darkorange'}/>
-                      </View>
-                      <Text style={{fontFamily: 'Poppins-Regular', color: 'lightgray', fontSize: 14, marginVertical: 3}}>{item.durationHours} hour {item.durationMinute} minute</Text>
-                      <Text style={{fontFamily: 'Poppins-Regular', letterSpacing: 1, color: 'lightgray', fontSize: 14, marginVertical: 3}}>{moment(item.releaseDate).format('YYYY')}</Text>
-                      <Text style={{fontFamily: 'Poppins-Regular', color: 'lightgray', fontSize: 14, marginVertical: 3}}>{item.genre}</Text>
-                    </View>
-                  </TouchableOpacity>
+              <View style={styles.cardDetails}>
+                <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 18, color: '#fff', marginTop: 10}}>{item.title}</Text>
+                <View style={{flexDirection: 'row', marginVertical: 10}}>
+                  <Star name='star' size={16} color={'darkorange'} style={{marginRight: 5}}/>
+                  <Star name='star' size={16} color={'darkorange'} style={{marginRight: 5}}/>
+                  <Star name='star' size={16} color={'darkorange'} style={{marginRight: 5}}/>
+                  <Star name='star' size={16} color={'darkorange'} style={{marginRight: 5}}/>
+                  <HalfStar name='star-half-empty' size={18} style={{marginRight: 5}} color={'darkorange'}/>
+                </View>
+                <Text style={{fontFamily: 'Poppins-Regular', color: 'lightgray', fontSize: 14, marginVertical: 3}}>{item.durationHours} hour {item.durationMinute} minute</Text>
+                <Text style={{fontFamily: 'Poppins-Regular', letterSpacing: 1, color: 'lightgray', fontSize: 14, marginVertical: 3}}>{moment(item.releaseDate).format('YYYY')}</Text>
+                <Text style={{fontFamily: 'Poppins-Regular', color: 'lightgray', fontSize: 14, marginVertical: 3}}>{item.genre}</Text>
+              </View>
+            </TouchableOpacity>
           )
       }}>
       </FlatList>
