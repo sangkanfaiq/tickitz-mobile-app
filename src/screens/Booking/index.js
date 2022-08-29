@@ -5,7 +5,7 @@ import { commonStyle } from '../../utils/commonStyle'
 import { useNavigation } from '@react-navigation/native';
 import Star from 'react-native-vector-icons/FontAwesome';
 import HalfStar from 'react-native-vector-icons/FontAwesome';
-import { dateShow } from '../../model/data';
+import { dateShow, timeShow } from '../../model/data';
 
 const BookingScreen = ({route}) => {
   const navigation = useNavigation();
@@ -25,13 +25,20 @@ const BookingScreen = ({route}) => {
   } = route.params
   
   const [ selectDate, setSelectDate ] = useState('')
-
+  const [ selectTime, setSelectTime ] = useState('')
 
   const onSelectDate = item => {
     if (selectDate === item) {
       setSelectDate('');
     } else {
       setSelectDate(item);
+    }
+  };
+  const onSelectTime = item => {
+    if (selectTime === item) {
+      setSelectTime('');
+    } else {
+      setSelectTime(item);
     }
   };
 
@@ -61,7 +68,15 @@ const BookingScreen = ({route}) => {
           </View>
           <Text style={styles.textDetails}>{durationHours} hour {durationMinute} minute</Text>
           <Text style={styles.textDetails}>{releaseDate}</Text>
-          <Text style={styles.textDetails}>{genre}</Text>
+          <View style={{flexDirection: 'row'}}>
+            {genre.split(',').map((item, index)=> {
+              return (
+                <View key={index} style={{marginRight: 5}}>
+                  <Text style={styles.genre}>{item}</Text>
+                </View>
+              )
+            })}
+          </View>
         </View>
       </View>
 
@@ -81,11 +96,17 @@ const BookingScreen = ({route}) => {
 
       <View style={{marginLeft: 30, marginTop: 30}}>
         <Text style={styles.headingText}>Time</Text>
-        <View>
-          <Text>{time}</Text>
-        </View>
+        <ScrollView style={{flexDirection: 'row', marginTop: 10}} horizontal={true} showsHorizontalScrollIndicator={false}>
+          {timeShow.map((item, index)=> {
+            return (
+              <Pressable key={index} style={selectTime === item ? styles.timeCardSelected : styles.timeCardDefault} onPress={()=> onSelectTime(item)}>
+                <Text style={selectTime === item ? styles.timeCardtextSelected : styles.timeCardtextDefault}>{item.time}</Text>
+              </Pressable>
+            )
+          })}
+        </ScrollView>
       </View>
-      <View style={{height: '41%', justifyContent: 'flex-end'}}>
+      <View style={{marginTop: 195}}>
         <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
           <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Payment')}>
             <Text style={styles.buttonText}>Next</Text>
@@ -97,8 +118,42 @@ const BookingScreen = ({route}) => {
 }
 
 const styles = StyleSheet.create({
+  timeCardtextDefault: {
+    fontFamily: 'Poppins-Regular', 
+    fontSize: 12, 
+    color: '#fff', 
+    letterSpacing: 1
+  },
+  timeCardtextSelected: {
+    fontFamily: 'Poppins-Regular', 
+    fontSize: 12, 
+    color: commonStyle.bgThird, 
+    letterSpacing: 1
+  },
+  timeCardDefault: {
+    width: 80, 
+    height: 45,
+    backgroundColor: commonStyle.bgFourth,
+    marginRight: 10,
+    marginVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  timeCardSelected: {
+    width: 80, 
+    height: 45,
+    backgroundColor: commonStyle.bgFourth,
+    marginRight: 10,
+    marginVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: commonStyle.bgThird
+  },
   dateDefault: {
-    backgroundColor: commonStyle.bgSecondary,
+    backgroundColor: commonStyle.bgFourth,
     width: 80,
     height: 80,
     alignItems: 'center',
@@ -149,6 +204,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'grey',
     marginVertical: 3,
+  },
+  genre: {
+    fontFamily: 'Nunito-Medium',
+    color: 'gray',
+    fontSize: 12,
+    backgroundColor: commonStyle.bgSecondary,
+    paddingVertical: 3,
+    paddingHorizontal: 10,
+    borderRadius: 30,
   },
   details: {
     justifyContent: 'center',

@@ -1,4 +1,4 @@
-export const time = [
+export const timeShow = [
   {time: '12:00'},
   {time: '12:30'},
   {time: '14:00'},

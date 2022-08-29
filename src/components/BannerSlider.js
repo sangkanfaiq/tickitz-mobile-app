@@ -17,7 +17,7 @@ const BannerSlider = ({data}) => {
       rating: data.rating,
       director: data.director,
       writer: data.writer,
-      releaseDate: moment(data.releaseDate).format('YYYY'),
+      releaseDate: data.releaseDate,
       cast: data.cast,
       time: data.time,
       description: data.description,

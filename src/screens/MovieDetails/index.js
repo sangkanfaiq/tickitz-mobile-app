@@ -28,7 +28,7 @@ const MovieDetails = ({route}) => {
   const navigation = useNavigation();
 
   return (
-    <ScrollView style={{backgroundColor: commonStyle.bgPrimary}}>
+    <ScrollView style={{backgroundColor: commonStyle.bgFourth}}>
         <View style={styles.imageSize}>
           <TouchableOpacity style={styles.backIconBox} onPress={() => navigation.goBack()}>
             <BackIcon name='chevron-left' size={25} color={'#fff'} style={{marginLeft: -2}}/>
@@ -37,7 +37,7 @@ const MovieDetails = ({route}) => {
         </View>
 
       {/* Details */}
-      <View style={{backgroundColor: commonStyle.bgPrimary, marginTop: -20, borderTopLeftRadius: 30, borderTopRightRadius: 30}}>
+      <View style={{backgroundColor: commonStyle.bgFourth, marginTop: -20, borderTopLeftRadius: 30, borderTopRightRadius: 30}}>
         <View style={{width: '100%'}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 30, marginTop: 30}}>
             <Text style={styles.title}>{title} {`( ${moment(releaseDate).format('YYYY')} )`}</Text>
