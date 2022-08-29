@@ -14,7 +14,7 @@ const Banner = () => {
       method: "GET",
       url: `http://192.168.100.39:3006/api/v1/schedule`,
     }).then((res) => {
-      setMovieSchedule(res.data);
+      setMovieSchedule(res.data.data);
     }).catch((err)=> {
       console.log(err)
     })
@@ -26,9 +26,9 @@ const Banner = () => {
   };
   return (
     <View style={{backgroundColor: commonStyle.bgPrimary, paddingTop: 30}}>
-      <Text style={{fontFamily: 'Poppins-SemiBold', color: 'lightgray', fontSize: 20, marginHorizontal: 20, marginBottom: 30}}>Now Showing</Text>
+      <Text style={{fontFamily: 'Poppins-Medium', color: 'lightgray', fontSize: 20, marginHorizontal: 20, marginBottom: 30}}>Now Showing</Text>
       <Carousel
-        data={movieSchedule.data}
+        data={movieSchedule}
         renderItem={renderBanner}
         sliderWidth={windowWidth}
         itemWidth={370}

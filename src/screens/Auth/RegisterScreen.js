@@ -36,7 +36,7 @@ const RegisterScreen = () => {
     })
       .then((res) => {
         ToastAndroid.showWithGravity('Register Success', ToastAndroid.SHORT, ToastAndroid.CENTER)
-        navigation.navigate('Home', {screen: 'Profile'})
+        navigation.navigate('Login')
       })
       .catch((err) => {
         ToastAndroid.showWithGravity(err.response.data.message)  
@@ -147,7 +147,7 @@ const RegisterScreen = () => {
           </View>
           <TouchableOpacity style={styles.button} onPress={handleRegister}>
             {loading ? (
-              <Text style={styles.buttonText}>Tunggu</Text>
+              <Text style={styles.buttonText}>Tunggu...</Text>
             ) : (
               <Text style={styles.buttonText}>Daftar</Text>
             )}
@@ -156,10 +156,10 @@ const RegisterScreen = () => {
         </View>
       </View>
       <View style={{alignItems: 'center', paddingBottom: 30}}>
-        <Text style={{fontFamily: 'Poppins-Medium', color: '#fff'}}>
+        <Text style={{fontFamily: 'Poppins-Regular', color: '#fff'}}>
           Sudah punya akun?
           <Text
-            style={{fontFamily: 'Poppins-SemiBold', color: commonStyle.bgThird}}
+            style={{fontFamily: 'Poppins-Regular', color: commonStyle.bgThird}}
             onPress={() => navigation.goBack()}>
             {' '}
             Masuk disini
@@ -186,15 +186,15 @@ const styles = StyleSheet.create({
   },
   label: {
     marginVertical: 15,
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'Poppins-Medium',
     color: '#fff',
   },
   input: {
     width: '85%',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    fontSize: 14,
-    fontFamily: 'Poppins-Medium',
+    fontSize: 12,
+    fontFamily: 'Poppins-Regular',
     color: '#fff',
   },
   showPass: {
@@ -202,9 +202,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontFamily: 'Poppins-Medium',
     color: '#fff',
+    fontSize: 12
   },
   button: {
-    backgroundColor: 'red',
     paddingVertical: 15,
     borderRadius: 30,
     marginTop: 30,
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     backgroundColor: commonStyle.bgThird,
   },
   buttonText: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins-SemiBold',
     fontSize: 14,
     color: '#fff',
   },

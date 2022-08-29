@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import Heart from 'react-native-vector-icons/Ionicons'
 import { commonStyle } from '../../utils/commonStyle'
 import BackIcon from 'react-native-vector-icons/Feather'
+import moment from 'moment'
 
 
 const MovieDetails = ({route}) => {
@@ -21,7 +22,7 @@ const MovieDetails = ({route}) => {
     rating, 
     description, 
     writer,
-    director
+    director,
   } = route.params
   const [ wishlist, setWishlist ] = useState(false)
   const navigation = useNavigation();
@@ -36,26 +37,26 @@ const MovieDetails = ({route}) => {
         </View>
 
       {/* Details */}
-      <View style={{backgroundColor: commonStyle.bgPrimary, marginTop: -40, borderTopLeftRadius: 30, borderTopRightRadius: 30}}>
+      <View style={{backgroundColor: commonStyle.bgPrimary, marginTop: -20, borderTopLeftRadius: 30, borderTopRightRadius: 30}}>
         <View style={{width: '100%'}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 30, marginTop: 30}}>
-            <Text style={styles.title}>{title} {`( ${releaseDate} )`}</Text>
+            <Text style={styles.title}>{title} {`( ${moment(releaseDate).format('YYYY')} )`}</Text>
             <TouchableOpacity onPress={()=> setWishlist(!wishlist)}>
-              {wishlist ? <Heart name='ios-heart-sharp' size={30} color={'#20c781'}/> : <Heart name='ios-heart-outline' size={30} color={'#fff'}/> }
+              {wishlist ? <Heart name='ios-heart-sharp' size={30} color={'#20c781'}/> : <Heart name='ios-heart-outline' size={30} color={'gray'}/> }
             </TouchableOpacity>
           </View>
-          <View style={{marginLeft: 30, marginBottom: 5,flexDirection: 'row'}}>
-            <Star name='star' size={20} color={'darkorange'} style={{marginRight: 5}}/>
-            <Star name='star' size={20} color={'darkorange'} style={{marginRight: 5}}/>
-            <Star name='star' size={20} color={'darkorange'} style={{marginRight: 5}}/>
-            <Star name='star' size={20} color={'darkorange'} style={{marginRight: 5}}/>
-            <HalfStar name='star-half-empty' size={20} color={'darkorange'} style={{marginRight: 5}}/>
-            <Text style={{color: '#000', fontSize: 14, fontWeight: 'bold', fontFamily: 'Nunito-Regular',marginLeft: 10, backgroundColor: 'darkorange', paddingHorizontal: 10, borderRadius: 30}}>{rating}</Text>
+          <View style={{marginLeft: 30, marginBottom: 5,flexDirection: 'row', alignItems: 'center'}}>
+            <Star name='star' size={18} color={'darkorange'} style={{marginRight: 8}}/>
+            <Star name='star' size={18} color={'darkorange'} style={{marginRight: 8}}/>
+            <Star name='star' size={18} color={'darkorange'} style={{marginRight: 8}}/>
+            <Star name='star' size={18} color={'darkorange'} style={{marginRight: 8}}/>
+            <HalfStar name='star-half-empty' size={18} color={'darkorange'} style={{marginRight: 10}}/>
+            <Text style={{color: 'darkorange', fontSize: 14}}>{`( ${rating} )`}</Text>
           </View>
           <View style={styles.details}>
               <Text style={styles.text}>{durationHours} hours {durationMinute} minute</Text>
           </View>
-          <View style={{flexDirection: 'row', marginHorizontal: 30}}>
+          <View style={{flexDirection: 'row', marginHorizontal: 30, marginVertical: 10}}>
             {genre.split(',').map((item, index)=> {
               return (
                 <View style={{marginRight: 7}} key={index}>
@@ -73,28 +74,43 @@ const MovieDetails = ({route}) => {
           <Text style={styles.informationText}>Information</Text>
         </View>
         <View style={{marginVertical: 20}}>
-          <View style={{flexDirection: 'row', paddingVertical: 2}}>
-            <Text style={styles.detailsText}>Director : </Text>
+          <View style={{flexDirection: 'row', paddingVertical: 3}}>
+            <Text style={styles.detailsText}>Directed by</Text>
             <Text style={styles.detailsTextLight}>{director}</Text>
           </View>
-          <View style={{flexDirection: 'row', paddingVertical: 2}}>
-            <Text style={styles.detailsText}>Writer : </Text>
+          <View style={{flexDirection: 'row', paddingVertical: 3}}>
+            <Text style={styles.detailsText}>Writer</Text>
             <Text style={styles.detailsTextLight}>{writer}</Text>
           </View>
-          <View style={{flexDirection: 'row', paddingVertical: 2}}>
-            <Text style={styles.detailsText}>Cast : </Text>
+          <View style={{flexDirection: 'row', paddingVertical: 3}}>
+            <Text style={styles.detailsText}>Release</Text>
+            <Text style={styles.detailsTextLight}>{moment(releaseDate).format('DD MMMM YYYY')}</Text>
+          </View>
+          <View style={{flexDirection: 'row', paddingVertical: 3}}>
+            <Text style={styles.detailsText}>Cast</Text>
             <Text style={styles.detailsTextLight}>{cast}</Text>
           </View>
         </View>
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 30}}>
           <Text style={{color: '#f0f0f0', fontFamily: 'Poppins-Regular', lineHeight: 25, fontSize: 14}}>{description}</Text>
         </View>
       </View>
 
-      {/* Jadwal Tayang */}
-      <View style={{marginTop: 40}}>
-        <View style={{backgroundColor: commonStyle.bgSecondary, height: 100, alignItems: 'center', justifyContent: 'center'}}>
-          <TouchableOpacity style={styles.buyTicketSquare} onPress={()=> navigation.navigate('Booking')}>
+      <View style={{marginTop: 50}}>
+        <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, alignItems: 'center', justifyContent: 'center'}}>
+          <TouchableOpacity style={styles.buyTicketSquare} onPress={()=> navigation.navigate('Booking', {
+            title: title,
+            genre: genre,
+            durationHours: durationHours,
+            durationMinute: durationMinute,
+            rating: rating,
+            director: director,
+            writer: writer,
+            releaseDate: moment(releaseDate).format('YYYY'),
+            cast: cast,
+            description: description,
+            cover: cover,
+          })}>
             <Text style={styles.buyTicketText}>Book Seat</Text>
           </TouchableOpacity>
         </View>        
@@ -117,15 +133,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   detailsTextLight: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Regular',
     color: 'lightgray',
-    fontSize: 14,
-    marginLeft: 10
+    fontSize: 13,
+    marginLeft: 10,
+    width: '80%',
   },
   detailsText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Regular',
     color: 'gray',
-    fontSize: 14,
+    fontSize: 13,
+    width: '25%'
   },
   informationBox: {
     borderBottomWidth: 2, 
@@ -139,7 +157,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10
   },
   informationText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Regular',
     color: 'lightgray',
     fontSize: 14,
   },
@@ -192,12 +210,12 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Poppins-Regular',
     color: 'gray',
-    fontSize: 14,
+    fontSize: 13,
   },
   genre: {
     fontFamily: 'Nunito-Medium',
     color: 'gray',
-    fontSize: 14,
+    fontSize: 12,
     backgroundColor: commonStyle.bgSecondary,
     paddingVertical: 5,
     paddingHorizontal: 15,
@@ -279,18 +297,17 @@ const styles = StyleSheet.create({
   },
   buyTicketSquare: {
     backgroundColor: commonStyle.bgThird,
-    width: '90%',
-    height: 60,
+    width: '85%',
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 10
   },
   buyTicketText: {
-    fontFamily: 'Poppins-Bold',
-    fontSize: 18,
-    color: 'lightgray',
-    marginLeft: 10,
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 16,
+    color: '#fff',
   }
 })
 

@@ -11,7 +11,7 @@ const GetStarted = () => {
   return (
     <View style={{marginHorizontal: 30}}>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <Logo width={300} height={300}/>
+        <Logo width={300} height={400}/>
         </View>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
             <Text style={styles.title}>Find out the best movies to watch here</Text>
@@ -19,7 +19,7 @@ const GetStarted = () => {
         </View>
         <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Login')}>
             <Text style={styles.buttonText}>Lets get started</Text>
-            <Go name='chevron-right' size={25} color={'#fff'} style={{paddingRight: 20}}/>
+            <Go name='chevron-right' size={20} color={'#fff'} style={{paddingRight: 20}}/>
         </TouchableOpacity>
     </View>
   )
@@ -28,24 +28,22 @@ const GetStarted = () => {
 const styles = StyleSheet.create({
     title: {
         fontFamily: 'Poppins-Medium',
-        fontSize: 30,
+        fontSize: 25,
         color: '#fff',
         textAlign: 'center',
-        width: '90%',
-        marginTop: 30
     },
     desc: {
         fontFamily: 'Poppins-Regular',
         color: 'gray',
-        fontSize: 16,
+        fontSize: 13,
         textAlign: 'center',
-        width: '90%',
-        lineHeight: 28
+        lineHeight: 28,
+        marginTop: 10
     },
     button: {
         backgroundColor: commonStyle.bgThird,
-        marginTop: 60,
-        height: 60,
+        marginTop: 50,
+        height: 50,
         marginHorizontal: 70,
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontFamily: 'Nunito-Medium',
-        fontSize: 18,
+        fontSize: 14,
         color: '#fff'
     }
 })

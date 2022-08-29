@@ -31,7 +31,7 @@ const AppStack = () => {
       <Stack.Screen name="MainScreen" component={MainScreen} options={{headerShown: false}}/>
       <Stack.Screen name="Home" component={TabNavigator} options={{headerShown: false}} />
       <Stack.Screen name="MovieDetails" component={MovieDetails} options={{headerShown: false, title: 'Movie Details'}} />
-      <Stack.Screen name="Booking" component={BookingScreen} options={{headerShown: true}} />
+      <Stack.Screen name="Booking" component={BookingScreen} options={{headerShown: false}} />
       <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}} />
       <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}} />
       <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{headerShown: true, title: 'Reset Password'}} />

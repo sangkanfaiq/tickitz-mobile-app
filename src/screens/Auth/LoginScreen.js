@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import {AuthLogin} from '../../redux/actions/Auth';
 import {useDispatch, useSelector} from 'react-redux';
 import { commonStyle } from '../../utils/commonStyle';
-import GoBack from 'react-native-vector-icons/MaterialCommunityIcons'
+import GoBack from 'react-native-vector-icons/Feather'
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,9 +33,12 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={{backgroundColor: commonStyle.bgPrimary, height: '100%'}}>
-      <TouchableOpacity style={{height: 70, backgroundColor: commonStyle.bgPrimary, justifyContent: 'center', paddingLeft: 30}} onPress={()=> navigation.goBack()}>
-        <GoBack name='arrow-left-top' size={30} color={'#fff'}/>
-      </TouchableOpacity>
+      <View style={styles.header}>
+        <TouchableOpacity style={{position: 'absolute', left: 20}} onPress={()=> navigation.goBack()}>
+          <GoBack name='chevron-left' size={30} color={'lightgray'}/>
+        </TouchableOpacity>
+        <Text style={{fontFamily: 'Poppins-SemiBold', color: 'lightgray', fontSize: 18}}>Login</Text>
+      </View>
       <View
         style={{
           justifyContent: 'center',
@@ -94,15 +97,9 @@ const LoginScreen = () => {
               </TouchableOpacity>
             </View>
           </View>
-          {loading ? (
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Tunggu</Text>
-            </View>
-          ) : (
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
-              <Text style={styles.buttonText}>Masuk</Text>
+              {loading ? <Text style={styles.buttonText}>Masuk</Text> : <Text style={styles.buttonText}>Tunggu...</Text>}
             </TouchableOpacity>
-          )}
           {error && (
             <Text
               style={{
@@ -117,11 +114,11 @@ const LoginScreen = () => {
         </View>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <Text style={{fontFamily: 'Poppins-Medium', color: '#fff'}}>
+        <Text style={{fontFamily: 'Poppins-Regular', color: '#fff'}}>
           Belum punya akun?
         </Text>
         <Text
-            style={{fontFamily: 'Poppins-SemiBold', color: commonStyle.bgThird}}
+            style={{fontFamily: 'Poppins-Regular', color: commonStyle.bgThird}}
             onPress={() => navigation.navigate('Register')}>
             {' '}
             Daftar disini
@@ -132,6 +129,13 @@ const LoginScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  header: {
+    height: 70, 
+    backgroundColor: 
+    commonStyle.bgPrimary,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   customInput: {
     borderWidth: 1,
     borderRadius: 30,
@@ -139,22 +143,23 @@ const styles = StyleSheet.create({
   },
   label: {
     marginVertical: 15,
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'Poppins-Medium',
     color: '#fff',
   },
   input: {
     width: '85%',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    fontSize: 14,
-    fontFamily: 'Poppins-Medium',
+    fontSize: 12,
+    fontFamily: 'Poppins-Regular',
     color: '#fff',
   },
   showPass: {
     justifyContent: 'center',
     alignItems: 'center',
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Regular',
     color: '#fff',
+    fontSize: 12
   },
   button: {
     paddingVertical: 15,
@@ -165,7 +170,7 @@ const styles = StyleSheet.create({
     backgroundColor: commonStyle.bgThird,
   },
   buttonText: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins-SemiBold',
     fontSize: 14,
     color: '#fff',
   },
