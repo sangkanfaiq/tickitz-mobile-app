@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     color: 'lightgray',
     fontSize: 13,
     marginLeft: 10,
-    width: '80%',
+    width: '70%',
   },
   detailsText: {
     fontFamily: 'Poppins-Regular',

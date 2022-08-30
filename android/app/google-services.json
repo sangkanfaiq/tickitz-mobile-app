@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "82548495915",
+    "project_id": "tickitz-mobile-app",
+    "storage_bucket": "tickitz-mobile-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82548495915:android:96027cef0dea95bdf1bc6e",
+        "android_client_info": {
+          "package_name": "com.tickitz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82548495915-82k9vdsjemvl93tuca47iobc3qh9o6h3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0fi3Xjy5Z_abpKtFVgRWdxVmvWM6-ytQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82548495915-82k9vdsjemvl93tuca47iobc3qh9o6h3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
