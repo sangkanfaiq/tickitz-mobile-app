@@ -7,7 +7,7 @@ import TopupIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const ProfilePage = () => {
   return (
-    <ScrollView style={{marginHorizontal: 30}}>
+    <ScrollView style={{marginHorizontal: 30}} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Profile</Text>
       </View>
@@ -28,9 +28,9 @@ const ProfilePage = () => {
           <View style={{flexDirection: 'row', marginTop: 30, justifyContent: 'space-between', width: '35%'}}>
             {social.map((item, index)=> {
               return (
-                <View key={index} style={{width: 20, height: 20}}>
+                <TouchableOpacity key={index} style={{width: 20, height: 20}}>
                   <Image source={item.image} style={{width: '100%', height: '100%', resizeMode: 'contain'}}/>
-                </View>
+                </TouchableOpacity>
               )
             })}
           </View>
@@ -64,7 +64,7 @@ const ProfilePage = () => {
                 <Text style={styles.cinemaTextActive}>CGV</Text>
               </View>
             </View>
-            <View style={{height: 0.5, width: '100%', backgroundColor: 'rgba(255,255,255,0.3)', marginVertical: 20}}></View>
+            <View style={{height: 1, width: '100%', backgroundColor: 'rgba(255,255,255,0.3)', marginVertical: 20}}></View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
               <View>
                 <Text style={{fontFamily: 'Poppins-Regular', color: '#fff'}}>Death on the Nile ( 2022 )</Text>

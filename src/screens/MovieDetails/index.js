@@ -12,6 +12,7 @@ import moment from 'moment'
 
 const MovieDetails = ({route}) => {
   const {
+    scheduleID,
     title, 
     cover, 
     genre, 
@@ -23,6 +24,12 @@ const MovieDetails = ({route}) => {
     description, 
     writer,
     director,
+    time,
+    cinemaName,
+    cinemaShortname,
+    cinemaCover,
+    locationName,
+    cinemaAddress
   } = route.params
   const [ wishlist, setWishlist ] = useState(false)
   const navigation = useNavigation();
@@ -83,7 +90,7 @@ const MovieDetails = ({route}) => {
             <Text style={styles.detailsTextLight}>{writer}</Text>
           </View>
           <View style={{flexDirection: 'row', paddingVertical: 3}}>
-            <Text style={styles.detailsText}>Release</Text>
+            <Text style={styles.detailsText}>Release date</Text>
             <Text style={styles.detailsTextLight}>{moment(releaseDate).format('DD MMMM YYYY')}</Text>
           </View>
           <View style={{flexDirection: 'row', paddingVertical: 3}}>
@@ -97,24 +104,30 @@ const MovieDetails = ({route}) => {
       </View>
 
       <View style={{marginTop: 50}}>
-        <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, alignItems: 'center', justifyContent: 'center'}}>
+        {scheduleID ? <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, alignItems: 'center', justifyContent: 'center'}}>
           <TouchableOpacity style={styles.buyTicketSquare} onPress={(data)=> navigation.navigate('Booking', {
-            title: title,
-            genre: genre,
-            durationHours: durationHours,
-            durationMinute: durationMinute,
-            rating: rating,
-            director: director,
-            writer: writer,
-            releaseDate: moment(releaseDate).format('YYYY'),
-            cast: cast,
-            description: description,
-            cover: cover,
-            time: data.time
+            title,
+            genre,
+            durationHours,
+            durationMinute,
+            rating,
+            director,
+            writer,
+            releaseDate,
+            cast,
+            description,
+            cover,
+            time,
+            cinemaName,
+            cinemaShortname,
+            cinemaCover,
+            locationName,
+            cinemaAddress
           })}>
             <Text style={styles.buyTicketText}>Book Seat</Text>
           </TouchableOpacity>
-        </View>        
+        </View> : "" }
+                
       </View>
     </ScrollView>
   )
@@ -195,7 +208,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'stretch',
+    resizeMode: 'cover',
   },
   details: {
     flexDirection: 'row',

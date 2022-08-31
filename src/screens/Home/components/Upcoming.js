@@ -5,7 +5,6 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
-  RefreshControl,
 } from 'react-native';
 import React, { useState } from 'react';
 import Star from 'react-native-vector-icons/FontAwesome';
@@ -21,7 +20,7 @@ const Upcoming = () => {
   const navigation = useNavigation();
   const {data} = useSelector(state => state.movies);
   const dispatch = useDispatch();
-  const [ refetch, setRefetch ] = useState(false)
+  // const [ refetch, setRefetch ] = useState(false)
 
   useEffect(() => {
     dispatch(GetMovies());
@@ -65,7 +64,6 @@ const Upcoming = () => {
         data={data?.data?.results}
         showsVerticalScrollIndicator={false}
         style={{paddingBottom: 30, marginTop: 20}}
-        refreshControl={<RefreshControl onRefresh={() => { setRefetch(!refetch) }} />}
         renderItem={({item, index}) => {
           return (
             <TouchableOpacity

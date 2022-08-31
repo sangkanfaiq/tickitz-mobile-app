@@ -6,9 +6,9 @@ import HalfStar from 'react-native-vector-icons/FontAwesome'
 
 const BannerSlider = ({data}) => {
   const navigation = useNavigation();
-
   return (
     <TouchableOpacity onPress={()=> navigation.navigate('MovieDetails', {
+      scheduleID: data.scheduleID,
       title: data.title,
       genre: data.genre,
       durationHours: data.durationHours,
@@ -19,8 +19,13 @@ const BannerSlider = ({data}) => {
       releaseDate: data.releaseDate,
       cast: data.cast,
       time: data.time,
+      locationName: data.locationName,
+      cinemaName: data.cinemaName,
+      cinemaShortname: data.cinemaShortname,
       description: data.description,
-      cover: data.cover
+      cover: data.cover,
+      cinemaCover: data.cinemaCover,
+      cinemaAddress: data.cinemaAddress
   })}>
       <Image source={{uri: `http://192.168.100.39:3006/uploads/${data.cover}`}} style={styles.imageSize}/>
       <View style={styles.container}>
@@ -47,7 +52,7 @@ const styles = StyleSheet.create({
   imageSize: {
     width: 370, 
     height: 230, 
-    resizeMode: 'stretch', 
+    resizeMode: 'cover', 
     borderRadius: 10
   },
   title: {

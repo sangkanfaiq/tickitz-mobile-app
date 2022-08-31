@@ -5,7 +5,8 @@ import { commonStyle } from '../../utils/commonStyle'
 import { useNavigation } from '@react-navigation/native';
 import Star from 'react-native-vector-icons/FontAwesome';
 import HalfStar from 'react-native-vector-icons/FontAwesome';
-import { dateShow, timeShow } from '../../model/data';
+import { dateShow } from '../../model/data';
+import moment from 'moment'
 
 const BookingScreen = ({route}) => {
   const navigation = useNavigation();
@@ -16,13 +17,17 @@ const BookingScreen = ({route}) => {
     releaseDate, 
     durationHours, 
     durationMinute,
-    cast, 
     rating, 
-    description, 
-    writer,
-    director,
-    time
+    cinemaName,
+    cinemaShortname,
+    cinemaCover,
+    locationName,
+    time,
+    cinemaAddress
   } = route.params
+
+  console.log(cinemaCover, 'cinema cover')
+  console.log(cinemaAddress, 'cinema address')
   
   const [ selectDate, setSelectDate ] = useState('')
   const [ selectTime, setSelectTime ] = useState('')
@@ -44,81 +49,152 @@ const BookingScreen = ({route}) => {
 
 
   return (
-    <SafeAreaView style={{backgroundColor: commonStyle.bgPrimary, height: '100%'}}>
-      <View style={styles.header}>
-        <TouchableOpacity style={{position: 'absolute', left: 20}} onPress={()=> navigation.goBack()}>
-          <BackIcon name='chevron-left' size={30} color={'lightgray'}/>
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Date & Time</Text>
-      </View>
-
-      <View style={{flexDirection: 'row', marginHorizontal: 30, marginTop: 30}}>
-        <View style={styles.imageCard}>
-          <Image source={{uri: `http://192.168.100.39:3006/uploads/${cover}`}} style={styles.imageSize}/>
+    <SafeAreaView style={{backgroundColor: commonStyle.bgPrimary}}>
+      <ScrollView>
+        <View style={styles.header}>
+          <TouchableOpacity style={{position: 'absolute', left: 20}} onPress={()=> navigation.goBack()}>
+            <BackIcon name='chevron-left' size={30} color={'lightgray'}/>
+          </TouchableOpacity>
+          <Text style={styles.headerText}>Date & Time</Text>
         </View>
-        <View style={styles.details}>
-          <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>{title}</Text>
-          <View style={{flexDirection: 'row', alignItems: 'center', marginVertical: 5}}>
-            <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
-            <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
-            <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
-            <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
-            <HalfStar name='star-half-empty' size={12} color={'darkorange'} style={{marginRight: 5}}/>
-            <Text style={{color: 'darkorange', fontSize: 12}}>{`( ${rating} )`}</Text>
+
+        <View style={{flexDirection: 'row', marginHorizontal: 30, marginTop: 30}}>
+          <View style={styles.imageCard}>
+            <Image source={{uri: `http://192.168.100.39:3006/uploads/${cover}`}} style={styles.imageSize}/>
           </View>
-          <Text style={styles.textDetails}>{durationHours} hour {durationMinute} minute</Text>
-          <Text style={styles.textDetails}>{releaseDate}</Text>
-          <View style={{flexDirection: 'row', marginTop: 5}}>
-            {genre.split(',').map((item, index)=> {
+          <View style={styles.details}>
+            <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>{title}</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center', marginVertical: 5}}>
+              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+              <HalfStar name='star-half-empty' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+              <Text style={{color: 'darkorange', fontSize: 12}}>{`( ${rating} )`}</Text>
+            </View>
+            <Text style={styles.textDetails}>{durationHours} hour {durationMinute} minute</Text>
+            <Text style={styles.textDetails}>{moment(releaseDate).format('YYYY')}</Text>
+            <View style={{flexDirection: 'row', marginTop: 5}}>
+              {genre.split(',').map((item, index)=> {
+                return (
+                  <View key={index} style={{marginRight: 5}}>
+                    <Text style={styles.genre}>{item}</Text>
+                  </View>
+                )
+              })}
+            </View>
+          </View>
+        </View>
+
+        <View style={{marginTop: 30, marginLeft: 30}}>
+          <Text style={styles.headingText}>Select date : </Text>
+          <ScrollView style={{flexDirection: 'row', marginTop: 20}} horizontal={true} showsHorizontalScrollIndicator={false}>
+            {dateShow.map((item, index)=> {
               return (
-                <View key={index} style={{marginRight: 5}}>
-                  <Text style={styles.genre}>{item}</Text>
-                </View>
+                <Pressable style={selectDate === item ? styles.dateSelect : styles.dateDefault} key={index} onPress={()=> onSelectDate(item)}>
+                  <Text style={styles.dateText}>{item.date}</Text>
+                  <Text style={styles.dateText}>{item.day}</Text>
+                </Pressable>
               )
             })}
+          </ScrollView>
+        </View>
+
+        <View style={{marginLeft: 30, marginTop: 30}}>
+          <Text style={styles.headingText}>Select time : </Text>
+          <ScrollView style={{flexDirection: 'row', marginTop: 10}} horizontal={true} showsHorizontalScrollIndicator={false}>
+            {time.split(',').map((item, index)=> {
+              return (
+                <Pressable key={index} style={selectTime === item ? styles.timeCardSelected : styles.timeCardDefault} onPress={()=> onSelectTime(item)}>
+                  <Text style={selectTime === item ? styles.timeCardtextSelected : styles.timeCardtextDefault}>{item}</Text>
+                </Pressable>
+              )
+            })}
+          </ScrollView>
+        </View>
+
+        <TouchableOpacity style={{marginHorizontal: 30, marginTop: 30, paddingBottom: 30}}>
+          <View style={{backgroundColor: commonStyle.bgFourth, padding: 20, borderRadius: 20}}>
+            <View style={styles.imageBox}>
+              <Image source={{uri: `http://192.168.100.39:3006/uploads/${cinemaCover}`}} style={styles.cinemaImage}/>
+            </View>
+            <View style={{marginVertical: 30, height: 1, width: '100%', backgroundColor: 'rgba(255,255,255,0.3)'}}></View>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+              <View style={{width: '65%'}}>
+                <Text style={styles.cinemaName}>{cinemaName}</Text>
+                <Text style={styles.cinemaAddress}>{cinemaAddress}</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={styles.locationName}>{`( ${locationName} )`}</Text>
+                </View>
+              </View>
+              <View>
+                <Text style={cinemaShortname === 'XXI' ? styles.cinemaXXI : styles.cinemaShortname}>{cinemaShortname}</Text>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+
+        <View>
+          <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Payment')}>
+              <Text style={styles.buttonText}>Next</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </View>
-
-      <View style={{marginTop: 30, marginLeft: 30}}>
-        <Text style={styles.headingText}>Select Date</Text>
-        <ScrollView style={{flexDirection: 'row', marginTop: 20}} horizontal={true} showsHorizontalScrollIndicator={false}>
-          {dateShow.map((item, index)=> {
-            return (
-              <Pressable style={selectDate === item ? styles.dateSelect : styles.dateDefault} key={index} onPress={()=> onSelectDate(item)}>
-                <Text style={styles.dateText}>{item.date}</Text>
-                <Text style={styles.dateText}>{item.day}</Text>
-              </Pressable>
-            )
-          })}
-        </ScrollView>
-      </View>
-
-      <View style={{marginLeft: 30, marginTop: 30}}>
-        <Text style={styles.headingText}>Time</Text>
-        <ScrollView style={{flexDirection: 'row', marginTop: 10}} horizontal={true} showsHorizontalScrollIndicator={false}>
-          {timeShow.map((item, index)=> {
-            return (
-              <Pressable key={index} style={selectTime === item ? styles.timeCardSelected : styles.timeCardDefault} onPress={()=> onSelectTime(item)}>
-                <Text style={selectTime === item ? styles.timeCardtextSelected : styles.timeCardtextDefault}>{item.time}</Text>
-              </Pressable>
-            )
-          })}
-          {/* <Text style={{color: '#fff', fontSize: 20}}>{time}</Text> */}
-        </ScrollView>
-      </View>
-      <View style={{marginTop: 195}}>
-        <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
-          <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Payment')}>
-            <Text style={styles.buttonText}>Next</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  locationName: {
+    fontFamily: 'Roboto-Regular', 
+    color: 'lightgray', 
+    fontSize: 12, 
+    lineHeight: 22
+  },
+  cinemaName: {
+    fontFamily: 'Poppins-Regular',
+    color: '#fff',
+    lineHeight: 25
+  },
+  cinemaXXI: {
+    color: '#fff',
+    fontSize: 12,
+    fontFamily: 'Poppins-Medium',
+    paddingHorizontal: 12,
+    backgroundColor: '#e3a507',
+    borderRadius: 20
+  },
+  cinemaShortname: {
+    color: '#fff',
+    fontSize: 12,
+    fontFamily: 'Poppins-Medium',
+    paddingHorizontal: 10,
+    backgroundColor: 'red',
+    borderRadius: 20
+  },
+  cinemaAddress: {
+    fontFamily: 'Poppins-Regular', 
+    color: 'lightgray', 
+    fontSize: 12,
+    lineHeight: 22
+  },
+  imageBox: {
+    width: '100%', 
+    height: 60, 
+    alignItems: 'center',
+  },
+  imageBoxC21: {
+    width: '100%', 
+    height: 100, 
+    alignItems: 'center',
+  },
+  cinemaImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+  },
   timeCardtextDefault: {
     fontFamily: 'Poppins-Regular', 
     fontSize: 12, 
