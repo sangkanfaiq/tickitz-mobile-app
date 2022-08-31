@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   locationBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: commonStyle.bgSecondary,
+    backgroundColor: commonStyle.bgFourth,
     height: 50,
     paddingHorizontal: 10,
   },

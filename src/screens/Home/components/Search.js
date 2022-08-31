@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingHorizontal: 20,
     borderRadius: 5,
-    backgroundColor: '#2c384d',
+    backgroundColor: commonStyle.bgFourth,
     alignItems: 'center',
     flexDirection: 'row'
   },

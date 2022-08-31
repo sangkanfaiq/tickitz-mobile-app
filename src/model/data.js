@@ -74,3 +74,26 @@ export const dateShow = [
     day: 'Wed'
   },
 ]
+
+export const social = [
+  {
+    id: 1,
+    name: 'Facebook',
+    image: require('../assets/social/facebook.png')
+  },
+  {
+    id: 2,
+    name: 'Instagram',
+    image: require('../assets/social/instagram.png')
+  },
+  {
+    id: 3,
+    name: 'Twitter',
+    image: require('../assets/social/twitter.png')
+  },
+  {
+    id: 4,
+    name: 'Linked In',
+    image: require('../assets/social/linkedin.png')
+  },
+]

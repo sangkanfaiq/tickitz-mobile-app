@@ -35,6 +35,10 @@ const Banner = () => {
         enableSnap={true}
         loop={true}
         autoplay={true}
+        autoplayDelay={3000}
+        autoplayInterval={5000}
+        enableMomentum={false}
+        lockScrollWhileSnapping={true}
       />
     </View>
   );

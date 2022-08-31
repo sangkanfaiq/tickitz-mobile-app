@@ -13,14 +13,14 @@ const HeaderLogin = () => {
   
     const {isLogin} = useSelector((state) => state.auth);
     useEffect(()=> {
-      if(isLogin == false) {
+      if(isLogin === false) {
         navigation.navigate('Home')
       }
     },[isLogin])
   return (
     <View style={[styles.titleHeader]}>
       <TouchableOpacity>
-        <Image source={require('../assets/images/profile.jpg')} style={styles.profileSize}/>
+        <Image source={require('../assets/images/dp.jpg')} style={styles.profileSize}/>
       </TouchableOpacity>
       <View style={{justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
        <Text style={{color: '#fff', fontFamily: 'Poppins-SemiBold',fontSize: 20, textAlign: 'center'}}>Tickitz</Text>
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
     shadowColor: '#777'
   },
   profileSize: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
+    width: 30,
+    height: 30,
+    borderRadius: 30,
     resizeMode: 'contain',
   }
 })

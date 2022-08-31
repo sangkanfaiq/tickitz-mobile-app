@@ -64,7 +64,7 @@ const Upcoming = () => {
       <FlatList
         data={data?.data?.results}
         showsVerticalScrollIndicator={false}
-        style={{paddingBottom: 30}}
+        style={{paddingBottom: 30, marginTop: 20}}
         refreshControl={<RefreshControl onRefresh={() => { setRefetch(!refetch) }} />}
         renderItem={({item, index}) => {
           return (

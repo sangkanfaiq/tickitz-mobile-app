@@ -13,6 +13,7 @@ import {AuthLogin} from '../../redux/actions/Auth';
 import {useDispatch, useSelector} from 'react-redux';
 import { commonStyle } from '../../utils/commonStyle';
 import GoBack from 'react-native-vector-icons/Feather'
+// import { useEffect } from 'react';
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,8 +28,12 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     dispatch(AuthLogin(formLogin));
-      navigation.navigate('Home')
+    navigation.navigate('Home')
   }
+
+  // useEffect(()=> {
+  //   dispatch(AuthLogin(formLogin))
+  // }, [loading])
   
 
   return (
@@ -98,7 +103,7 @@ const LoginScreen = () => {
             </View>
           </View>
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
-              {loading ? <Text style={styles.buttonText}>Masuk</Text> : <Text style={styles.buttonText}>Tunggu...</Text>}
+              {!loading ? <Text style={styles.buttonText}>Masuk</Text> : <Text style={styles.buttonText}>Tunggu...</Text>}
             </TouchableOpacity>
           {error && (
             <Text

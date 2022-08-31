@@ -3,7 +3,6 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Star from 'react-native-vector-icons/FontAwesome'
 import HalfStar from 'react-native-vector-icons/FontAwesome'
-import moment from 'moment'
 
 const BannerSlider = ({data}) => {
   const navigation = useNavigation();
@@ -23,9 +22,9 @@ const BannerSlider = ({data}) => {
       description: data.description,
       cover: data.cover
   })}>
-      <Image source={{uri: `http://192.168.100.39:3006/uploads/${data.cover}`}} style={{width: 370, height: 230, resizeMode: 'stretch', borderRadius: 5}}/>
-      <View style={{position: 'absolute', bottom: 20, left: 15}}>
-        <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 18}}>{data.title}</Text>
+      <Image source={{uri: `http://192.168.100.39:3006/uploads/${data.cover}`}} style={styles.imageSize}/>
+      <View style={styles.container}>
+        <Text style={styles.title}>{data.title}</Text>
         <View style={{flexDirection: 'row', marginTop: 5}}>
           <Star name='star' size={16} color={'darkorange'} style={{marginRight: 10}}/>
           <Star name='star' size={16} color={'darkorange'} style={{marginRight: 10}}/>
@@ -40,6 +39,22 @@ const BannerSlider = ({data}) => {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    position: 'absolute', 
+    bottom: 20, 
+    left: 15
+  },
+  imageSize: {
+    width: 370, 
+    height: 230, 
+    resizeMode: 'stretch', 
+    borderRadius: 10
+  },
+  title: {
+    fontFamily: 'Poppins-Medium', 
+    color: '#fff', 
+    fontSize: 18
+  },
   rating: {
     fontFamily: 'Roboto-Medium', 
     color: '#111', 

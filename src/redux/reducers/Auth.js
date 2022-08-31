@@ -6,7 +6,7 @@ const initialState = {
     "token": null,
   },
   error: null,
-  isLogin: false,
+  isLogin: false, //default: false
 };
 
 const Auth = (state=initialState, action={})=> {

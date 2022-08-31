@@ -14,12 +14,12 @@ import { commonStyle } from '../utils/commonStyle';
 const Tab = createBottomTabNavigator();
 const tabNavigatorOptions = {
   tabBarStyle: {
-    backgroundColor: commonStyle.bgPrimary,
+    backgroundColor: commonStyle.bgFourth,
     height: 70,
     paddingVertical: 5,
+    borderTopWidth: 0
   },
   tabBarShowLabel: true,
-  
 }
 
 const TabNavigator = () => {

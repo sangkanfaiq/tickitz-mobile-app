@@ -58,7 +58,7 @@ const BookingScreen = ({route}) => {
         </View>
         <View style={styles.details}>
           <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>{title}</Text>
-          <View style={{flexDirection: 'row', alignItems: 'center', marginVertical: 10}}>
+          <View style={{flexDirection: 'row', alignItems: 'center', marginVertical: 5}}>
             <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
             <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
             <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
@@ -68,7 +68,7 @@ const BookingScreen = ({route}) => {
           </View>
           <Text style={styles.textDetails}>{durationHours} hour {durationMinute} minute</Text>
           <Text style={styles.textDetails}>{releaseDate}</Text>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
             {genre.split(',').map((item, index)=> {
               return (
                 <View key={index} style={{marginRight: 5}}>
@@ -104,6 +104,7 @@ const BookingScreen = ({route}) => {
               </Pressable>
             )
           })}
+          {/* <Text style={{color: '#fff', fontSize: 20}}>{time}</Text> */}
         </ScrollView>
       </View>
       <View style={{marginTop: 195}}>

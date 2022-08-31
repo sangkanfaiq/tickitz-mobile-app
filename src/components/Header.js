@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Menu from 'react-native-vector-icons/Ionicons';
-import Dots from 'react-native-vector-icons/MaterialCommunityIcons';
+import Notif from 'react-native-vector-icons/MaterialCommunityIcons';
 import Tickets from 'react-native-vector-icons/Fontisto';
 import { commonStyle } from '../utils/commonStyle';
 
@@ -16,7 +16,7 @@ const Header = () => {
        <Tickets name='ticket' size={16} style={{color: 'lightgray', marginLeft: 5}}/>
       </View>
       <TouchableOpacity>
-        <Dots name='dots-vertical' size={25} color={'lightgray'}/>
+        <Notif name='bell-outline' size={25} color={'lightgray'}/>
       </TouchableOpacity>
     </View>
   )

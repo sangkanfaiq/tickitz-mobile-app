@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   categoriesCard: {
     paddingHorizontal: 20,
     paddingVertical: 6,
-    backgroundColor: commonStyle.bgSecondary,
+    backgroundColor: commonStyle.bgFourth,
     borderRadius: 5,
     marginRight: 10,
   },

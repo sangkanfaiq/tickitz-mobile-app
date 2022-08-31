@@ -98,7 +98,7 @@ const MovieDetails = ({route}) => {
 
       <View style={{marginTop: 50}}>
         <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, alignItems: 'center', justifyContent: 'center'}}>
-          <TouchableOpacity style={styles.buyTicketSquare} onPress={()=> navigation.navigate('Booking', {
+          <TouchableOpacity style={styles.buyTicketSquare} onPress={(data)=> navigation.navigate('Booking', {
             title: title,
             genre: genre,
             durationHours: durationHours,
@@ -110,6 +110,7 @@ const MovieDetails = ({route}) => {
             cast: cast,
             description: description,
             cover: cover,
+            time: data.time
           })}>
             <Text style={styles.buyTicketText}>Book Seat</Text>
           </TouchableOpacity>
