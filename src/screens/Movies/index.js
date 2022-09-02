@@ -8,7 +8,7 @@ const MoviesScreen = () => {
   return (
     <SafeAreaView style={{paddingBottom: 10, backgroundColor: commonStyle.bgPrimary}} showsVerticalScrollIndicator={false} >
       <FlatList
-      data={['']} renderItem={()=> {
+      data={['']} showsVerticalScrollIndicator={false} renderItem={()=> {
         return (
           <>
           <Header />

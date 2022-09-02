@@ -20,7 +20,7 @@ const LoginScreen = () => {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
-  const {error, loading} = useSelector(state => state.auth);
+  const {error, loading, isLogin} = useSelector(state => state.auth);
   const [formLogin, setFormLogin] = useState({
     email: '',
     password: '',
@@ -30,10 +30,6 @@ const LoginScreen = () => {
     dispatch(AuthLogin(formLogin));
     navigation.navigate('Home')
   }
-
-  // useEffect(()=> {
-  //   dispatch(AuthLogin(formLogin))
-  // }, [loading])
   
 
   return (

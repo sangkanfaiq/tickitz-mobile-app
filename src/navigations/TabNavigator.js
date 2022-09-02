@@ -8,7 +8,6 @@ import Movie from 'react-native-vector-icons/MaterialCommunityIcons';
 import User from 'react-native-vector-icons/Feather';
 import Theater from 'react-native-vector-icons/MaterialCommunityIcons'
 import TheaterScreen from '../screens/Theater';
-import './tabItem'
 import { commonStyle } from '../utils/commonStyle';
 
 const Tab = createBottomTabNavigator();

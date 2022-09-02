@@ -23,11 +23,9 @@ const BookingScreen = ({route}) => {
     cinemaCover,
     locationName,
     time,
-    cinemaAddress
+    cinemaAddress,
+    price
   } = route.params
-
-  console.log(cinemaCover, 'cinema cover')
-  console.log(cinemaAddress, 'cinema address')
   
   const [ selectDate, setSelectDate ] = useState('')
   const [ selectTime, setSelectTime ] = useState('')
@@ -136,7 +134,11 @@ const BookingScreen = ({route}) => {
 
         <View>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Payment')}>
+            <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('BookingSeats', {
+              time,
+              cinemaName,
+              price
+            })}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
           </View>

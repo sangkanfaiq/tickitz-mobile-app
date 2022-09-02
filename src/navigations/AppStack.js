@@ -7,8 +7,9 @@ import RegisterScreen from '../screens/Auth/RegisterScreen';
 import BookingScreen from '../screens/Booking';
 import ResetPasswordScreen from '../screens/Auth/ResetPassword';
 import PaymentScreen from '../screens/Payment';
-import LeftIcon from 'react-native-vector-icons/Feather'
 import LoginScreen from '../screens/Auth/LoginScreen';
+import SettingScreen from '../screens/Settings';
+import BookingSeatsScreen from '../screens/BookingSeats';
 
 const Stack = createNativeStackNavigator();
 const globalScreenOptions = {
@@ -32,8 +33,10 @@ const AppStack = () => {
       <Stack.Screen name="Home" component={TabNavigator} options={{headerShown: false}} />
       <Stack.Screen name="MovieDetails" component={MovieDetails} options={{headerShown: false, title: 'Movie Details'}} />
       <Stack.Screen name="Booking" component={BookingScreen} options={{headerShown: false}} />
+      <Stack.Screen name="BookingSeats" component={BookingSeatsScreen} options={{headerShown: false}} />
       <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}} />
       <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}} />
+      <Stack.Screen name="Settings" component={SettingScreen} options={{headerShown: false}} />
       <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{headerShown: true, title: 'Reset Password'}} />
       <Stack.Screen name="Payment" component={PaymentScreen} options={{headerShown: true}} />
     </Stack.Navigator>

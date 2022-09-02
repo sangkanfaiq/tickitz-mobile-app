@@ -1,36 +1,24 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import React, { useEffect } from 'react'
-import Logout from 'react-native-vector-icons/MaterialIcons';
+import React from 'react'
+import Notif from 'react-native-vector-icons/MaterialCommunityIcons';
 import Tickets from 'react-native-vector-icons/Fontisto';
-import { useDispatch, useSelector } from "react-redux";
-import { AuthLogout } from "../redux/actions/Auth";
-import { useNavigation } from '@react-navigation/native';
 import { commonStyle } from '../utils/commonStyle';
+import { useNavigation } from '@react-navigation/native';
 
 const HeaderLogin = () => {
-    const dispatch = useDispatch()
-    const navigation = useNavigation()
-  
-    const {isLogin} = useSelector((state) => state.auth);
-    useEffect(()=> {
-      if(isLogin === false) {
-        navigation.navigate('Home')
-      }
-    },[isLogin])
+  const navigation = useNavigation();
+
   return (
     <View style={[styles.titleHeader]}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.navigate('Settings')}>
         <Image source={require('../assets/images/dp.jpg')} style={styles.profileSize}/>
       </TouchableOpacity>
       <View style={{justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-       <Text style={{color: '#fff', fontFamily: 'Poppins-SemiBold',fontSize: 20, textAlign: 'center'}}>Tickitz</Text>
-       <Tickets name='ticket' size={16} style={{color: '#fff', marginLeft: 5}}/>
+       <Text style={{color: 'lightgray', fontFamily: 'Poppins-SemiBold',fontSize: 20, textAlign: 'center'}}>Tickitz</Text>
+       <Tickets name='ticket' size={16} style={{color: 'lightgray', marginLeft: 5}}/>
       </View>
-      <TouchableOpacity onPress={()=> {
-         alert('Anda telah keluar')
-         dispatch(AuthLogout())
-      }}>
-        <Logout name='logout' size={25} color={'#fff'}/>
+      <TouchableOpacity>
+        <Notif name='bell-outline' size={25} color={'lightgray'}/>
       </TouchableOpacity>
     </View>
   )

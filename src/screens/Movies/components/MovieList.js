@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   imageSize: {
     width: '100%',
     height: '100%',
-    resizeMode: 'stretch',
+    resizeMode: 'cover',
     borderRadius: 10,
   },
   categoriesCard: {

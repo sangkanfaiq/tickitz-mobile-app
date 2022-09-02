@@ -25,7 +25,8 @@ const BannerSlider = ({data}) => {
       description: data.description,
       cover: data.cover,
       cinemaCover: data.cinemaCover,
-      cinemaAddress: data.cinemaAddress
+      cinemaAddress: data.cinemaAddress,
+      price: data.price
   })}>
       <Image source={{uri: `http://192.168.100.39:3006/uploads/${data.cover}`}} style={styles.imageSize}/>
       <View style={styles.container}>

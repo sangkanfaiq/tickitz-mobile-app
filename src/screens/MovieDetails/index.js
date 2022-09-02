@@ -29,7 +29,8 @@ const MovieDetails = ({route}) => {
     cinemaShortname,
     cinemaCover,
     locationName,
-    cinemaAddress
+    cinemaAddress,
+    price
   } = route.params
   const [ wishlist, setWishlist ] = useState(false)
   const navigation = useNavigation();
@@ -105,7 +106,7 @@ const MovieDetails = ({route}) => {
 
       <View style={{marginTop: 50}}>
         {scheduleID ? <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, alignItems: 'center', justifyContent: 'center'}}>
-          <TouchableOpacity style={styles.buyTicketSquare} onPress={(data)=> navigation.navigate('Booking', {
+          <TouchableOpacity style={styles.buyTicketSquare} onPress={()=> navigation.navigate('Booking', {
             title,
             genre,
             durationHours,
@@ -122,7 +123,8 @@ const MovieDetails = ({route}) => {
             cinemaShortname,
             cinemaCover,
             locationName,
-            cinemaAddress
+            cinemaAddress,
+            price
           })}>
             <Text style={styles.buyTicketText}>Book Seat</Text>
           </TouchableOpacity>
