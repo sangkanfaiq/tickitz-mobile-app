@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
       },
       buttonText: {
         fontFamily: 'Poppins-SemiBold',
-        fontSize: 16,
+        fontSize: 14,
         color: '#fff',
       },
   timeCardtextDefault: {

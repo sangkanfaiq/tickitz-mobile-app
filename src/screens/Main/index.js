@@ -19,14 +19,6 @@ const MainScreen = ({navigation}) => {
           <View style={{width: 10, height: 10, backgroundColor: '#fff', borderRadius: 30, marginRight: 5}}></View>
         </View>
       </View>
-      {/* <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{color: '#fff', fontFamily: 'Poppins-Light', fontSize: 40}}>Nearest Cinema.</Text>
-        <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 35}}>Newest Movies</Text>
-        <Text style={{color: '#fff', fontFamily: 'Poppins-SemiBold', fontSize: 35}}>Find out now!</Text>
-      </View> */}
-      {/* <TouchableOpacity style={styles.getStarted} onPress={()=> navigation.navigate('Home')}>
-        <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 18}}>Get Started</Text>
-      </TouchableOpacity> */}
     </ImageBackground>
   )
 }

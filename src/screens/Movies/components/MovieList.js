@@ -15,10 +15,11 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {GetMovies} from '../../../redux/actions/Movies';
 import moment from 'moment';
+import Waiting from '../../../assets/waiting.svg'
 
 const MovieList = () => {
   const navigation = useNavigation();
-  const {data} = useSelector(state => state.movies);
+  const {data, loading} = useSelector(state => state.movies);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,7 +49,11 @@ const MovieList = () => {
         </View>
       </ScrollView>
 
-      <FlatList
+      {loading ?  
+        <View style={{justifyContent: 'center', alignItems: 'center', flex: 1, height: 600}}>
+          <Waiting width={150} height={150}/>
+            <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 18, marginTop: 20}}>Please wait...</Text>
+        </View> : <FlatList
         data={data?.data?.results}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => {
@@ -128,7 +133,8 @@ const MovieList = () => {
               </View>
             </TouchableOpacity>
           );
-        }}></FlatList>
+        }}/>}
+      
     </View>
   );
 };

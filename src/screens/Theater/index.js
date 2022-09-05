@@ -14,12 +14,13 @@ import {commonStyle} from '../../utils/commonStyle';
 import BackIcon from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import NoData from '../../assets/nodata.svg'
 
 const TheaterScreen = () => {
   const navigation = useNavigation();
   const [cinema, setCinema] = useState([]);
   
-  const { loading } = useSelector((state) => state.cinema);
+  const { error } = useSelector((state) => state.cinema);
 
   useEffect(() => {
     axios({
@@ -33,9 +34,18 @@ const TheaterScreen = () => {
         console.log(err);
       });
   }, []);
+  
+  if(error) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: commonStyle.bgPrimary}}>
+        <NoData width={150} height={150}/>
+        <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 20, marginTop: 20}}>Oops sorry</Text>
+        <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 14, marginTop: 10}}>Can't connect to server</Text>
+      </View>
+    )
+  }
 
   return (
-    <>
       <ScrollView style={{backgroundColor: commonStyle.bgPrimary}}>
         <View
           style={{
@@ -73,17 +83,7 @@ const TheaterScreen = () => {
             </View>
           </View>
         </View>
-        {loading ? (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
-            }}>
-            <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14, color: '#fff'}}>Please wait...</Text>
-          </View>
-        ) : (
-          cinema.map((item, index) => {
+        {cinema.map((item, index) => {
             return (
               <TouchableOpacity key={index}>
                 <View style={styles.cinemaBar}>
@@ -98,9 +98,8 @@ const TheaterScreen = () => {
               </TouchableOpacity>
             );
           })
-        )}
+        }
       </ScrollView>
-    </>
   );
 };
 

@@ -49,13 +49,12 @@ const BookingScreen = ({route}) => {
   return (
     <SafeAreaView style={{backgroundColor: commonStyle.bgPrimary}}>
       <ScrollView>
-        <View style={styles.header}>
-          <TouchableOpacity style={{position: 'absolute', left: 20}} onPress={()=> navigation.goBack()}>
-            <BackIcon name='chevron-left' size={30} color={'lightgray'}/>
-          </TouchableOpacity>
-          <Text style={styles.headerText}>Date & Time</Text>
-        </View>
-
+      <View style={styles.header}>
+        <TouchableOpacity style={{position: 'absolute', left: 20}} onPress={()=> navigation.goBack()}>
+          <BackIcon name='chevron-left' size={30} color={'lightgray'}/>
+        </TouchableOpacity>
+        <Text style={styles.headerText}>Date & Time</Text>
+      </View>
         <View style={{flexDirection: 'row', marginHorizontal: 30, marginTop: 30}}>
           <View style={styles.imageCard}>
             <Image source={{uri: `http://192.168.100.39:3006/uploads/${cover}`}} style={styles.imageSize}/>
@@ -260,7 +259,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: 'Poppins-SemiBold',
-    fontSize: 16,
+    fontSize: 14,
     color: '#fff',
   },
   headingText: {

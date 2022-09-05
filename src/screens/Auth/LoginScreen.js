@@ -5,6 +5,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
 import Logo from '../../assets/images/loginRed.svg';
@@ -34,97 +35,99 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={{backgroundColor: commonStyle.bgPrimary, height: '100%'}}>
-      <View style={styles.header}>
-        <TouchableOpacity style={{position: 'absolute', left: 20}} onPress={()=> navigation.goBack()}>
-          <GoBack name='chevron-left' size={30} color={'lightgray'}/>
-        </TouchableOpacity>
-        <Text style={{fontFamily: 'Poppins-SemiBold', color: 'lightgray', fontSize: 18}}>Login</Text>
-      </View>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 30,
-          marginBottom: 20,
-        }}>
-        <Logo width={300} height={250} />
-      </View>
-      <View style={{paddingHorizontal: 10, paddingBottom: 40, paddingTop: 20}}>
-        <View style={{marginHorizontal: 30}}>
-          <View>
-            <Text style={styles.label}>Email</Text>
-            <View style={styles.customInput}>
-              <TextInput
-                placeholder="Masukan email"
-                placeholderTextColor={'#888'}
-                style={styles.input}
-                autoCapitalize="none"
-                keyboardType="email-address"
-                onChangeText={e => {
-                  setFormLogin(prevData => ({
-                    ...prevData,
-                    email: e,
-                  }));
-                }}
-              />
-            </View>
-          </View>
-          <View>
-            <Text style={styles.label}>Kata sandi</Text>
-            <View style={[styles.customInput, {flexDirection: 'row'}]}>
-              <TextInput
-                placeholder="Masukan kata sandi"
-                placeholderTextColor={'#888'}
-                style={styles.input}
-                secureTextEntry={showPassword ? false : true}
-                autoCapitalize="none"
-                onChangeText={e => {
-                  setFormLogin(prevData => ({
-                    ...prevData,
-                    password: e,
-                  }));
-                }}
-              />
-              <TouchableOpacity
-                onPress={() => setShowPassword(!showPassword)}
-                style={{justifyContent: 'center', alignItems: 'center'}}>
-                <Text>
-                  {showPassword ? (
-                    <Text style={styles.showPass}>Hide</Text>
-                  ) : (
-                    <Text style={styles.showPass}>Show</Text>
-                  )}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
-              {!loading ? <Text style={styles.buttonText}>Masuk</Text> : <Text style={styles.buttonText}>Tunggu...</Text>}
-            </TouchableOpacity>
-          {error && (
-            <Text
-              style={{
-                color: 'red',
-                textAlign: 'center',
-                marginTop: 10,
-                fontSize: 15,
-              }}>
-              {error.message}
-            </Text>
-          )}
+      <ScrollView>
+        <View style={styles.header}>
+          <TouchableOpacity style={{position: 'absolute', left: 20}} onPress={()=> navigation.goBack()}>
+            <GoBack name='chevron-left' size={30} color={'lightgray'}/>
+          </TouchableOpacity>
+          <Text style={{fontFamily: 'Poppins-SemiBold', color: 'lightgray', fontSize: 18}}>Login</Text>
         </View>
-      </View>
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <Text style={{fontFamily: 'Poppins-Regular', color: '#fff'}}>
-          Belum punya akun?
-        </Text>
-        <Text
-            style={{fontFamily: 'Poppins-Regular', color: commonStyle.bgThird}}
-            onPress={() => navigation.navigate('Register')}>
-            {' '}
-            Daftar disini
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 30,
+            marginBottom: 20,
+          }}>
+          <Logo width={300} height={250} />
+        </View>
+        <View style={{paddingHorizontal: 10, paddingBottom: 40, paddingTop: 20}}>
+          <View style={{marginHorizontal: 30}}>
+            <View>
+              <Text style={styles.label}>Email</Text>
+              <View style={styles.customInput}>
+                <TextInput
+                  placeholder="Masukan email"
+                  placeholderTextColor={'#888'}
+                  style={styles.input}
+                  autoCapitalize="none"
+                  keyboardType="email-address"
+                  onChangeText={e => {
+                    setFormLogin(prevData => ({
+                      ...prevData,
+                      email: e,
+                    }));
+                  }}
+                />
+              </View>
+            </View>
+            <View>
+              <Text style={styles.label}>Kata sandi</Text>
+              <View style={[styles.customInput, {flexDirection: 'row'}]}>
+                <TextInput
+                  placeholder="Masukan kata sandi"
+                  placeholderTextColor={'#888'}
+                  style={styles.input}
+                  secureTextEntry={showPassword ? false : true}
+                  autoCapitalize="none"
+                  onChangeText={e => {
+                    setFormLogin(prevData => ({
+                      ...prevData,
+                      password: e,
+                    }));
+                  }}
+                />
+                <TouchableOpacity
+                  onPress={() => setShowPassword(!showPassword)}
+                  style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <Text>
+                    {showPassword ? (
+                      <Text style={styles.showPass}>Hide</Text>
+                    ) : (
+                      <Text style={styles.showPass}>Show</Text>
+                    )}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+              <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                {!loading ? <Text style={styles.buttonText}>Masuk</Text> : <Text style={styles.buttonText}>Tunggu...</Text>}
+              </TouchableOpacity>
+            {error && (
+              <Text
+                style={{
+                  color: 'red',
+                  textAlign: 'center',
+                  marginTop: 10,
+                  fontSize: 15,
+                }}>
+                {error.message}
+              </Text>
+            )}
+          </View>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <Text style={{fontFamily: 'Poppins-Regular', color: '#fff'}}>
+            Belum punya akun?
           </Text>
-      </View>
+          <Text
+              style={{fontFamily: 'Poppins-Regular', color: commonStyle.bgThird}}
+              onPress={() => navigation.navigate('Register')}>
+              {' '}
+              Daftar disini
+            </Text>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -62,7 +62,7 @@ const MovieDetails = ({route}) => {
             <Text style={{color: 'darkorange', fontSize: 14}}>{`( ${rating} )`}</Text>
           </View>
           <View style={styles.details}>
-              <Text style={styles.text}>{durationHours} hours {durationMinute} minute</Text>
+              <Text style={styles.text}>{durationHours} hour {durationMinute} minute</Text>
           </View>
           <View style={{flexDirection: 'row', marginHorizontal: 30, marginVertical: 10}}>
             {genre.split(',').map((item, index)=> {
@@ -99,8 +99,8 @@ const MovieDetails = ({route}) => {
             <Text style={styles.detailsTextLight}>{cast}</Text>
           </View>
         </View>
-        <View style={{marginTop: 30}}>
-          <Text style={{color: '#f0f0f0', fontFamily: 'Poppins-Regular', lineHeight: 25, fontSize: 14}}>{description}</Text>
+        <View style={{marginTop: 20}}>
+          <Text style={{color: '#f0f0f0', fontFamily: 'Poppins-Regular', lineHeight: 25, fontSize: 12}}>{description}</Text>
         </View>
       </View>
 
@@ -151,14 +151,14 @@ const styles = StyleSheet.create({
   detailsTextLight: {
     fontFamily: 'Poppins-Regular',
     color: 'lightgray',
-    fontSize: 13,
+    fontSize: 12,
     marginLeft: 10,
     width: '70%',
   },
   detailsText: {
     fontFamily: 'Poppins-Regular',
     color: 'gray',
-    fontSize: 13,
+    fontSize: 12,
     width: '25%'
   },
   informationBox: {
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   informationText: {
     fontFamily: 'Poppins-Regular',
     color: 'lightgray',
-    fontSize: 14,
+    fontSize: 12,
   },
   bg1: {
     width: 90,
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Poppins-Regular',
     color: 'gray',
-    fontSize: 13,
+    fontSize: 12,
   },
   genre: {
     fontFamily: 'Nunito-Medium',
@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
   },
   buyTicketText: {
     fontFamily: 'Poppins-SemiBold',
-    fontSize: 16,
+    fontSize: 14,
     color: '#fff',
   }
 })
