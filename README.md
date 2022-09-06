@@ -24,7 +24,7 @@
 </ol>
 
 ## About The Project
-Tickitz mobile app is an mobile application for booking tickets in nearby cinema
+Tickitz mobile app is an mobile application for booking tickets
 
 ### Feature
 - Get All Movies
