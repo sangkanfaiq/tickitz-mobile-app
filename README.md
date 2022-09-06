@@ -37,6 +37,20 @@ Tickitz mobile app is an mobile application for booking tickets
 ### Built with
 - [React Native](https://reactnative.dev/)
 
+## Author
+[Sangkan Faiq](https://github.com/sangkanfaiq)
+
+## Demo
+
+### Screenshoot
+| Name | Screenshoot | Name | Screenshoot |
+| ------------- | ------------- | ------------- | ------------- |
+| Home Screen | <a href="https://drive.google.com/uc?export=view&id=1itNCSNZGCC2A_kFR9m8pI8bT6VFOkIAt"><img src="https://drive.google.com/uc?export=view&id=1itNCSNZGCC2A_kFR9m8pI8bT6VFOkIAt" style="width: 350px; max-width: 100%; height: auto" title="Click to enlarge picture" /> | Movies | <a href="https://drive.google.com/uc?export=view&id=1N-pb9wlEbOW6z_zlz6a5URSu93h0MJ5g"><img src="https://drive.google.com/uc?export=view&id=1N-pb9wlEbOW6z_zlz6a5URSu93h0MJ5g" style="width: 350px; max-width: 100%; height: auto" title="Click to enlarge picture" /> |
+| Movie Details | <a href="https://drive.google.com/uc?export=view&id=1uSmDK0cprNVKDutKAUgm_9kJScruYeFY"><img src="https://drive.google.com/uc?export=view&id=1uSmDK0cprNVKDutKAUgm_9kJScruYeFY" style="width: 350px; max-width: 100%; height: auto" title="Click to enlarge picture" /> | Booking <br/> (Date & Time) | <a href="https://drive.google.com/uc?export=view&id=1jk408Y6lJaJeQ35dW-J6ZZb_mNsFvJ2P"><img src="https://drive.google.com/uc?export=view&id=1jk408Y6lJaJeQ35dW-J6ZZb_mNsFvJ2P" style="width: 350px; max-width: 100%; height: auto" title="Click to enlarge picture" /> |
+| Booking <br/> (Select Seats) | <a href="https://drive.google.com/uc?export=view&id=19Fpt3UIC9wQNBYhYZW5gGcJPy43Oj_5e"><img src="https://drive.google.com/uc?export=view&id=19Fpt3UIC9wQNBYhYZW5gGcJPy43Oj_5e" style="width: 350px; max-width: 100%; height: auto" title="Click to enlarge picture" /> | - Profile <br/> - Order History | <a href="https://drive.google.com/uc?export=view&id=16LNheG1mOyfzqHPYmn3B6ocRvhp6FS5p"><img src="https://drive.google.com/uc?export=view&id=16LNheG1mOyfzqHPYmn3B6ocRvhp6FS5p" style="width: 350px; max-width: 100%; height: auto" title="Click to enlarge picture" /> |
+| Login | <a href="https://drive.google.com/uc?export=view&id=1-yfuFACcFZ5EJjE6jaxDgMQDM5O2FqKA"><img src="https://drive.google.com/uc?export=view&id=1-yfuFACcFZ5EJjE6jaxDgMQDM5O2FqKA" style="width: 350px; max-width: 100%; height: auto" title="Click to enlarge picture" /> | Register | <a href="https://drive.google.com/uc?export=view&id=19tbObKE_ErwatbUVPHMr0aI2SdA1xqWx"><img src="https://drive.google.com/uc?export=view&id=19tbObKE_ErwatbUVPHMr0aI2SdA1xqWx" style="width: 350px; max-width: 100%; height: auto" title="Click to enlarge picture" />
+
+
 ## Getting Started
 Get started with this project, instructions on setting up your project locally.<br />
 To get a local copy up and running follow these simple steps.
