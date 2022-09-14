@@ -51,7 +51,7 @@ import {
     useEffect(() => {
       axios({
         method: "GET",
-        url: `http://192.168.100.39:3006/api/v1/schedule`,
+        url: `https://tickitz-backend-1st.herokuapp.com/api/v1/schedule`,
       }).then((res) => {
         setMovieSchedule(res.data.data);
       }).catch((err)=> {
@@ -75,7 +75,7 @@ import {
             return (
               <>
                 {/* Search */}
-                <View
+                {/* <View
                   style={{
                     backgroundColor: commonStyle.bgPrimary,
                     paddingTop: 10,
@@ -100,7 +100,7 @@ import {
                       </TouchableOpacity>
                     </View>
                   </View>
-                </View>
+                </View> */}
   
                 {/* Now Showing */}
                 <View style={{backgroundColor: commonStyle.bgPrimary, paddingTop: 30}}>
@@ -160,7 +160,7 @@ import {
                     </TouchableOpacity>
                   </View>
                   {loading ? 
-                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50}}>
+                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50, paddingBottom: 40}}>
                       <Waiting width={150} height={150}/>
                       <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 18, marginTop: 20}}>Please wait...</Text>
                     </View> :  <FlatList
@@ -196,7 +196,7 @@ import {
                           <View style={styles.imageCard}>
                             <Image
                               source={{
-                                uri: `http://192.168.100.39:3006/uploads/${item.cover}`,
+                                uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${item.cover}`,
                               }}
                               style={styles.imageSize}
                             />

@@ -25,7 +25,7 @@ const TheaterScreen = () => {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: 'http://192.168.100.39:3006/api/v1/cinema',
+      url: 'https://tickitz-backend-1st.herokuapp.com/api/v1/cinema',
     })
       .then(res => {
         setCinema(res.data.data);

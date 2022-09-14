@@ -5,13 +5,22 @@ import {
   StyleSheet,
   Image,
   Pressable,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import {paymentMethod} from '../../model/data';
 import {useState} from 'react';
+import { commonStyle } from '../../utils/commonStyle';
+import BackIcon from 'react-native-vector-icons/Feather';
+import {useNavigation} from '@react-navigation/native';
+import Star from 'react-native-vector-icons/FontAwesome';
+import HalfStar from 'react-native-vector-icons/FontAwesome';
+import moment from 'moment'
 
-const PaymentScreen = () => {
+const PaymentScreen = ({route}) => {
   const [selectPayment, setSelectPayment] = useState('');
+  const navigation = useNavigation()
+  const { time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate } = route.params
 
   const onSelect = item => {
     if (selectPayment === item) {
@@ -22,38 +31,91 @@ const PaymentScreen = () => {
   };
 
   return (
-    <ScrollView style={{backgroundColor: '#f0f0f0'}}>
-      <View style={styles.totalPaymentCard}>
-        <Text style={styles.paymentText}>Total Payment</Text>
-        <Text style={styles.paymentText}>Rp 40.000</Text>
+    <ScrollView style={{backgroundColor: commonStyle.bgPrimary}}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={{position: 'absolute', left: 20}}
+          onPress={() => navigation.goBack()}>
+          <BackIcon name="chevron-left" size={30} color={'lightgray'} />
+        </TouchableOpacity>
+        <Text style={styles.headerText}>Payment</Text>
       </View>
-      <View style={{marginTop: 50, marginHorizontal: 10}}>
-        <Text
-          style={{fontFamily: 'Poppins-Medium', color: '#222', fontSize: 18}}>
-          Payment Method
-        </Text>
-        <View style={styles.paymentMethodBox}>
-          {paymentMethod.map((item, index) => {
-            return (
-              <Pressable
-                style={
-                  selectPayment === item
-                    ? styles.borderSelect
-                    : styles.borderDefault
-                }
-                onPress={()=> onSelect(item)}
-                key={index}>
-                <Image source={item.image} style={styles.imageSize} />
-              </Pressable>
-            );
-          })}
-        </View>
+
+      {/* Movie Details */}
+      <View style={{flexDirection: 'row', marginHorizontal: 30, marginTop: 30, backgroundColor: commonStyle.bgFourth, padding: 20}}>
+          <View style={styles.imageCard}>
+            <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${cover}`}} style={styles.pictureSize}/>
+          </View>
+          <View style={styles.details}>
+            <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>{title}</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center', marginVertical: 5}}>
+              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+              <HalfStar name='star-half-empty' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+              <Text style={{color: 'darkorange', fontSize: 12}}>{`( ${rating} )`}</Text>
+            </View>
+            <Text style={styles.textDetails}>{durationHours} hour {durationMinute} minute</Text>
+            <Text style={styles.textDetails}>{moment(releaseDate).format('YYYY')}</Text>
+            <View style={{flexDirection: 'row', marginTop: 5}}>
+              {genre.split(',').map((item, index)=> {
+                return (
+                  <View key={index} style={{marginRight: 5}}>
+                    <Text style={styles.genre}>{item}</Text>
+                  </View>
+                )
+              })}
+            </View>
+          </View>
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  genre: {
+    fontFamily: 'Nunito-Medium',
+    color: 'gray',
+    fontSize: 12,
+    backgroundColor: commonStyle.bgSecondary,
+    paddingVertical: 3,
+    paddingHorizontal: 10,
+    borderRadius: 30,
+  },
+  textDetails: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 12,
+    color: 'grey',
+    marginVertical: 3,
+  },
+  details: {
+    justifyContent: 'center',
+    marginLeft: 15
+  },
+  imageCard: {
+    width: 130, 
+    height: 150, 
+    borderRadius: 10,
+  },
+  pictureSize: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 10
+  },
+  header: {
+    height: 70,
+    backgroundColor: commonStyle.bgPrimary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  headerText: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 18,
+    color: 'lightgray',
+  },
   borderDefault: {
     width: 120,
     height: 50,

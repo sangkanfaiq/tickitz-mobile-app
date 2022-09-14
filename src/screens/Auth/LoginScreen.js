@@ -42,6 +42,7 @@ const LoginScreen = () => {
           </TouchableOpacity>
           <Text style={{fontFamily: 'Poppins-SemiBold', color: 'lightgray', fontSize: 18}}>Login</Text>
         </View>
+        
         <View
           style={{
             justifyContent: 'center',
@@ -51,13 +52,14 @@ const LoginScreen = () => {
           }}>
           <Logo width={300} height={250} />
         </View>
+
         <View style={{paddingHorizontal: 10, paddingBottom: 40, paddingTop: 20}}>
           <View style={{marginHorizontal: 30}}>
             <View>
               <Text style={styles.label}>Email</Text>
               <View style={styles.customInput}>
                 <TextInput
-                  placeholder="Masukan email"
+                  placeholder="Enter your email"
                   placeholderTextColor={'#888'}
                   style={styles.input}
                   autoCapitalize="none"
@@ -72,10 +74,10 @@ const LoginScreen = () => {
               </View>
             </View>
             <View>
-              <Text style={styles.label}>Kata sandi</Text>
+              <Text style={styles.label}>Password</Text>
               <View style={[styles.customInput, {flexDirection: 'row'}]}>
                 <TextInput
-                  placeholder="Masukan kata sandi"
+                  placeholder="Enter your password"
                   placeholderTextColor={'#888'}
                   style={styles.input}
                   secureTextEntry={showPassword ? false : true}
@@ -101,7 +103,7 @@ const LoginScreen = () => {
               </View>
             </View>
               <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                {!loading ? <Text style={styles.buttonText}>Masuk</Text> : <Text style={styles.buttonText}>Tunggu...</Text>}
+                {!loading ? <Text style={styles.buttonText}>Login</Text> : <Text style={styles.buttonText}>Loading...</Text>}
               </TouchableOpacity>
             {error && (
               <Text
@@ -116,15 +118,16 @@ const LoginScreen = () => {
             )}
           </View>
         </View>
+
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <Text style={{fontFamily: 'Poppins-Regular', color: '#fff'}}>
-            Belum punya akun?
+            Don't have an account?
           </Text>
           <Text
               style={{fontFamily: 'Poppins-Regular', color: commonStyle.bgThird}}
               onPress={() => navigation.navigate('Register')}>
               {' '}
-              Daftar disini
+              Register here
             </Text>
         </View>
       </ScrollView>

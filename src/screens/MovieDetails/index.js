@@ -41,7 +41,7 @@ const MovieDetails = ({route}) => {
           <TouchableOpacity style={styles.backIconBox} onPress={() => navigation.goBack()}>
             <BackIcon name='chevron-left' size={25} color={'#fff'} style={{marginLeft: -2}}/>
           </TouchableOpacity>
-          <Image source={{uri: `http://192.168.100.39:3006/uploads/${cover}`}} style={styles.image}/>
+          <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${cover}`}} style={styles.image}/>
         </View>
 
       {/* Details */}

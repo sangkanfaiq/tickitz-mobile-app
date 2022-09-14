@@ -23,7 +23,7 @@ const ProfilePage = () => {
           <Text style={{fontFamily: 'Poppins-Medium', fontSize: 10, color: 'gray', marginVertical: 5}}>@marvin69@gmail.com</Text>
           <View style={{flexDirection: 'row', marginTop: 5, alignItems: 'center'}}>
             <Location name='location-outline' size={10} color={'lightgray'}/>
-            <Text style={{fontFamily: 'Nunito-Medium', fontSize: 12, marginLeft: 5, color: 'lightgray'}}>Bandung, West Java, Indonesia</Text>
+            <Text style={{fontFamily: 'Nunito-Medium', fontSize: 12, marginLeft: 3, color: 'lightgray'}}>Bandung, West Java, Indonesia</Text>
           </View>
           <View style={{flexDirection: 'row', marginTop: 30, justifyContent: 'space-between', width: '35%'}}>
             {social.map((item, index)=> {

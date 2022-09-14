@@ -26,7 +26,7 @@ export const AuthLogin = (formData) => {
     dispatch(LoginRequest());
     axios({
       method: "POST",
-      url: "http://192.168.100.39:3006/api/v1/auth/login",
+      url: "https://tickitz-backend-1st.herokuapp.com/api/v1/auth/login",
       data: {
         email: formData.email,
         password: formData.password

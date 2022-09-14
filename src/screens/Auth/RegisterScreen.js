@@ -31,7 +31,7 @@ const RegisterScreen = () => {
   const handleRegister = () => {
     axios({
       method: "POST",
-      url: "http://192.168.100.39:3006/api/v1/auth/register",
+      url: "https://tickitz-backend-1st.herokuapp.com/api/v1/auth/register",
       data: register
     })
       .then((res) => {
@@ -57,10 +57,10 @@ const RegisterScreen = () => {
       </View>
       <View style={{paddingHorizontal: 10, paddingBottom: 40, paddingTop: 20}}>
         <View style={{marginHorizontal: 30}}>
-          <Text style={styles.label}>Nama Depan</Text>
+          <Text style={styles.label}>First name</Text>
           <View style={styles.customInput}>
             <TextInput
-              placeholder="Masukan nama depan"
+              placeholder="Enter your first name"
               placeholderTextColor={'#888'}
               style={styles.input}
               autoCapitalize="none"
@@ -72,10 +72,10 @@ const RegisterScreen = () => {
               }}
             />
           </View>
-          <Text style={styles.label}>Nama Belakang</Text>
+          <Text style={styles.label}>Last name</Text>
           <View style={styles.customInput}>
             <TextInput
-              placeholder="Masukan nama belakang"
+              placeholder="Enter your last name"
               placeholderTextColor={'#888'}
               style={styles.input}
               autoCapitalize="none"
@@ -87,10 +87,10 @@ const RegisterScreen = () => {
               }}
             />
           </View>
-          <Text style={styles.label}>Nomor Handphone</Text>
+          <Text style={styles.label}>Phone number</Text>
           <View style={styles.customInput}>
             <TextInput
-              placeholder="Masukan nomor handphone"
+              placeholder="Enter your phone number"
               placeholderTextColor={'#888'}
               style={styles.input}
               autoCapitalize="none"
@@ -105,7 +105,7 @@ const RegisterScreen = () => {
           <Text style={styles.label}>Email</Text>
           <View style={styles.customInput}>
             <TextInput
-              placeholder="Masukan email"
+              placeholder="Enter your email"
               placeholderTextColor={'#888'}
               style={styles.input}
               autoCapitalize="none"
@@ -118,10 +118,10 @@ const RegisterScreen = () => {
               }}
             />
           </View>
-          <Text style={styles.label}>Kata Sandi</Text>
+          <Text style={styles.label}>Password</Text>
           <View style={[styles.customInput, {flexDirection: 'row'}]}>
             <TextInput
-              placeholder="Masukan kata sandi"
+              placeholder="Enter your password"
               placeholderTextColor={'#888'}
               style={styles.input}
               secureTextEntry={showPassword ? false : true}
@@ -147,9 +147,9 @@ const RegisterScreen = () => {
           </View>
           <TouchableOpacity style={styles.button} onPress={handleRegister}>
             {loading ? (
-              <Text style={styles.buttonText}>Tunggu...</Text>
+              <Text style={styles.buttonText}>Loading...</Text>
             ) : (
-              <Text style={styles.buttonText}>Daftar</Text>
+              <Text style={styles.buttonText}>Register</Text>
             )}
           </TouchableOpacity>
           {error && <Text style={{color: 'red', textAlign: 'center', marginTop: 10, fontSize: 15}}>{error.message}</Text>}
@@ -157,12 +157,12 @@ const RegisterScreen = () => {
       </View>
       <View style={{alignItems: 'center', paddingBottom: 30}}>
         <Text style={{fontFamily: 'Poppins-Regular', color: '#fff'}}>
-          Sudah punya akun?
+          Already have an account?
           <Text
             style={{fontFamily: 'Poppins-Regular', color: commonStyle.bgThird}}
             onPress={() => navigation.goBack()}>
             {' '}
-            Masuk disini
+            Login here
           </Text>
          
         </Text>

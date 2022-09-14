@@ -57,7 +57,7 @@ const BookingScreen = ({route}) => {
       </View>
         <View style={{flexDirection: 'row', marginHorizontal: 30, marginTop: 30}}>
           <View style={styles.imageCard}>
-            <Image source={{uri: `http://192.168.100.39:3006/uploads/${cover}`}} style={styles.imageSize}/>
+            <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${cover}`}} style={styles.imageSize}/>
           </View>
           <View style={styles.details}>
             <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>{title}</Text>
@@ -113,7 +113,7 @@ const BookingScreen = ({route}) => {
         <TouchableOpacity style={{marginHorizontal: 30, marginTop: 30, paddingBottom: 30}}>
           <View style={{backgroundColor: commonStyle.bgFourth, padding: 20, borderRadius: 20}}>
             <View style={styles.imageBox}>
-              <Image source={{uri: `http://192.168.100.39:3006/uploads/${cinemaCover}`}} style={styles.cinemaImage}/>
+              <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${cinemaCover}`}} style={styles.cinemaImage}/>
             </View>
             <View style={{marginVertical: 30, height: 1, width: '100%', backgroundColor: 'rgba(255,255,255,0.3)'}}></View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -134,9 +134,7 @@ const BookingScreen = ({route}) => {
         <View>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('BookingSeats', {
-              time,
-              cinemaName,
-              price
+              time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate
             })}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
@@ -304,7 +302,7 @@ const styles = StyleSheet.create({
   imageSize: {
     width: '100%',
     height: '100%',
-    resizeMode: 'stretch',
+    resizeMode: 'cover',
     borderRadius: 10
   },
   header: {

@@ -28,7 +28,7 @@ const BannerSlider = ({data}) => {
       cinemaAddress: data.cinemaAddress,
       price: data.price
   })}>
-      <Image source={{uri: `http://192.168.100.39:3006/uploads/${data.cover}`}} style={styles.imageSize}/>
+      <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${data.cover}`}} style={styles.imageSize}/>
       <View style={styles.container}>
         <Text style={styles.title}>{data.title}</Text>
         <View style={{flexDirection: 'row', marginTop: 5}}>

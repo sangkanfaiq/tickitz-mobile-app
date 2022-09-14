@@ -13,11 +13,6 @@ const MainScreen = ({navigation}) => {
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{color: '#fff', fontSize: 40, fontFamily: 'Poppins-SemiBold'}}>Tickitz</Text>
         <Text style={{color: '#fff', fontSize: 18, fontFamily: 'Poppins-Regular'}}>Cinema Booking App</Text>
-        <View style={{flexDirection: 'row', marginTop: 30}}>
-          <View style={{width: 25, height: 10, backgroundColor: '#fff', borderRadius: 30, marginRight: 5}}></View>
-          <View style={{width: 10, height: 10, backgroundColor: '#fff', borderRadius: 30, marginRight: 5}}></View>
-          <View style={{width: 10, height: 10, backgroundColor: '#fff', borderRadius: 30, marginRight: 5}}></View>
-        </View>
       </View>
     </ImageBackground>
   )
