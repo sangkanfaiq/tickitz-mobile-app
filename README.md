@@ -7,11 +7,12 @@
         <li><a href="#feature">Feature</a></li>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#author">Author</a></li>
+        <li><a href="#related-project">Related Project</a></li>
       </ul>
     </li>
     <li><a href="#demo">Demo</a>
        <ul>
-        <li><a href="#screenshot">Screenshot</a></li>
+        <li><a href="#screenshoot">Screenshoot</a></li>
       </ul>
     </li>
     <li>
@@ -24,7 +25,7 @@
 </ol>
 
 ## About The Project
-Tickitz mobile app is an mobile application for booking tickets
+Tickitz mobile app is an mobile application for booking tickets made with react native
 
 ### Feature
 - Get All Movies
@@ -35,12 +36,19 @@ Tickitz mobile app is an mobile application for booking tickets
 - Authentication (Login/Register)
 
 ### Built with
-- [React Native](https://reactnative.dev/)
+[React Native](https://reactnative.dev/)
 
 ## Author
 [Sangkan Faiq](https://github.com/sangkanfaiq)
 
+## Related Project
+- [Tickitz Backend](https://github.com/sangkanfaiq/tickitz-backend)
+- [Tickitz Admin](https://github.com/sangkanfaiq/tickitz-admin)
+
 ## Demo
+For demo testing</br></br>
+email : admin</br>
+password : admin
 
 ### Screenshoot
 | Name | Screenshoot | Name | Screenshoot |
