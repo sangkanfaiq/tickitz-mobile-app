@@ -46,7 +46,7 @@ Tickitz mobile app is an mobile application for booking tickets made with react 
 - [Tickitz Admin](https://github.com/sangkanfaiq/tickitz-admin)
 
 ## Demo
-For demo testing</br></br>
+Demo testing authentication</br></br>
 email : admin</br>
 password : admin
 
