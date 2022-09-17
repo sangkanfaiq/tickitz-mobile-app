@@ -17,7 +17,7 @@ const HeaderLogin = () => {
        <Text style={{color: 'lightgray', fontFamily: 'Poppins-SemiBold',fontSize: 20, textAlign: 'center'}}>Tickitz</Text>
        <Tickets name='ticket' size={16} style={{color: 'lightgray', marginLeft: 5}}/>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.navigate('Notification')}>
         <Notif name='bell-outline' size={25} color={'lightgray'}/>
       </TouchableOpacity>
     </View>

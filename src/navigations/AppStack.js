@@ -11,6 +11,7 @@ import LoginScreen from '../screens/Auth/LoginScreen';
 import SettingScreen from '../screens/Settings';
 import BookingSeatsScreen from '../screens/BookingSeats';
 import AboutApp from '../screens/AboutApp';
+import NotificationScreen from '../screens/Notification';
 
 const Stack = createNativeStackNavigator();
 const globalScreenOptions = {
@@ -41,6 +42,7 @@ const AppStack = () => {
       <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{headerShown: true, title: 'Reset Password'}} />
       <Stack.Screen name="Payment" component={PaymentScreen} options={{headerShown: false}} />
       <Stack.Screen name="AboutApp" component={AboutApp} options={{headerShown: false}} />
+      <Stack.Screen name="Notification" component={NotificationScreen} options={{headerShown: false}} />
     </Stack.Navigator>
   );
 };
