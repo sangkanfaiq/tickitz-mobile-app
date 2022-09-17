@@ -4,11 +4,9 @@ import {
   ScrollView,
   StyleSheet,
   Image,
-  Pressable,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import {paymentMethod} from '../../model/data';
 import {useState} from 'react';
 import { commonStyle } from '../../utils/commonStyle';
 import BackIcon from 'react-native-vector-icons/Feather';
@@ -20,8 +18,7 @@ import moment from 'moment'
 const PaymentScreen = ({route}) => {
   const [selectPayment, setSelectPayment] = useState('');
   const navigation = useNavigation()
-  const { time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate } = route.params
-
+  const { time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName } = route.params
   const onSelect = item => {
     if (selectPayment === item) {
       setSelectPayment('');
@@ -41,39 +38,144 @@ const PaymentScreen = ({route}) => {
         <Text style={styles.headerText}>Payment</Text>
       </View>
 
-      {/* Movie Details */}
-      <View style={{flexDirection: 'row', marginHorizontal: 30, marginTop: 30, backgroundColor: commonStyle.bgFourth, padding: 20}}>
-          <View style={styles.imageCard}>
-            <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${cover}`}} style={styles.pictureSize}/>
-          </View>
-          <View style={styles.details}>
-            <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>{title}</Text>
-            <View style={{flexDirection: 'row', alignItems: 'center', marginVertical: 5}}>
-              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
-              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
-              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
-              <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
-              <HalfStar name='star-half-empty' size={12} color={'darkorange'} style={{marginRight: 5}}/>
-              <Text style={{color: 'darkorange', fontSize: 12}}>{`( ${rating} )`}</Text>
+      <View style={{backgroundColor: commonStyle.bgFourth, padding: 20, marginHorizontal: 30, marginTop: 30, borderRadius: 20}}>
+        <View style={{flexDirection: 'row' }}>
+            <View style={styles.imageCard}>
+              <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${cover}`}} style={styles.pictureSize}/>
             </View>
-            <Text style={styles.textDetails}>{durationHours} hour {durationMinute} minute</Text>
-            <Text style={styles.textDetails}>{moment(releaseDate).format('YYYY')}</Text>
-            <View style={{flexDirection: 'row', marginTop: 5}}>
-              {genre.split(',').map((item, index)=> {
-                return (
-                  <View key={index} style={{marginRight: 5}}>
-                    <Text style={styles.genre}>{item}</Text>
-                  </View>
-                )
-              })}
+            <View style={styles.details}>
+              <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>{title}</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center', marginVertical: 5}}>
+                <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+                <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+                <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+                <Star name='star' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+                <HalfStar name='star-half-empty' size={12} color={'darkorange'} style={{marginRight: 5}}/>
+                <Text style={{color: 'darkorange', fontSize: 12}}>{`( ${rating} )`}</Text>
+              </View>
+              <Text style={styles.textDetails}>{durationHours} hour {durationMinute} minute</Text>
+              <Text style={styles.textDetails}>{moment(releaseDate).format('YYYY')}</Text>
+              <View style={{flexDirection: 'row', marginTop: 5}}>
+                {genre.split(',').map((item, index)=> {
+                  return (
+                    <View key={index} style={{marginRight: 5}}>
+                      <Text style={styles.genre}>{item}</Text>
+                    </View>
+                  )
+                })}
+              </View>
             </View>
+        </View>
+        {/* Booking Info */}
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, paddingHorizontal: 5}}>
+          <Text style={{fontFamily: 'Poppins-Medium', color: 'gray', fontSize: 12}}>Name</Text>
+          <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 12}}>Marvin Steward</Text>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
+          <Text style={styles.bookingInfoTextLeft}>Date</Text>
+          <Text style={styles.bookingInfoTextRight}>Sat, Sept 12, 2022</Text>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
+          <Text style={styles.bookingInfoTextLeft}>Time</Text>
+          <Text style={styles.bookingInfoTextRight}>16:00</Text>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
+          <Text style={styles.bookingInfoTextLeft}>Selected Seats</Text>
+          <Text style={styles.bookingInfoTextRight}>D6, D7</Text>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
+          <Text style={styles.bookingInfoTextLeft}>Ticket Fee</Text>
+          <Text style={styles.bookingInfoTextRight}>{price}</Text>
+        </View>
+
+        <View style={{width: '100%', height: 1, backgroundColor: 'rgba(255,255,255,0.3)', marginVertical: 30}}></View>
+
+        {/* Cinema Info */}
+        <View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5}}>
+            <Text style={{fontFamily: 'Poppins-Regular', fontSize: 12, color: 'gray'}}>Cinema</Text>
+            <Text style={styles.cinemaName}>{cinemaName}</Text>
           </View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5}}>
+            <Text style={{fontFamily: 'Poppins-Regular', fontSize: 12, color: 'gray', marginTop: 15}}>Address</Text>
+            <Text style={styles.cinemaAddress}>{cinemaAddress}</Text>
+          </View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5}}>
+            <Text style={{fontFamily: 'Poppins-Regular', fontSize: 12, color: 'gray', marginTop: 15}}>Location</Text>
+            <Text style={styles.locationName}>{locationName}</Text>
+          </View>
+        </View>
+
+        {/* Total */}
+        <View style={styles.totalCost}>
+          <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>Total Cost</Text>
+          <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>90000</Text>
+        </View>
       </View>
+
+      {/* Button payment */}
+      <View style={{marginTop: 100}}>
+          <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Pay - 90000</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  totalCost: {
+    flexDirection: 'row', 
+    marginTop: 50, justifyContent: 'space-between', 
+    backgroundColor: commonStyle.bgPrimary,
+    padding: 15,
+    borderRadius: 10
+  },
+  locationName: {
+    fontFamily: 'Poppins-Medium', 
+    color: '#fff', 
+    fontSize: 12,
+    marginTop: 15
+  },
+  cinemaAddress: {
+    fontFamily: 'Poppins-Medium', 
+    color: '#fff', 
+    fontSize: 12,
+    textAlign: 'right',
+    width: '60%', 
+    marginTop: 15
+  },
+  cinemaName: {
+    fontFamily: 'Poppins-Medium',
+    color:'#fff',
+    fontSize: 12
+  },
+  button: {
+    backgroundColor: commonStyle.bgThird,
+    width: '85%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderRadius: 10
+  },
+  buttonText: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 14,
+    color: '#fff',
+  },
+  bookingInfoTextLeft: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 12,
+    color: "gray"
+  },
+  bookingInfoTextRight: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 12,
+    color: "#fff"
+  },
   genre: {
     fontFamily: 'Nunito-Medium',
     color: 'gray',
