@@ -1,4 +1,10 @@
-import {View, Text, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import BackIcon from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
@@ -61,8 +67,9 @@ const SettingScreen = () => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginTop: 30
-          }} onPress={()=> navigation.navigate('AboutApp')}>
+            marginTop: 30,
+          }}
+          onPress={() => navigation.navigate('AboutApp')}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={styles.aboutBg}>
               <Info name="info" size={12} color={'lightgray'} />
@@ -83,26 +90,41 @@ const SettingScreen = () => {
           marginTop: 20,
           borderRadius: 20,
         }}>
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-          onPress={() => {
-            ToastAndroid.showWithGravity('You has been logout', ToastAndroid.SHORT, ToastAndroid.CENTER)
-            dispatch(AuthLogout());
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={styles.logoutBg}>
-              <Logout name="logout" size={12} color={'#fff'} />
+        {isLogin ? (
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+            onPress={() => {
+              ToastAndroid.showWithGravity(
+                'You has been logout',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+              );
+              dispatch(AuthLogout());
+            }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={styles.logoutBg}>
+                <Logout name="logout" size={12} color={'#fff'} />
+              </View>
+              <Text
+                style={{
+                  fontFamily: 'Poppins-Medium',
+                  color: 'red',
+                  fontSize: 14,
+                }}>
+                Logout
+              </Text>
             </View>
-            <Text style={{fontFamily: 'Poppins-Medium', color: 'red', fontSize: 14}}>Logout</Text>
-          </View>
-          <View>
-            <ChefronRight name="chevron-right" size={22} color={'#fff'} />
-          </View>
-      </TouchableOpacity>
+            <View>
+              <ChefronRight name="chevron-right" size={22} color={'#fff'} />
+            </View>
+          </TouchableOpacity>
+        ) : (
+          ''
+        )}
       </View>
     </View>
   );

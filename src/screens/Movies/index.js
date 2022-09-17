@@ -20,7 +20,7 @@ const MoviesScreen = () => {
   }
 
   return (
-    <SafeAreaView style={{paddingBottom: 10, backgroundColor: commonStyle.bgPrimary}} showsVerticalScrollIndicator={false} >
+    <SafeAreaView style={{paddingBottom: 10, backgroundColor: commonStyle.bgPrimary, height: '100%'}} showsVerticalScrollIndicator={false} >
       <FlatList
       data={['']} showsVerticalScrollIndicator={false} renderItem={()=> {
         return (

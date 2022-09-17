@@ -6,6 +6,7 @@ import Tickets from 'react-native-vector-icons/Fontisto';
 import { commonStyle } from '../utils/commonStyle';
 
 const Header = () => {
+
   return (
     <View style={[styles.titleHeader]}>
       <TouchableOpacity>

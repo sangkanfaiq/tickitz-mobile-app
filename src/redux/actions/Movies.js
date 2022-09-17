@@ -13,6 +13,13 @@ const GetMoviesSuccess = (data) => {
   };
 };
 
+const GetAllMoviesSuccess = (dataAll) => {
+  return {
+    type: "GET_ALL_MOVIES_SUCCESS",
+    payload: dataAll,
+  };
+};
+
 const GetMoviesError = (error) => {
   return {
     type: "GET_MOVIES_ERROR",
@@ -20,20 +27,38 @@ const GetMoviesError = (error) => {
   };
 };
 
-export const GetMovies = () => {
+export const GetAllMovies = () => {
   return (dispatch) => {
     dispatch(GetMoviesRequest());
     axios({
       method: "GET",
-      url: "https://tickitz-backend-1st.herokuapp.com/api/v1/movies",
+      url: `https://tickitz-backend-1st.herokuapp.com/api/v1/movies`,
     })
       .then((res) => {
-        dispatch(GetMoviesSuccess(res.data));
-        console.log(res)
+        dispatch(GetAllMoviesSuccess(res.data));
+        // console.log(res)
       })
       .catch((err) => {
         dispatch(GetMoviesError(err.response));
-        console.log(err)
+        // console.log(err)
+      });
+  };
+};
+
+export const GetMovies = (form) => {
+  return (dispatch) => {
+    dispatch(GetMoviesRequest());
+    axios({
+      method: "GET",
+      url: `https://tickitz-backend-1st.herokuapp.com/api/v1/movies?title=${form.title}&genre=${form.genre}`,
+    })
+      .then((res) => {
+        dispatch(GetMoviesSuccess(res.data));
+        // console.log(res)
+      })
+      .catch((err) => {
+        dispatch(GetMoviesError(err.response));
+        // console.log(err)
       });
   };
 };

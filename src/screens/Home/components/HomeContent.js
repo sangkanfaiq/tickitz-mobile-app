@@ -1,6 +1,5 @@
 import {
     FlatList,
-    TextInput,
     TouchableOpacity,
     View,
     StyleSheet,
@@ -14,13 +13,11 @@ import {
   import {commonStyle} from '../../../utils/commonStyle';
   import {Alert} from 'react-native';
   import messaging from '@react-native-firebase/messaging';
-  import SearchIcon from 'react-native-vector-icons/Feather';
-  import Option from 'react-native-vector-icons/Ionicons';
   import Star from 'react-native-vector-icons/FontAwesome';
   import HalfStar from 'react-native-vector-icons/FontAwesome';
   import {useNavigation} from '@react-navigation/native';
   import {useSelector, useDispatch} from 'react-redux';
-  import {GetMovies} from '../../../redux/actions/Movies';
+  import {GetAllMovies} from '../../../redux/actions/Movies';
   import moment from 'moment';
   import Waiting from '../../../assets/waiting.svg'
   import axios from 'axios'
@@ -30,11 +27,11 @@ import {
   
   const HomeContent = () => {
     const {isLogin} = useSelector(state => state.auth);
-    const {data, loading, error} = useSelector(state => state.movies);
+    const {dataAll, loading, error} = useSelector(state => state.movies);
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const [ search, setSearch ] = useState('')
     const [movieSchedule, setMovieSchedule] = useState([])
+
     
     useEffect(() => {
       const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -45,8 +42,8 @@ import {
     }, []);
   
     useEffect(() => {
-      dispatch(GetMovies());
-    }, []);
+      dispatch(GetAllMovies());
+    }, [dispatch]);
   
     useEffect(() => {
       axios({
@@ -74,33 +71,6 @@ import {
           renderItem={() => {
             return (
               <>
-                {/* Search */}
-                {/* <View
-                  style={{
-                    backgroundColor: commonStyle.bgPrimary,
-                    paddingTop: 10,
-                  }}>
-                  <View style={styles.searchBar}>
-                    <SearchIcon name="search" size={25} color={'gray'} />
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        paddingRight: 10,
-                      }}>
-                      <TextInput
-                        placeholder="Search here"
-                        placeholderTextColor={'gray'}
-                        style={styles.input}
-                        onChangeText={text => setSearch(text)}
-                      />
-                      <TouchableOpacity>
-                        <Option name="options-sharp" size={25} color={'gray'} />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </View> */}
   
                 {/* Now Showing */}
                 <View style={{backgroundColor: commonStyle.bgPrimary, paddingTop: 30}}>
@@ -164,13 +134,7 @@ import {
                       <Waiting width={150} height={150}/>
                       <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 18, marginTop: 20}}>Please wait...</Text>
                     </View> :  <FlatList
-                    data={data?.data?.results.filter((item)=> {
-                      if(search === '') {
-                        return data?.data?.results
-                      } else if(item.title.toLowerCase().includes(search.toLowerCase())) {
-                        return data?.data?.results
-                      }
-                    })}
+                    data={dataAll?.data?.results}
                     showsVerticalScrollIndicator={false}
                     style={{marginTop: 20}}
                     renderItem={({item, index}) => {

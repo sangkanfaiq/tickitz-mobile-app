@@ -134,7 +134,7 @@ const BookingScreen = ({route}) => {
         <View>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('BookingSeats', {
-              time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate
+              time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName
             })}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
