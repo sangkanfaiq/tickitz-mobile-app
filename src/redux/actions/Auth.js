@@ -29,7 +29,7 @@ export const AuthLogin = (formData) => {
       url: "https://tickitz-backend-1st.herokuapp.com/api/v1/auth/login",
       data: {
         email: formData.email,
-        password: formData.password
+        password: formData.password,
       }
     })
       .then((res) => {

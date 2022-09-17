@@ -12,11 +12,12 @@ import {commonStyle} from '../../utils/commonStyle';
 import Logout from 'react-native-vector-icons/AntDesign';
 import User from 'react-native-vector-icons/FontAwesome5';
 import Info from 'react-native-vector-icons/Entypo';
+import Resetpass from 'react-native-vector-icons/MaterialCommunityIcons'
 import ChefronRight from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthLogout} from '../../redux/actions/Auth';
 
-const SettingScreen = () => {
+const AccountScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -35,7 +36,7 @@ const SettingScreen = () => {
           onPress={() => navigation.goBack()}>
           <BackIcon name="chevron-left" size={30} color={'lightgray'} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Settings</Text>
+        <Text style={styles.headerTitle}>Account</Text>
       </View>
 
       <View
@@ -44,8 +45,9 @@ const SettingScreen = () => {
           backgroundColor: commonStyle.bgFourth,
           marginHorizontal: 20,
           marginTop: 30,
-          borderRadius: 20,
+          borderRadius: 30,
         }}>
+          {/* Manage Account */}
         <TouchableOpacity
           style={{
             flexDirection: 'row',
@@ -62,6 +64,27 @@ const SettingScreen = () => {
             <ChefronRight name="chevron-right" size={22} color={'#fff'} />
           </View>
         </TouchableOpacity>
+        {/* Change Password */}
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 30,
+          }}
+          onPress={()=> navigation.navigate('ChangePassword')}
+          >
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={styles.resetBg}>
+              <Resetpass name="lock-reset" size={18} color={'#fff'} />
+            </View>
+            <Text style={styles.manageAcc}>Change Password</Text>
+          </View>
+          <View>
+            <ChefronRight name="chevron-right" size={22} color={'#fff'} />
+          </View>
+        </TouchableOpacity>
+        {/* About App */}
         <TouchableOpacity
           style={{
             flexDirection: 'row',
@@ -88,7 +111,7 @@ const SettingScreen = () => {
           backgroundColor: commonStyle.bgFourth,
           marginHorizontal: 20,
           marginTop: 20,
-          borderRadius: 20,
+          borderRadius: 30,
         }}>
         {isLogin ? (
           <TouchableOpacity
@@ -107,7 +130,7 @@ const SettingScreen = () => {
             }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <View style={styles.logoutBg}>
-                <Logout name="logout" size={12} color={'#fff'} />
+                <Logout name="logout" size={14} color={'#fff'} />
               </View>
               <Text
                 style={{
@@ -138,6 +161,15 @@ const styles = StyleSheet.create({
   },
   logoutBg: {
     backgroundColor: commonStyle.bgThird,
+    width: 30,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    marginRight: 10,
+  },
+  resetBg: {
+    backgroundColor: '#2e46d1',
     width: 30,
     height: 30,
     justifyContent: 'center',
@@ -176,4 +208,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingScreen;
+export default AccountScreen;

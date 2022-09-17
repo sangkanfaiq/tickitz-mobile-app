@@ -12,7 +12,7 @@ import BackIcon from 'react-native-vector-icons/Feather';
 import {commonStyle} from '../../utils/commonStyle';
 import {useState} from 'react';
 
-const BookingSeatsScreen = ({route}) => {
+const SelectSeats = ({route}) => {
   const navigation = useNavigation();
   const {time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName} = route.params;
   const [selectTime, setSelectTime] = useState('');
@@ -252,4 +252,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BookingSeatsScreen;
+export default SelectSeats;

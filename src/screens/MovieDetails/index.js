@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable, TouchableOpacity } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, TouchableOpacity, ToastAndroid } from 'react-native'
 import React from 'react'
 import Star from 'react-native-vector-icons/FontAwesome'
 import HalfStar from 'react-native-vector-icons/FontAwesome'
@@ -8,9 +8,11 @@ import Heart from 'react-native-vector-icons/Ionicons'
 import { commonStyle } from '../../utils/commonStyle'
 import BackIcon from 'react-native-vector-icons/Feather'
 import moment from 'moment'
+import { useSelector } from 'react-redux'
 
 
 const MovieDetails = ({route}) => {
+  const {isLogin} = useSelector((state)=> state.auth)
   const {
     scheduleID,
     title, 
@@ -34,6 +36,7 @@ const MovieDetails = ({route}) => {
   } = route.params
   const [ wishlist, setWishlist ] = useState(false)
   const navigation = useNavigation();
+  // const [ modal, setModal ] = useState(false)
 
   return (
     <ScrollView style={{backgroundColor: commonStyle.bgFourth}}>
@@ -106,7 +109,7 @@ const MovieDetails = ({route}) => {
 
       <View style={{marginTop: 50}}>
         {scheduleID ? <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, alignItems: 'center', justifyContent: 'center'}}>
-          <TouchableOpacity style={styles.buyTicketSquare} onPress={()=> navigation.navigate('Booking', {
+          <TouchableOpacity style={styles.buyTicketSquare} onPress={()=> {isLogin ? navigation.navigate('DateAndTime', {
             title,
             genre,
             durationHours,
@@ -125,7 +128,7 @@ const MovieDetails = ({route}) => {
             locationName,
             cinemaAddress,
             price
-          })}>
+          }) :  ToastAndroid.showWithGravity('Login required', ToastAndroid.SHORT, ToastAndroid.CENTER)}}>
             <Text style={styles.buyTicketText}>Book Seat</Text>
           </TouchableOpacity>
         </View> : "" }

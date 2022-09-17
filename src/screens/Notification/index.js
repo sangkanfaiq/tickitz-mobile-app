@@ -18,9 +18,9 @@ const NotificationScreen = () => {
         </TouchableOpacity>
         <Text style={styles.headerText}>Notification</Text>
       </View>
-      <View style={{justifyContent: 'center',alignItems: 'center', height: '70%'}}>
+      <View style={{justifyContent: 'center',alignItems: 'center', height: '80%'}}>
         <Empty width={200} height={200}/>
-        <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 18, marginTop: 20, width: '60%', textAlign: 'center'}}>You don't have any notification</Text>
+        <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16, marginTop: 20, textAlign: 'center'}}>You don't have any notification</Text>
       </View>
     </SafeAreaView>
   );

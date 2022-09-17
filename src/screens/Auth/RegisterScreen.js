@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   ToastAndroid,
+  Image,
 } from 'react-native';
 import React, { useState} from 'react';
 import Logo from '../../assets/images/registerBg.svg';
@@ -39,7 +40,7 @@ const RegisterScreen = () => {
         navigation.navigate('Login')
       })
       .catch((err) => {
-        ToastAndroid.showWithGravity(err.response.data.message)  
+        ToastAndroid.showWithGravity(err.response.data.message)
       });
   };
 
@@ -136,13 +137,11 @@ const RegisterScreen = () => {
             <TouchableOpacity
               onPress={() => setShowPassword(!showPassword)}
               style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Text>
                 {showPassword ? (
-                  <Text style={styles.showPass}>Hide</Text>
-                ) : (
-                  <Text style={styles.showPass}>Show</Text>
-                )}
-              </Text>
+                      <Image source={require('../../assets/eyeOpen.png')} style={{width: 18, height: 18}}/>
+                    ) : (
+                      <Image source={require('../../assets/eyeClose.png')} style={{width: 18, height: 18}}/>
+                    )}
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={styles.button} onPress={handleRegister}>
@@ -190,7 +189,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   input: {
-    width: '85%',
+    width: '89%',
     paddingVertical: 10,
     paddingHorizontal: 20,
     fontSize: 12,

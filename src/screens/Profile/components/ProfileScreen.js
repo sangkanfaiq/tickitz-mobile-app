@@ -4,8 +4,15 @@ import Location from 'react-native-vector-icons/Ionicons';
 import { commonStyle } from '../../../utils/commonStyle';
 import { social } from '../../../model/data';
 import TopupIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useSelector } from 'react-redux';
 
 const ProfilePage = () => {
+  const {data} = useSelector((state)=>state.auth)
+  console.log(data, 'ini data')
+  console.log(data.email, 'ini email')
+  console.log(data.firstName, 'firstname')
+  console.log(data.phoneNumber, 'NO HP NJENG')
+
   return (
     <ScrollView style={{marginHorizontal: 30}} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
@@ -19,8 +26,8 @@ const ProfilePage = () => {
           <Image source={require('../../../assets/images/dp.jpg')} style={styles.profileSize}/>
         </View>
         <View style={{marginTop: 10, alignItems: 'center'}}>
-          <Text style={{fontFamily: 'Poppins-Medium', fontSize: 20, color: '#fff'}}>Marvin Steward</Text>
-          <Text style={{fontFamily: 'Poppins-Medium', fontSize: 10, color: 'gray', marginVertical: 5}}>@marvin69@gmail.com</Text>
+          <Text style={{fontFamily: 'Poppins-Medium', fontSize: 20, color: '#fff', textTransform: 'capitalize'}}>{data.firstName} {data.lastName}</Text>
+          <Text style={{fontFamily: 'Poppins-Medium', fontSize: 10, color: 'gray', marginVertical: 5}}>{data.email}</Text>
           <View style={{flexDirection: 'row', marginTop: 5, alignItems: 'center'}}>
             <Location name='location-outline' size={10} color={'lightgray'}/>
             <Text style={{fontFamily: 'Nunito-Medium', fontSize: 12, marginLeft: 3, color: 'lightgray'}}>Bandung, West Java, Indonesia</Text>

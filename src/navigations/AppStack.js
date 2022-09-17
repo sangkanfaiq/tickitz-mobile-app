@@ -4,14 +4,14 @@ import TabNavigator from './TabNavigator';
 import MainScreen from '../screens/Main';
 import MovieDetails from '../screens/MovieDetails';
 import RegisterScreen from '../screens/Auth/RegisterScreen';
-import BookingScreen from '../screens/Booking';
-import ResetPasswordScreen from '../screens/Auth/ResetPassword';
 import PaymentScreen from '../screens/Payment';
 import LoginScreen from '../screens/Auth/LoginScreen';
-import SettingScreen from '../screens/Settings';
-import BookingSeatsScreen from '../screens/BookingSeats';
 import AboutApp from '../screens/AboutApp';
 import NotificationScreen from '../screens/Notification';
+import AccountScreen from '../screens/Account';
+import DateAndTime from '../screens/Booking/DateAndTime';
+import SelectSeats from '../screens/Booking/SelectSeats';
+import ChangePassScreen from '../screens/Auth/ChangePassword';
 
 const Stack = createNativeStackNavigator();
 const globalScreenOptions = {
@@ -34,12 +34,12 @@ const AppStack = () => {
       <Stack.Screen name="MainScreen" component={MainScreen} options={{headerShown: false}}/>
       <Stack.Screen name="Home" component={TabNavigator} options={{headerShown: false}} />
       <Stack.Screen name="MovieDetails" component={MovieDetails} options={{headerShown: false, title: 'Movie Details'}} />
-      <Stack.Screen name="Booking" component={BookingScreen} options={{headerShown: false}} />
-      <Stack.Screen name="BookingSeats" component={BookingSeatsScreen} options={{headerShown: false}} />
+      <Stack.Screen name="DateAndTime" component={DateAndTime} options={{headerShown: false}} />
+      <Stack.Screen name="SelectSeats" component={SelectSeats} options={{headerShown: false}} />
       <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}} />
       <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}} />
-      <Stack.Screen name="Settings" component={SettingScreen} options={{headerShown: false}} />
-      <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{headerShown: true, title: 'Reset Password'}} />
+      <Stack.Screen name="Account" component={AccountScreen} options={{headerShown: false}} />
+      <Stack.Screen name="ChangePassword" component={ChangePassScreen} options={{headerShown: false, title: 'Reset Password'}} />
       <Stack.Screen name="Payment" component={PaymentScreen} options={{headerShown: false}} />
       <Stack.Screen name="AboutApp" component={AboutApp} options={{headerShown: false}} />
       <Stack.Screen name="Notification" component={NotificationScreen} options={{headerShown: false}} />

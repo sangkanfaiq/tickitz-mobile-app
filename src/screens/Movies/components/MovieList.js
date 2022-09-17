@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {commonStyle} from '../../../utils/commonStyle';
@@ -16,7 +17,6 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {GetMovies} from '../../../redux/actions/Movies';
 import moment from 'moment';
-import Waiting from '../../../assets/waiting.svg';
 import SearchIcon from 'react-native-vector-icons/Feather';
 import Option from 'react-native-vector-icons/Ionicons';
 import {useState} from 'react';
@@ -25,11 +25,11 @@ const MovieList = () => {
   const navigation = useNavigation();
   const {data, loading} = useSelector(state => state.movies);
   const dispatch = useDispatch(),
-  [params,setParams] = useState({
-    title: '',
-    genre: ''
-  })
-  const [selectGenre, setSelectGenre] = useState('')
+    [params, setParams] = useState({
+      title: '',
+      genre: '',
+    });
+  const [selectGenre, setSelectGenre] = useState('');
   const onSelectGenre = genre => {
     if (setSelectGenre === genre) {
       setSelectGenre('');
@@ -37,8 +37,6 @@ const MovieList = () => {
       setSelectGenre(genre);
     }
   };
-  // console.log(params,'asdsadasdsad')
-  // const [search, setSearch] = useState('');
 
   useEffect(() => {
     dispatch(GetMovies(params));
@@ -51,20 +49,96 @@ const MovieList = () => {
         style={{flexDirection: 'row'}}
         horizontal={true}
         showsHorizontalScrollIndicator={false}>
-        <TouchableOpacity style={selectGenre === '' ? styles.categoriesCardSelected : styles.categoriesCard} onPress={()=>{setParams({title:'',genre:''}), onSelectGenre('')}}>
-          <Text style={selectGenre === '' ? styles.categoriesTextSelected : styles.categoriesText}>Upcoming</Text>
+        <TouchableOpacity
+          style={
+            selectGenre === ''
+              ? styles.categoriesCardSelected
+              : styles.categoriesCard
+          }
+          onPress={() => {
+            setParams({title: '', genre: ''}), onSelectGenre('');
+          }}>
+          <Text
+            style={
+              selectGenre === ''
+                ? styles.categoriesTextSelected
+                : styles.categoriesText
+            }>
+            Upcoming
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={selectGenre === 'Horror' ? styles.categoriesCardSelected : styles.categoriesCard} onPress={()=>{setParams({title:'',genre:'Horror'}), onSelectGenre('Horror')}}>
-          <Text style={selectGenre === 'Horror' ? styles.categoriesTextSelected : styles.categoriesText}>Horror</Text>
+        <TouchableOpacity
+          style={
+            selectGenre === 'Horror'
+              ? styles.categoriesCardSelected
+              : styles.categoriesCard
+          }
+          onPress={() => {
+            setParams({title: '', genre: 'Horror'}), onSelectGenre('Horror');
+          }}>
+          <Text
+            style={
+              selectGenre === 'Horror'
+                ? styles.categoriesTextSelected
+                : styles.categoriesText
+            }>
+            Horror
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={selectGenre === 'Action' ? styles.categoriesCardSelected : styles.categoriesCard} onPress={()=>{setParams({title:'',genre:'Action'}), onSelectGenre('Action')}}>
-          <Text style={selectGenre === 'Action' ? styles.categoriesTextSelected : styles.categoriesText}>Action</Text>
+        <TouchableOpacity
+          style={
+            selectGenre === 'Action'
+              ? styles.categoriesCardSelected
+              : styles.categoriesCard
+          }
+          onPress={() => {
+            setParams({title: '', genre: 'Action'}), onSelectGenre('Action');
+          }}>
+          <Text
+            style={
+              selectGenre === 'Action'
+                ? styles.categoriesTextSelected
+                : styles.categoriesText
+            }>
+            Action
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={selectGenre === 'Adventure' ? styles.categoriesCardSelected : styles.categoriesCard} onPress={()=>{setParams({title:'',genre:'Adventure'}), onSelectGenre('Adventure')}}>
-          <Text style={selectGenre === 'Adventure' ? styles.categoriesTextSelected : styles.categoriesText}>Adventure</Text>
+        <TouchableOpacity
+          style={
+            selectGenre === 'Adventure'
+              ? styles.categoriesCardSelected
+              : styles.categoriesCard
+          }
+          onPress={() => {
+            setParams({title: '', genre: 'Adventure'}),
+              onSelectGenre('Adventure');
+          }}>
+          <Text
+            style={
+              selectGenre === 'Adventure'
+                ? styles.categoriesTextSelected
+                : styles.categoriesText
+            }>
+            Adventure
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={selectGenre === 'Fantasy' ? styles.categoriesCardSelected : styles.categoriesCard} onPress={()=>{setParams({title:'',genre:'Fantasy'}), onSelectGenre('Fantasy')}}>
-          <Text style={selectGenre === 'Fantasy' ? styles.categoriesTextSelected : styles.categoriesText}>Fantasy</Text>
+        <TouchableOpacity
+          style={
+            selectGenre === 'Fantasy'
+              ? styles.categoriesCardSelected
+              : styles.categoriesCard
+          }
+          onPress={() => {
+            setParams({title: '', genre: 'Fantasy'}), onSelectGenre('Fantasy');
+          }}>
+          <Text
+            style={
+              selectGenre === 'Fantasy'
+                ? styles.categoriesTextSelected
+                : styles.categoriesText
+            }>
+            Fantasy
+          </Text>
         </TouchableOpacity>
       </ScrollView>
 
@@ -87,7 +161,7 @@ const MovieList = () => {
               placeholder="Search here"
               placeholderTextColor={'gray'}
               style={styles.input}
-              onChangeText={text => setParams({...params,title:text})}
+              onChangeText={text => setParams({...params, title: text})}
             />
             <TouchableOpacity>
               <Option name="options-sharp" size={18} color={'gray'} />
@@ -101,15 +175,14 @@ const MovieList = () => {
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            flex: 1,
-            height: 600,
+            height: 400,
           }}>
-          <Waiting width={150} height={150} />
+          <ActivityIndicator size="large" color={commonStyle.bgThird} />
           <Text
             style={{
-              fontFamily: 'Poppins-Medium',
+              fontFamily: 'Poppins-Regular',
               color: '#fff',
-              fontSize: 18,
+              fontSize: 14,
               marginTop: 20,
             }}>
             Please wait...

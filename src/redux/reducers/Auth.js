@@ -4,9 +4,11 @@ const initialState = {
     "userID": null,
     "firstName": null,
     "token": null,
+    "lastName": null,
+    "phoneNumber": null,
   },
   error: null,
-  isLogin: false, //default: false
+  isLogin: false,
 };
 
 const Auth = (state=initialState, action={})=> {

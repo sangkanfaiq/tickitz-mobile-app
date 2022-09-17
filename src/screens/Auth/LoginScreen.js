@@ -6,6 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
+  Image
 } from 'react-native';
 import React, {useState} from 'react';
 import Logo from '../../assets/images/loginRed.svg';
@@ -14,14 +16,13 @@ import {AuthLogin} from '../../redux/actions/Auth';
 import {useDispatch, useSelector} from 'react-redux';
 import { commonStyle } from '../../utils/commonStyle';
 import GoBack from 'react-native-vector-icons/Feather'
-// import { useEffect } from 'react';
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
-  const {error, loading, isLogin} = useSelector(state => state.auth);
+  const {error, loading} = useSelector(state => state.auth);
   const [formLogin, setFormLogin] = useState({
     email: '',
     password: '',
@@ -92,18 +93,16 @@ const LoginScreen = () => {
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}
                   style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <Text>
                     {showPassword ? (
-                      <Text style={styles.showPass}>Hide</Text>
+                      <Image source={require('../../assets/eyeOpen.png')} style={{width: 18, height: 18}}/>
                     ) : (
-                      <Text style={styles.showPass}>Show</Text>
+                      <Image source={require('../../assets/eyeClose.png')} style={{width: 18, height: 18}}/>
                     )}
-                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
               <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                {!loading ? <Text style={styles.buttonText}>Login</Text> : <Text style={styles.buttonText}>Loading...</Text>}
+                {!loading ? <Text style={styles.buttonText}>Login</Text> : <ActivityIndicator size="small" color={'#fff'} />}
               </TouchableOpacity>
             {error && (
               <Text
@@ -154,7 +153,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   input: {
-    width: '85%',
+    width: '89%',
     paddingVertical: 10,
     paddingHorizontal: 20,
     fontSize: 12,

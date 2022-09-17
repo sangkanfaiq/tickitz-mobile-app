@@ -15,7 +15,7 @@ const tabNavigatorOptions = {
   tabBarStyle: {
     backgroundColor: commonStyle.bgFourth,
     height: 70,
-    paddingVertical: 5,
+    paddingVertical: 15,
     borderTopWidth: 0
   },
   tabBarShowLabel: true,

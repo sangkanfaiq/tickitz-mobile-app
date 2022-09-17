@@ -8,7 +8,7 @@ import HalfStar from 'react-native-vector-icons/FontAwesome';
 import { dateShow } from '../../model/data';
 import moment from 'moment'
 
-const BookingScreen = ({route}) => {
+const DateAndTime = ({route}) => {
   const navigation = useNavigation();
   const {
     title, 
@@ -133,7 +133,7 @@ const BookingScreen = ({route}) => {
 
         <View>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('BookingSeats', {
+            <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('SelectSeats', {
               time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName
             })}>
               <Text style={styles.buttonText}>Next</Text>
@@ -319,4 +319,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default BookingScreen
+export default DateAndTime

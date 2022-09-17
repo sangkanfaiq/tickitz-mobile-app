@@ -10,7 +10,7 @@ const AboutApp = () => {
         <View style={{alignItems: 'center'}}>
             <Text style={styles.title}>Tickitz</Text>
             <Text style={styles.subtitle}>Cinema Booking App</Text>
-            <Text style={{fontFamily: 'Poppins-Regular', fontSize: 12, color: 'lightgray', letterSpacing: 0.5}}>Version 0.1.1</Text>
+            <Text style={{fontFamily: 'Poppins-Regular', fontSize: 12, color: 'lightgray', letterSpacing: 0.5}}>Version 1.2.4</Text>
         </View>
         <View style={styles.cardLogo}>
             <Ticket name='ticket' color={commonStyle.bgPrimary} size={25}/>
