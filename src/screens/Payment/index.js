@@ -55,15 +55,7 @@ const PaymentScreen = ({route}) => {
               </View>
               <Text style={styles.textDetails}>{durationHours} hour {durationMinute} minute</Text>
               <Text style={styles.textDetails}>{moment(releaseDate).format('YYYY')}</Text>
-              <View style={{flexDirection: 'row', marginTop: 5}}>
-                {genre.split(',').map((item, index)=> {
-                  return (
-                    <View key={index} style={{marginRight: 5}}>
-                      <Text style={styles.genre}>{item}</Text>
-                    </View>
-                  )
-                })}
-              </View>
+              <Text style={styles.textDetails}>{genre}</Text>
             </View>
         </View>
         {/* Booking Info */}
@@ -180,16 +172,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito-Medium',
     color: 'gray',
     fontSize: 12,
-    backgroundColor: commonStyle.bgSecondary,
-    paddingVertical: 3,
-    paddingHorizontal: 10,
-    borderRadius: 30,
   },
   textDetails: {
     fontFamily: 'Poppins-Regular',
-    fontSize: 12,
+    fontSize: 11,
     color: 'grey',
-    marginVertical: 3,
+    marginVertical: 5,
   },
   details: {
     justifyContent: 'center',

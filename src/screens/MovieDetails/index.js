@@ -9,6 +9,7 @@ import { commonStyle } from '../../utils/commonStyle'
 import BackIcon from 'react-native-vector-icons/Feather'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
+import Modal from 'react-native-modal'
 
 
 const MovieDetails = ({route}) => {
@@ -36,7 +37,7 @@ const MovieDetails = ({route}) => {
   } = route.params
   const [ wishlist, setWishlist ] = useState(false)
   const navigation = useNavigation();
-  // const [ modal, setModal ] = useState(false)
+  const [ modal, setModal ] = useState(false)
 
   return (
     <ScrollView style={{backgroundColor: commonStyle.bgFourth}}>
@@ -56,6 +57,7 @@ const MovieDetails = ({route}) => {
               {wishlist ? <Heart name='ios-heart-sharp' size={30} color={'#20c781'}/> : <Heart name='ios-heart-outline' size={30} color={'gray'}/> }
             </TouchableOpacity>
           </View>
+
           <View style={{marginLeft: 30, marginBottom: 5,flexDirection: 'row', alignItems: 'center'}}>
             <Star name='star' size={18} color={'darkorange'} style={{marginRight: 8}}/>
             <Star name='star' size={18} color={'darkorange'} style={{marginRight: 8}}/>
@@ -64,6 +66,7 @@ const MovieDetails = ({route}) => {
             <HalfStar name='star-half-empty' size={18} color={'darkorange'} style={{marginRight: 10}}/>
             <Text style={{color: 'darkorange', fontSize: 14}}>{`( ${rating} )`}</Text>
           </View>
+
           <View style={styles.details}>
               <Text style={styles.text}>{durationHours} hour {durationMinute} minute</Text>
           </View>
@@ -76,14 +79,17 @@ const MovieDetails = ({route}) => {
               )
             })}
           </View>
+          
         </View>
       </View>
 
       {/* Information */}
       <View style={{marginHorizontal: 30, marginTop: 30}}>
+
         <View style={styles.informationBox}>
           <Text style={styles.informationText}>Information</Text>
         </View>
+
         <View style={{marginVertical: 20}}>
           <View style={{flexDirection: 'row', paddingVertical: 3}}>
             <Text style={styles.detailsText}>Directed by</Text>
@@ -128,17 +134,74 @@ const MovieDetails = ({route}) => {
             locationName,
             cinemaAddress,
             price
-          }) :  ToastAndroid.showWithGravity('Login required', ToastAndroid.SHORT, ToastAndroid.CENTER)}}>
+          }) :  setModal(true)}}>
+            <Modal 
+              isVisible={modal} 
+              onBackButtonPress={()=> setModal(false)} 
+              animationInTiming={800}
+              animationOutTiming={1000}
+            >
+              <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30, borderRadius: 20}}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <Image source={require('../../assets/lock.png')} style={styles.modalImage}/>
+                </View>
+                <View style={{marginTop: 70}}>
+                  <Text style={styles.modalTitle}>Oops!</Text>
+                  <Text style={styles.modalTxt}>Looks like you haven't login yet</Text>
+                  <Text style={styles.modalTxt}>To continue the next step you have to login first</Text>
+                  </View>
+                  <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 40}}>
+                  <TouchableOpacity style={styles.modalLoginBtn} onPress={()=> navigation.navigate('Login')}>
+                    <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>Login</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
             <Text style={styles.buyTicketText}>Book Seat</Text>
           </TouchableOpacity>
-        </View> : "" }
-                
+        </View> : "" } 
       </View>
     </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
+  modalImage: {
+    width: 140,
+    height: 140,
+    borderRadius: 75,
+    position: 'absolute',
+    top: -100
+  },
+  modalTitle: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Medium',
+    fontSize: 20,
+    color: '#fff',
+    marginBottom: 5
+  },
+  modalTxt: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 13,
+    color: '#fff',
+  },
+  modalLoginBtn: {
+    backgroundColor: commonStyle.bgThird, 
+    borderRadius: 30,
+    width: '55%', 
+    paddingVertical: 15,
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  modalBackBtn: {
+    backgroundColor: commonStyle.bgSecondary, 
+    borderRadius: 30,
+    width: '50%', 
+    paddingVertical: 10,
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
   backIconBox: {
     position: 'absolute', 
     zIndex: 1, 
