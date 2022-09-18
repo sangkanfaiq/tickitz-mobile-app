@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable, TouchableOpacity, ToastAndroid } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
 import React from 'react'
 import Star from 'react-native-vector-icons/FontAwesome'
 import HalfStar from 'react-native-vector-icons/FontAwesome'
@@ -52,7 +52,7 @@ const MovieDetails = ({route}) => {
         <View style={{width: '100%'}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 30, marginTop: 30}}>
             <Text style={styles.title}>{title} {`( ${moment(releaseDate).format('YYYY')} )`}</Text>
-            <TouchableOpacity onPress={()=> setWishlist(!wishlist)}>
+            <TouchableOpacity onPress={()=> setWishlist(!wishlist, ToastAndroid.showWithGravity('Added to your wishlist', ToastAndroid.SHORT, ToastAndroid.CENTER))}>
               {wishlist ? <Heart name='ios-heart-sharp' size={30} color={'#20c781'}/> : <Heart name='ios-heart-outline' size={30} color={'gray'}/> }
             </TouchableOpacity>
           </View>

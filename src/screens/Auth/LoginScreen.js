@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
-  Image
+  Image,
+  ToastAndroid
 } from 'react-native';
 import React, {useState} from 'react';
 import Logo from '../../assets/images/loginRed.svg';
@@ -22,15 +23,15 @@ const LoginScreen = () => {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
-  const {error, loading} = useSelector(state => state.auth);
+  const {error, loading, isLogin} = useSelector(state => state.auth);
   const [formLogin, setFormLogin] = useState({
     email: '',
     password: '',
   });
 
   const handleLogin = () => {
-    dispatch(AuthLogin(formLogin));
-    navigation.navigate('Home')
+      dispatch(AuthLogin(formLogin));
+      navigation.navigate('Home')
   }
   
 

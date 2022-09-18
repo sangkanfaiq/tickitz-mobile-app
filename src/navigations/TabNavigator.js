@@ -15,7 +15,7 @@ const tabNavigatorOptions = {
   tabBarStyle: {
     backgroundColor: commonStyle.bgFourth,
     height: 70,
-    paddingVertical: 15,
+    paddingVertical: 5,
     borderTopWidth: 0
   },
   tabBarShowLabel: true,
@@ -30,7 +30,7 @@ const TabNavigator = () => {
           tabBarLabelStyle: {
             fontSize: 10,
             fontFamily: 'Poppins-Regular',
-            paddingBottom: 5,
+            paddingBottom: 10,
           },
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -46,7 +46,7 @@ const TabNavigator = () => {
           tabBarLabelStyle: {
             fontSize: 10,
             fontFamily: 'Poppins-Regular',
-            paddingBottom: 5,
+            paddingBottom: 10,
           },
           headerStyle: {
             backgroundColor: commonStyle.bgPrimary,
@@ -72,7 +72,7 @@ const TabNavigator = () => {
           tabBarLabelStyle: {
             fontSize: 10,
             fontFamily: 'Poppins-Regular',
-            paddingBottom: 5,
+            paddingBottom: 10,
           },
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -88,7 +88,7 @@ const TabNavigator = () => {
           tabBarLabelStyle: {
             fontSize: 10,
             fontFamily: 'Poppins-Regular',
-            paddingBottom: 5, 
+            paddingBottom: 10, 
           },
           headerShown: false,
           tabBarIcon: ({focused}) => (
