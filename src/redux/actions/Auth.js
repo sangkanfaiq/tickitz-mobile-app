@@ -33,10 +33,11 @@ export const AuthLogin = (formData) => {
       }
     })
       .then((res) => {
-        ToastAndroid.showWithGravity('Login Success', ToastAndroid.SHORT, ToastAndroid.CENTER)
+        ToastAndroid.showWithGravity('Login Successfully', ToastAndroid.SHORT, ToastAndroid.CENTER)
         dispatch(LoginSuccess(res.data.data));
       })
       .catch((err) => {
+        ToastAndroid.showWithGravity('Invalid email/password', ToastAndroid.SHORT, ToastAndroid.CENTER)
         dispatch(LoginError(err.response.data));
       });
   };

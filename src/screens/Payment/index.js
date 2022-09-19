@@ -14,18 +14,20 @@ import {useNavigation} from '@react-navigation/native';
 import Star from 'react-native-vector-icons/FontAwesome';
 import HalfStar from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment'
+import Modal from 'react-native-modal'
 
 const PaymentScreen = ({route}) => {
   const [selectPayment, setSelectPayment] = useState('');
   const navigation = useNavigation()
   const { time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName } = route.params
-  const onSelect = item => {
-    if (selectPayment === item) {
-      setSelectPayment('');
-    } else {
-      setSelectPayment(item);
-    }
-  };
+  // const onSelect = item => {
+  //   if (selectPayment === item) {
+  //     setSelectPayment('');
+  //   } else {
+  //     setSelectPayment(item);
+  //   }
+  // };
+  const [ modal, setModal ] = useState(false)
 
   return (
     <ScrollView style={{backgroundColor: commonStyle.bgPrimary}}>
@@ -108,16 +110,90 @@ const PaymentScreen = ({route}) => {
       {/* Button payment */}
       <View style={{marginTop: 100}}>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={()=> setModal(true)}>
               <Text style={styles.buttonText}>Pay - 90000</Text>
             </TouchableOpacity>
           </View>
         </View>
+        {/* Modal */}
+        <Modal 
+              isVisible={modal}
+              transparent 
+              onBackButtonPress={()=> setModal(false)} 
+              // animationInTiming={1000}
+              // animationOutTiming={1000}
+            >
+              <View style={{}}>
+                <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30, borderRadius: 20}}>
+                  <View style={styles.modalBox}>
+                    <Image source={require('../../assets/check.png')} style={styles.modalImage}/>
+                  </View>
+                  <View style={{marginTop: 70}}>
+                    <View style={{alignItems: 'center'}}>
+                      <Text style={styles.modalTitle}>Payment Successfully</Text>
+                      {/* <Text style={styles.modalSubtitle}>Looks like you haven't login yet</Text> */}
+                      {/* <Text style={styles.modalTxt}>thank you for your payment</Text> */}
+                      {/* <Text style={styles.modalTxt}>Click button below</Text> */}
+                    </View>
+                    </View>
+                    <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 70}}>
+                    <TouchableOpacity style={styles.modalLoginBtn} onPress={()=> navigation.navigate('Home')}>
+                      <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>OK</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </Modal>
     </ScrollView>
+    
   );
 };
 
 const styles = StyleSheet.create({
+  modalBox: {
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    width: 140, 
+    height: 140, 
+    borderRadius: 75, 
+    position: 'absolute', 
+    top: -70, 
+    borderWidth: 6, 
+    borderColor: commonStyle.bgFourth, 
+    alignSelf: 'center'
+  },
+  modalImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 75,
+  },
+  modalTitle: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Medium',
+    fontSize: 22,
+    color: '#fff',
+  },
+  modalSubtitle: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 14,
+    color: '#fff',
+    marginBottom: 30
+  },
+  modalTxt: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 13,
+    color: '#f0f0f0',
+  },
+  modalLoginBtn: {
+    backgroundColor: commonStyle.bgThird, 
+    borderRadius: 30,
+    width: '20%', 
+    paddingVertical: 10,
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
   totalCost: {
     flexDirection: 'row', 
     marginTop: 50, justifyContent: 'space-between', 

@@ -148,7 +148,7 @@ const MovieDetails = ({route}) => {
               animationOutTiming={1000}
             >
               <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30, borderRadius: 20}}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                <View style={styles.modalBox}>
                   <Image source={require('../../assets/lock.png')} style={styles.modalImage}/>
                 </View>
                 <View style={{marginTop: 70}}>
@@ -175,14 +175,22 @@ const MovieDetails = ({route}) => {
 }
 
 const styles = StyleSheet.create({
+  modalBox: {
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    width: 140, 
+    height: 140, 
+    borderRadius: 75, 
+    position: 'absolute', 
+    top: -70, 
+    borderWidth: 6, 
+    borderColor: commonStyle.bgFourth, 
+    alignSelf: 'center'
+  },
   modalImage: {
-    width: 140,
-    height: 140,
+    width: '100%',
+    height: '100%',
     borderRadius: 75,
-    position: 'absolute',
-    top: -100,
-    borderWidth: 6,
-    borderColor: commonStyle.bgFourth
   },
   modalTitle: {
     textAlign: 'center',

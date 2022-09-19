@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 const BannerSlider = ({item}) => {
   const navigation = useNavigation();
   const {data} = useSelector((state)=> state.auth)
-  console.log(data.firstName, data.lastName, 'now showing')
   
   return (
     <TouchableOpacity onPress={()=> navigation.navigate('MovieDetails', {

@@ -17,6 +17,7 @@ import {AuthLogin} from '../../redux/actions/Auth';
 import {useDispatch, useSelector} from 'react-redux';
 import { commonStyle } from '../../utils/commonStyle';
 import GoBack from 'react-native-vector-icons/Feather'
+import { useEffect } from 'react';
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,9 +30,13 @@ const LoginScreen = () => {
     password: '',
   });
 
+  useEffect(()=> {
+    if(isLogin === true) {
+      navigation.navigate('Home')
+    }
+  })
   const handleLogin = () => {
       dispatch(AuthLogin(formLogin));
-      navigation.navigate('Home')
   }
   
 
@@ -105,7 +110,7 @@ const LoginScreen = () => {
               <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 {!loading ? <Text style={styles.buttonText}>Login</Text> : <ActivityIndicator size="small" color={'#fff'} />}
               </TouchableOpacity>
-            {error && (
+            {/* {error && (
               <Text
                 style={{
                   color: 'red',
@@ -115,7 +120,7 @@ const LoginScreen = () => {
                 }}>
                 {error.message}
               </Text>
-            )}
+            )} */}
           </View>
         </View>
 
