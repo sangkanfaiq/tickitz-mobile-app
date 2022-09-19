@@ -56,7 +56,7 @@ const HomeContent = () => {
   }, []);
 
   const renderBanner = ({item, index}) => {
-    return <BannerSlider data={item} key={index} />;
+    return <BannerSlider item={item} key={index} />;
   };
 
   return (

@@ -3,41 +3,47 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Star from 'react-native-vector-icons/FontAwesome'
 import HalfStar from 'react-native-vector-icons/FontAwesome'
+import { useSelector } from 'react-redux';
 
-const BannerSlider = ({data}) => {
+const BannerSlider = ({item}) => {
   const navigation = useNavigation();
+  const {data} = useSelector((state)=> state.auth)
+  console.log(data.firstName, data.lastName, 'now showing')
+  
   return (
     <TouchableOpacity onPress={()=> navigation.navigate('MovieDetails', {
-      scheduleID: data.scheduleID,
-      title: data.title,
-      genre: data.genre,
-      durationHours: data.durationHours,
-      durationMinute: data.durationMinute,
-      rating: data.rating,
-      director: data.director,
-      writer: data.writer,
-      releaseDate: data.releaseDate,
-      cast: data.cast,
-      time: data.time,
-      locationName: data.locationName,
-      cinemaName: data.cinemaName,
-      cinemaShortname: data.cinemaShortname,
-      description: data.description,
-      cover: data.cover,
-      cinemaCover: data.cinemaCover,
-      cinemaAddress: data.cinemaAddress,
-      price: data.price
+      scheduleID: item.scheduleID,
+      title: item.title,
+      genre: item.genre,
+      durationHours: item.durationHours,
+      durationMinute: item.durationMinute,
+      rating: item.rating,
+      director: item.director,
+      writer: item.writer,
+      releaseDate: item.releaseDate,
+      cast: item.cast,
+      time: item.time,
+      locationName: item.locationName,
+      cinemaName: item.cinemaName,
+      cinemaShortname: item.cinemaShortname,
+      description: item.description,
+      cover: item.cover,
+      cinemaCover: item.cinemaCover,
+      cinemaAddress: item.cinemaAddress,
+      price: item.price,
+      firstName: data.firstName,
+      lastName: data.lastName
   })}>
-      <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${data.cover}`}} style={styles.imageSize}/>
+      <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${item.cover}`}} style={styles.imageSize}/>
       <View style={styles.container}>
-        <Text style={styles.title}>{data.title}</Text>
+        <Text style={styles.title}>{item.title}</Text>
         <View style={{flexDirection: 'row', marginTop: 5}}>
           <Star name='star' size={16} color={'darkorange'} style={{marginRight: 10}}/>
           <Star name='star' size={16} color={'darkorange'} style={{marginRight: 10}}/>
           <Star name='star' size={16} color={'darkorange'} style={{marginRight: 10}}/>
           <Star name='star' size={16} color={'darkorange'} style={{marginRight: 10}}/>
           <HalfStar name='star-half-empty' size={16} style={{marginRight: 10}} color={'darkorange'}/>
-          <Text style={styles.rating}>{data.rating}</Text>
+          <Text style={styles.rating}>{item.rating}</Text>
         </View>
       </View>
     </TouchableOpacity>

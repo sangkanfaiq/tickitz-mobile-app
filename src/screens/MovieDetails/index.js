@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 import Star from 'react-native-vector-icons/FontAwesome'
 import HalfStar from 'react-native-vector-icons/FontAwesome'
 import { useState } from 'react'
@@ -33,11 +33,15 @@ const MovieDetails = ({route}) => {
     cinemaCover,
     locationName,
     cinemaAddress,
-    price
+    price,
+    firstName,
+    lastName,
   } = route.params
   const [ wishlist, setWishlist ] = useState(false)
   const navigation = useNavigation();
   const [ modal, setModal ] = useState(false)
+
+  console.log(firstName, lastName, 'movie details')
 
   return (
     <ScrollView style={{backgroundColor: commonStyle.bgFourth}}>
@@ -73,9 +77,9 @@ const MovieDetails = ({route}) => {
           <View style={{flexDirection: 'row', marginHorizontal: 30, marginVertical: 10}}>
             {genre.split(',').map((item, index)=> {
               return (
-                <View style={{marginRight: 7}} key={index}>
+                <TouchableOpacity style={{marginRight: 7}} key={index} onPress={()=>navigation.navigate('Home',{screen: 'Movies'})}>
                     <Text style={styles.genre}>{item}</Text>
-                </View>
+                </TouchableOpacity>
               )
             })}
           </View>
@@ -133,12 +137,14 @@ const MovieDetails = ({route}) => {
             cinemaCover,
             locationName,
             cinemaAddress,
-            price
+            price,
+            firstName,
+            lastName,
           }) :  setModal(true)}}>
             <Modal 
               isVisible={modal} 
               onBackButtonPress={()=> setModal(false)} 
-              animationInTiming={800}
+              animationInTiming={1000}
               animationOutTiming={1000}
             >
               <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30, borderRadius: 20}}>
@@ -146,9 +152,12 @@ const MovieDetails = ({route}) => {
                   <Image source={require('../../assets/lock.png')} style={styles.modalImage}/>
                 </View>
                 <View style={{marginTop: 70}}>
-                  <Text style={styles.modalTitle}>Oops!</Text>
-                  <Text style={styles.modalTxt}>Looks like you haven't login yet</Text>
-                  <Text style={styles.modalTxt}>To continue the next step you have to login first</Text>
+                  <View style={{alignItems: 'center'}}>
+                    <Text style={styles.modalTitle}>Oops!</Text>
+                    <Text style={styles.modalSubtitle}>Looks like you haven't login yet</Text>
+                    <Text style={styles.modalTxt}>To continue the next step, you have to login first.</Text>
+                    <Text style={styles.modalTxt}>Click button below</Text>
+                  </View>
                   </View>
                   <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 40}}>
                   <TouchableOpacity style={styles.modalLoginBtn} onPress={()=> navigation.navigate('Login')}>
@@ -171,20 +180,28 @@ const styles = StyleSheet.create({
     height: 140,
     borderRadius: 75,
     position: 'absolute',
-    top: -100
+    top: -100,
+    borderWidth: 6,
+    borderColor: commonStyle.bgFourth
   },
   modalTitle: {
     textAlign: 'center',
     fontFamily: 'Poppins-Medium',
-    fontSize: 20,
+    fontSize: 22,
     color: '#fff',
-    marginBottom: 5
+  },
+  modalSubtitle: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 14,
+    color: '#fff',
+    marginBottom: 30
   },
   modalTxt: {
     textAlign: 'center',
     fontFamily: 'Poppins-Regular',
     fontSize: 13,
-    color: '#fff',
+    color: '#f0f0f0',
   },
   modalLoginBtn: {
     backgroundColor: commonStyle.bgThird, 

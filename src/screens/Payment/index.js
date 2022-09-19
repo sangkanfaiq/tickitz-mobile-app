@@ -18,7 +18,7 @@ import moment from 'moment'
 const PaymentScreen = ({route}) => {
   const [selectPayment, setSelectPayment] = useState('');
   const navigation = useNavigation()
-  const { time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName } = route.params
+  const { time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName } = route.params
   const onSelect = item => {
     if (selectPayment === item) {
       setSelectPayment('');
@@ -61,7 +61,7 @@ const PaymentScreen = ({route}) => {
         {/* Booking Info */}
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, paddingHorizontal: 5}}>
           <Text style={{fontFamily: 'Poppins-Medium', color: 'gray', fontSize: 12}}>Name</Text>
-          <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 12}}>Marvin Steward</Text>
+          <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 12, textTransform: 'capitalize'}}>{firstName} {lastName}</Text>
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
           <Text style={styles.bookingInfoTextLeft}>Date</Text>

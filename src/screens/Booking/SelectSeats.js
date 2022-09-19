@@ -14,7 +14,10 @@ import {useState} from 'react';
 
 const SelectSeats = ({route}) => {
   const navigation = useNavigation();
-  const {time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName} = route.params;
+  const {time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName} = route.params;
+
+  console.log(firstName, lastName, 'select seats')
+
   const [selectTime, setSelectTime] = useState('');
   const onSelectTime = item => {
     if (selectTime === item) {
@@ -179,7 +182,7 @@ const SelectSeats = ({route}) => {
       <View style={{marginTop: 80}}>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Payment', {
-              time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName
+              time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName
             })}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>

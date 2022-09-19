@@ -24,9 +24,12 @@ const DateAndTime = ({route}) => {
     locationName,
     time,
     cinemaAddress,
-    price
+    price,
+    firstName,
+    lastName,
   } = route.params
   
+  console.log(firstName, 'date time')
   const [ selectDate, setSelectDate ] = useState('')
   const [ selectTime, setSelectTime ] = useState('')
 
@@ -134,7 +137,7 @@ const DateAndTime = ({route}) => {
         <View>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('SelectSeats', {
-              time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName
+              time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName
             })}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
