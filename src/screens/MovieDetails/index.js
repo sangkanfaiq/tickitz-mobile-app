@@ -144,8 +144,8 @@ const MovieDetails = ({route}) => {
             <Modal 
               isVisible={modal} 
               onBackButtonPress={()=> setModal(false)} 
-              animationInTiming={1000}
-              animationOutTiming={1000}
+              animationInTiming={800}
+              animationOutTiming={800}
             >
               <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30, borderRadius: 20}}>
                 <View style={styles.modalBox}>
