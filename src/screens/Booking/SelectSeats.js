@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'react-native-vector-icons/Feather';
 import {commonStyle} from '../../utils/commonStyle';
 import {useState} from 'react';
-import { seatsA, seatsB, seatsC, seatsD, seatsE, seatsF } from '../../model/data';
+import { seatsALeft, seatsARight, seatsBLeft, seatsBRight, seatsCLeft, seatsCRight, seatsDLeft, seatsDRight, seatsELeft, seatsERight, seatsFLeft, seatsFRight } from '../../model/data';
 
 const SelectSeats = ({route}) => {
   const navigation = useNavigation();
@@ -91,7 +91,15 @@ const SelectSeats = ({route}) => {
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            {seatsA.map((item, index)=> {
+            {seatsALeft.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
+            <View style={{width: '4%', backgroundColor: commonStyle.bgPrimary}}></View>
+             {seatsARight.map((item, index)=> {
               return (
                   <View key={index}>
                       <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
@@ -99,8 +107,16 @@ const SelectSeats = ({route}) => {
               )
             })}
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
-            {seatsB.map((item, index)=> {
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 12}}>
+            {seatsBLeft.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
+             <View style={{width: '4%', backgroundColor: commonStyle.bgPrimary}}></View>
+             {seatsBRight.map((item, index)=> {
               return (
                   <View key={index}>
                       <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
@@ -108,8 +124,16 @@ const SelectSeats = ({route}) => {
               )
             })}
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
-            {seatsC.map((item, index)=> {
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 12}}>
+            {seatsCLeft.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
+             <View style={{width: '4%', backgroundColor: commonStyle.bgPrimary}}></View>
+             {seatsCRight.map((item, index)=> {
               return (
                   <View key={index}>
                       <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
@@ -117,8 +141,16 @@ const SelectSeats = ({route}) => {
               )
             })}
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
-            {seatsD.map((item, index)=> {
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 12}}>
+            {seatsDLeft.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
+             <View style={{width: '4%', backgroundColor: commonStyle.bgPrimary}}></View>
+             {seatsDRight.map((item, index)=> {
               return (
                   <View key={index}>
                       <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
@@ -126,8 +158,16 @@ const SelectSeats = ({route}) => {
               )
             })}
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
-            {seatsE.map((item, index)=> {
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 12}}>
+            {seatsELeft.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
+             <View style={{width: '4%', backgroundColor: commonStyle.bgPrimary}}></View>
+             {seatsERight.map((item, index)=> {
               return (
                   <View key={index}>
                       <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
@@ -135,8 +175,16 @@ const SelectSeats = ({route}) => {
               )
             })}
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
-            {seatsF.map((item, index)=> {
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 12}}>
+            {seatsFLeft.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
+             <View style={{width: '4%', backgroundColor: commonStyle.bgPrimary}}></View>
+             {seatsFRight.map((item, index)=> {
               return (
                   <View key={index}>
                       <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
@@ -145,14 +193,18 @@ const SelectSeats = ({route}) => {
             })}
         </View>
         <View style={{width: '100%', height: 1, backgroundColor: 'rgba(255,255,255,0.3)', marginTop: 50}}></View>
-        <View style={{flexDirection: 'row', marginTop: 30, justifyContent: 'space-between', alignItems: 'center', paddingBottom: 50}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 30}}>
+            <Text style={{color: 'lightgray', fontFamily: 'Poppins-Medium', fontSize: 14}}>Selected Seats</Text>
+            <Text style={{color:'#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>{selectSeats}</Text>
+        </View>
+        <View style={{flexDirection: 'row', marginTop: 10, justifyContent: 'space-between', alignItems: 'center', paddingBottom: 50}}>
             <View style={{flexDirection: 'row'}}>
-                <Text style={{color:'#fff', fontFamily: 'Poppins-Medium', fontSize: 16}}>Rp {price}</Text>
-                <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 16, marginHorizontal: 10}}>x</Text>
-                <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 16}}>{seatSelected}</Text>
+                <Text style={{color:'lightgray', fontFamily: 'Poppins-Medium', fontSize: 14}}>Rp {price}</Text>
+                <Text style={{color: 'lightgray', fontFamily: 'Poppins-Medium', fontSize: 14, marginHorizontal: 10}}>x</Text>
+                <Text style={{color: 'lightgray', fontFamily: 'Poppins-Medium', fontSize: 14}}>{seatSelected}</Text>
             </View>
             <View>
-                <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 18}}>Rp {subTotal}</Text>
+                <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 16}}>Rp {subTotal}</Text>
             </View>
         </View>
       </View>
@@ -176,14 +228,15 @@ const styles = StyleSheet.create({
     height: 35, 
     backgroundColor: commonStyle.bgFourth,
     borderRadius: 8,
-    marginHorizontal: 8,
+    marginHorizontal: 6,
+    color: '#fff'
   },
   seatsSelected: {
     width: 35, 
     height: 35, 
     backgroundColor: commonStyle.bgThird,
     borderRadius: 8,
-    marginHorizontal: 8,
+    marginHorizontal: 6,
     fontSize: 12,
     justifyContent: 'center',
     alignItems: 'center',
