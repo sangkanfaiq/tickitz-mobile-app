@@ -48,9 +48,6 @@ const Navbar = () => {
           <Notif name="bell-outline" size={25} color={'lightgray'} />
         </TouchableOpacity>
       ) : (
-        // <TouchableOpacity style={{position: 'absolute', right: 20}} onPress={() => navigation.navigate('Login')}>
-        //   <Notif name="bell-outline" size={25} color={'lightgray'} />
-        // </TouchableOpacity>
         ""
       )}
     </View>

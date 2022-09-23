@@ -97,3 +97,10 @@ export const social = [
     image: require('../assets/social/linkedin.png')
   },
 ]
+
+export const seatsA = ['A1','A2','A3','A4','A5','A6']
+export const seatsB = ['B1','B2','B3','B4','B5','B6','B7','B8']
+export const seatsC = ['C1','C2','C3','C4','C5','C6','C7','C8']
+export const seatsD = ['D1','D2','D3','D4','D5','D6','D7','D8']
+export const seatsE = ['E1','E2','E3','E4','E5','E6','E7','E8']
+export const seatsF = ['F1','F2','F3','F4','F5','F6']

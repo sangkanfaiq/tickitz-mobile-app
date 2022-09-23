@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image, ScrollView, Pressable } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image, ScrollView, Pressable, Button } from 'react-native'
 import React, { useState } from 'react'
 import BackIcon from 'react-native-vector-icons/Feather'
 import { commonStyle } from '../../utils/commonStyle'
@@ -7,6 +7,7 @@ import Star from 'react-native-vector-icons/FontAwesome';
 import HalfStar from 'react-native-vector-icons/FontAwesome';
 import { dateShow } from '../../model/data';
 import moment from 'moment'
+import DatePicker from 'react-native-date-picker'
 
 const DateAndTime = ({route}) => {
   const navigation = useNavigation();
@@ -31,7 +32,10 @@ const DateAndTime = ({route}) => {
   
   console.log(firstName, 'date time')
   const [ selectDate, setSelectDate ] = useState('')
-  const [ selectTime, setSelectTime ] = useState('')
+  const [ selectTime, setSelectTime ] = useState({})
+  console.log(selectTime, '<- dari date & time')
+  // const [date, setDate] = useState(new Date())
+  // const [open, setOpen] = useState(false)
 
   const onSelectDate = item => {
     if (selectDate === item) {
@@ -97,6 +101,19 @@ const DateAndTime = ({route}) => {
                 </Pressable>
               )
             })}
+           {/* <Button title="Open" onPress={() => setOpen(true)} />
+            <DatePicker
+              modal
+              open={open}
+              date={date}
+              onConfirm={(date) => {
+                setOpen(false)
+                setDate(date)
+              }}
+              onCancel={() => {
+                setOpen(false)
+              }}
+            /> */}
           </ScrollView>
         </View>
 
@@ -137,7 +154,7 @@ const DateAndTime = ({route}) => {
         <View>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('SelectSeats', {
-              time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName
+              selectTime, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName, time
             })}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>

@@ -17,16 +17,12 @@ import moment from 'moment'
 import Modal from 'react-native-modal'
 
 const PaymentScreen = ({route}) => {
-  const [selectPayment, setSelectPayment] = useState('');
   const navigation = useNavigation()
-  const { time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName } = route.params
-  // const onSelect = item => {
-  //   if (selectPayment === item) {
-  //     setSelectPayment('');
-  //   } else {
-  //     setSelectPayment(item);
-  //   }
-  // };
+  const { selectTime, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName, selectSeats, subTotal } = route.params
+ 
+  console.log(selectSeats, '<- dari payment')
+  console.log(price, '<- dari payment')
+  console.log(subTotal, '<- dari payment')
   const [ modal, setModal ] = useState(false)
 
   return (
@@ -71,11 +67,11 @@ const PaymentScreen = ({route}) => {
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
           <Text style={styles.bookingInfoTextLeft}>Time</Text>
-          <Text style={styles.bookingInfoTextRight}>16:00</Text>
+          <Text style={styles.bookingInfoTextRight}>{selectTime}</Text>
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
           <Text style={styles.bookingInfoTextLeft}>Selected Seats</Text>
-          <Text style={styles.bookingInfoTextRight}>D6, D7</Text>
+          <Text style={styles.bookingInfoTextRightSeats}>{selectSeats}</Text>
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
           <Text style={styles.bookingInfoTextLeft}>Ticket Fee</Text>
@@ -103,7 +99,7 @@ const PaymentScreen = ({route}) => {
         {/* Total */}
         <View style={styles.totalCost}>
           <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>Total Cost</Text>
-          <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>90000</Text>
+          <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>{subTotal}</Text>
         </View>
       </View>
 
@@ -111,7 +107,7 @@ const PaymentScreen = ({route}) => {
       <View style={{marginTop: 100}}>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.button} onPress={()=> setModal(true)}>
-              <Text style={styles.buttonText}>Pay - 90000</Text>
+              <Text style={styles.buttonText}>Pay - {subTotal}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -119,25 +115,22 @@ const PaymentScreen = ({route}) => {
         <Modal 
               isVisible={modal}
               transparent 
-              onBackButtonPress={()=> setModal(false)} 
-              // animationInTiming={1000}
-              // animationOutTiming={1000}
+              onBackButtonPress={()=> setModal(false)}
+              style={{margin: 0, justifyContent: 'flex-end'}}
             >
               <View style={{}}>
-                <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30, borderRadius: 20}}>
+                <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30}}>
                   <View style={styles.modalBox}>
-                    <Image source={require('../../assets/check.png')} style={styles.modalImage}/>
+                    <Image source={require('../../assets/checked.png')} style={styles.modalImage}/>
                   </View>
                   <View style={{marginTop: 70}}>
                     <View style={{alignItems: 'center'}}>
-                      <Text style={styles.modalTitle}>Payment Successfully</Text>
-                      {/* <Text style={styles.modalSubtitle}>Looks like you haven't login yet</Text> */}
-                      {/* <Text style={styles.modalTxt}>thank you for your payment</Text> */}
-                      {/* <Text style={styles.modalTxt}>Click button below</Text> */}
+                      <Text style={styles.modalTitle}>Congratulations</Text>
+                      <Text style={styles.modalSubtitle}>Your payment was successful</Text>
                     </View>
-                    </View>
-                    <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 70}}>
-                    <TouchableOpacity style={styles.modalLoginBtn} onPress={()=> navigation.navigate('Home')}>
+                  </View>
+                  <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 60}}>
+                    <TouchableOpacity style={styles.modalOKBtn} onPress={()=> navigation.navigate('Home')}>
                       <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>OK</Text>
                     </TouchableOpacity>
                   </View>
@@ -157,39 +150,31 @@ const styles = StyleSheet.create({
     height: 140, 
     borderRadius: 75, 
     position: 'absolute', 
-    top: -70, 
-    borderWidth: 6, 
-    borderColor: commonStyle.bgFourth, 
-    alignSelf: 'center'
+    top: -60, 
+    alignSelf: 'center',
+    backgroundColor: commonStyle.bgFourth
   },
   modalImage: {
     width: '100%',
     height: '100%',
-    borderRadius: 75,
   },
   modalTitle: {
     textAlign: 'center',
     fontFamily: 'Poppins-Medium',
-    fontSize: 22,
+    fontSize: 24,
     color: '#fff',
   },
   modalSubtitle: {
     textAlign: 'center',
     fontFamily: 'Poppins-Regular',
-    fontSize: 14,
+    fontSize: 15,
     color: '#fff',
-    marginBottom: 30
+    marginTop: 3
   },
-  modalTxt: {
-    textAlign: 'center',
-    fontFamily: 'Poppins-Regular',
-    fontSize: 13,
-    color: '#f0f0f0',
-  },
-  modalLoginBtn: {
+  modalOKBtn: {
     backgroundColor: commonStyle.bgThird, 
     borderRadius: 30,
-    width: '20%', 
+    width: '30%', 
     paddingVertical: 10,
     justifyContent: 'center', 
     alignItems: 'center'
@@ -243,6 +228,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     fontSize: 12,
     color: "#fff"
+  },
+  bookingInfoTextRightSeats: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 12,
+    color: "#fff",
+    textTransform: 'uppercase'
   },
   genre: {
     fontFamily: 'Nunito-Medium',

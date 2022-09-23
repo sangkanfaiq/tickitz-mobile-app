@@ -54,23 +54,9 @@ export const GetMovies = (form) => {
     })
       .then((res) => {
         dispatch(GetMoviesSuccess(res.data));
-        // console.log(res)
       })
       .catch((err) => {
         dispatch(GetMoviesError(err.response));
-        // console.log(err)
       });
   };
 };
-
-// return (dispatch) => {
-//     try {
-//         const result = axios({
-//             method: "GET",
-//             url: "http://localhost:3006/api/v1/movies",
-//             dispatch(GetMoviesSuccess(result.data))
-//         })
-//     } catch (error) {
-//         dispatch(GetMoviesError(error.response))
-//     }
-// }

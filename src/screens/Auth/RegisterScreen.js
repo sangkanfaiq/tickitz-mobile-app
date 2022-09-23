@@ -36,11 +36,11 @@ const RegisterScreen = () => {
       data: register
     })
       .then((res) => {
-        ToastAndroid.showWithGravity('Register Success', ToastAndroid.SHORT, ToastAndroid.CENTER)
+        ToastAndroid.showWithGravity('Register Successfully', ToastAndroid.SHORT, ToastAndroid.CENTER)
         navigation.navigate('Login')
       })
       .catch((err) => {
-        ToastAndroid.showWithGravity(err.response.data.message)
+        ToastAndroid.showWithGravity(err.response.data.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
       });
   };
 

@@ -5,27 +5,41 @@ import {
   TouchableOpacity,
   Pressable,
   ScrollView,
+  ToastAndroid,
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'react-native-vector-icons/Feather';
 import {commonStyle} from '../../utils/commonStyle';
 import {useState} from 'react';
+import { seatsA, seatsB, seatsC, seatsD, seatsE, seatsF } from '../../model/data';
 
 const SelectSeats = ({route}) => {
   const navigation = useNavigation();
-  const {time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName} = route.params;
+  const {selectTime, time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName} = route.params;
 
-  console.log(firstName, lastName, 'select seats')
+  console.log(selectTime, '<- dari select seats')
 
-  const [selectTime, setSelectTime] = useState('');
-  const onSelectTime = item => {
-    if (selectTime === item) {
-      setSelectTime('');
+  const [ selectSeats, setSelectSeats ] = useState([])
+  console.log(selectSeats, '<- select seats')
+
+  const onSelectSeats = item => {
+    if (selectSeats === item) {
+      if(selectSeats){
+        seatSelected+=1
+      }
+      setSelectSeats('')
     } else {
-      setSelectTime(item);
+      setSelectSeats(item);
     }
-  };
+   
+  }
+  
+  let seatSelected = 0
+  seatSelected = selectSeats.length ? 1 : 0
+
+  let subTotal = seatSelected * price
+  console.log(seatSelected, '<- banyaknya seats')
 
   return (
     <ScrollView style={{backgroundColor: commonStyle.bgPrimary}}>
@@ -45,23 +59,11 @@ const SelectSeats = ({route}) => {
         >
         {time.split(',').map((item, index) => {
           return (
-            <Pressable
-              style={
-                selectTime === item
-                  ? styles.timeCardSelected
-                  : styles.timeCardDefault
-              }
-              key={index}
-              onPress={() => onSelectTime(item)}>
-              <Text
-                style={
-                  selectTime === item
-                    ? styles.timeCardtextSelected
-                    : styles.timeCardtextDefault
-                }>
+            <View style={selectTime ?  styles.timeCardSelected : styles.timeCardDefault} key={index}>
+              <Text style={selectTime ? styles.timeCardtextSelected : styles.timeCardtextDefault}>
                 {item}
               </Text>
-            </Pressable>
+            </View>
           );
         })}
       </ScrollView>
@@ -82,99 +84,75 @@ const SelectSeats = ({route}) => {
             </View>
         </View>
 
+        {/* Seats */}
 
         <View style={{width: '100%', alignItems: 'center', marginTop: 50, marginBottom: 30}}>
-            <View style={{width: '80%', height: 8, backgroundColor: commonStyle.bgFourth, borderRadius: 10}}></View>
+            <View style={{width: '80%', height: 8, backgroundColor: commonStyle.bgFourth, borderRadius: 10, marginBottom: 10}}></View>
         </View>
+
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            <View style={{flexDirection: 'row', marginRight: 30}}>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: 'lightgray', borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: 'lightgray', borderRadius: 8, marginRight: 10}}></View>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-            </View>
+            {seatsA.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
         </View>
-        <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
-            <View style={{flexDirection: 'row', marginRight: 30}}>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-                <View style={{width: 30, height: 30, backgroundColor: 'lightgray', borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgThird, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgThird, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-            </View>
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
+            {seatsB.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
         </View>
-        <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
-            <View style={{flexDirection: 'row', marginRight: 30}}>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: 'lightgray', borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: 'lightgray', borderRadius: 8, marginRight: 10}}></View>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-            </View>
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
+            {seatsC.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
         </View>
-        <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
-            <View style={{flexDirection: 'row', marginRight: 30}}>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: 'lightgray', borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: 'lightgray', borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-            </View>
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
+            {seatsD.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
         </View>
-        <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
-            <View style={{flexDirection: 'row', marginRight: 30}}>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: 'lightgray', borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-            </View>
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
+            {seatsE.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
         </View>
-        <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
-            <View style={{flexDirection: 'row', marginRight: 30}}>
-                <View style={{width: 30, height: 30, backgroundColor: 'lightgray', borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: 'lightgray', borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-                <View style={{width: 30, height: 30, backgroundColor: commonStyle.bgFourth, borderRadius: 8, marginRight: 10}}></View>
-            </View>
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
+            {seatsF.map((item, index)=> {
+              return (
+                  <View key={index}>
+                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                  </View>
+              )
+            })}
         </View>
         <View style={{width: '100%', height: 1, backgroundColor: 'rgba(255,255,255,0.3)', marginTop: 50}}></View>
         <View style={{flexDirection: 'row', marginTop: 30, justifyContent: 'space-between', alignItems: 'center', paddingBottom: 50}}>
             <View style={{flexDirection: 'row'}}>
                 <Text style={{color:'#fff', fontFamily: 'Poppins-Medium', fontSize: 16}}>Rp {price}</Text>
                 <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 16, marginHorizontal: 10}}>x</Text>
-                <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 16}}>2</Text>
+                <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 16}}>{seatSelected}</Text>
             </View>
             <View>
-                <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 18}}>Rp 90.000</Text>
+                <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 18}}>Rp {subTotal}</Text>
             </View>
         </View>
       </View>
@@ -182,7 +160,7 @@ const SelectSeats = ({route}) => {
       <View style={{marginTop: 80}}>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Payment', {
-              time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName
+              selectTime, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName, selectSeats, subTotal
             })}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
@@ -193,20 +171,37 @@ const SelectSeats = ({route}) => {
 };
 
 const styles = StyleSheet.create({
-    button: {
-        backgroundColor: commonStyle.bgThird,
-        width: '85%',
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        borderRadius: 10
-      },
-      buttonText: {
-        fontFamily: 'Poppins-SemiBold',
-        fontSize: 14,
-        color: '#fff',
-      },
+  seats: {
+    width: 35, 
+    height: 35, 
+    backgroundColor: commonStyle.bgFourth,
+    borderRadius: 8,
+    marginHorizontal: 8,
+  },
+  seatsSelected: {
+    width: 35, 
+    height: 35, 
+    backgroundColor: commonStyle.bgThird,
+    borderRadius: 8,
+    marginHorizontal: 8,
+    fontSize: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: commonStyle.bgThird,
+    width: '85%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderRadius: 10
+  },
+  buttonText: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 14,
+    color: '#fff',
+  },
   timeCardtextDefault: {
     fontFamily: 'Poppins-Regular',
     fontSize: 12,

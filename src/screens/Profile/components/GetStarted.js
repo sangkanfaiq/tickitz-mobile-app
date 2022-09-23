@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
 import { commonStyle } from '../../../utils/commonStyle'
 import Logo from '../../../assets/images/getstarted.svg'
@@ -9,7 +9,7 @@ const GetStarted = () => {
   const navigation = useNavigation()
 
   return (
-    <View style={{marginHorizontal: 30}}>
+    <ScrollView style={{paddingHorizontal: 30, paddingBottom: 40}}>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Logo width={300} height={400}/>
         </View>
@@ -21,7 +21,7 @@ const GetStarted = () => {
             <Text style={styles.buttonText}>Lets get started</Text>
             <Go name='chevron-right' size={20} color={'#fff'} style={{paddingRight: 20}}/>
         </TouchableOpacity>
-    </View>
+    </ScrollView>
   )
 }
 

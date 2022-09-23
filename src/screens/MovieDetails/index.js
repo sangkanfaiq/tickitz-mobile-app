@@ -41,6 +41,10 @@ const MovieDetails = ({route}) => {
   const navigation = useNavigation();
   const [ modal, setModal ] = useState(false)
 
+  const handleNavigateGenre = () => {
+      navigation.navigate('Home', {screen: 'Movies'})
+  };
+
   console.log(firstName, lastName, 'movie details')
 
   return (
@@ -77,7 +81,7 @@ const MovieDetails = ({route}) => {
           <View style={{flexDirection: 'row', marginHorizontal: 30, marginVertical: 10}}>
             {genre.split(',').map((item, index)=> {
               return (
-                <TouchableOpacity style={{marginRight: 7}} key={index} onPress={()=>navigation.navigate('Home',{screen: 'Movies'})}>
+                <TouchableOpacity style={{marginRight: 7}} key={index} onPress={handleNavigateGenre}>
                     <Text style={styles.genre}>{item}</Text>
                 </TouchableOpacity>
               )
@@ -146,23 +150,26 @@ const MovieDetails = ({route}) => {
               onBackButtonPress={()=> setModal(false)} 
               animationInTiming={800}
               animationOutTiming={800}
+              style={{margin: 0, justifyContent: 'flex-end'}}
             >
-              <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30, borderRadius: 20}}>
+              <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30}}>
                 <View style={styles.modalBox}>
-                  <Image source={require('../../assets/lock.png')} style={styles.modalImage}/>
+                  <Image source={require('../../assets/warning.png')} style={styles.modalImage}/>
                 </View>
-                <View style={{marginTop: 70}}>
+                <View style={{marginTop: 50}}>
                   <View style={{alignItems: 'center'}}>
                     <Text style={styles.modalTitle}>Oops!</Text>
                     <Text style={styles.modalSubtitle}>Looks like you haven't login yet</Text>
+                  </View>
+                  <View style={{marginVertical: 30}}>
                     <Text style={styles.modalTxt}>To continue the next step, you have to login first.</Text>
                     <Text style={styles.modalTxt}>Click button below</Text>
                   </View>
                   </View>
-                  <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 40}}>
-                  <TouchableOpacity style={styles.modalLoginBtn} onPress={()=> navigation.navigate('Login')}>
-                    <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>Login</Text>
-                  </TouchableOpacity>
+                  <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <TouchableOpacity style={styles.modalLoginBtn} onPress={()=> navigation.navigate('Login')}>
+                      <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>Login</Text>
+                    </TouchableOpacity>
                 </View>
               </View>
             </Modal>
@@ -183,14 +190,12 @@ const styles = StyleSheet.create({
     borderRadius: 75, 
     position: 'absolute', 
     top: -70, 
-    borderWidth: 6, 
-    borderColor: commonStyle.bgFourth, 
-    alignSelf: 'center'
+    alignSelf: 'center',
+    backgroundColor: commonStyle.bgFourth
   },
   modalImage: {
     width: '100%',
     height: '100%',
-    borderRadius: 75,
   },
   modalTitle: {
     textAlign: 'center',
@@ -203,7 +208,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     fontSize: 14,
     color: '#fff',
-    marginBottom: 30
   },
   modalTxt: {
     textAlign: 'center',
