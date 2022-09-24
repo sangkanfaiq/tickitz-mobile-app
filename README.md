@@ -25,7 +25,7 @@
 </ol>
 
 ## About The Project
-Tickitz mobile app is an mobile application for booking tickets made with react native
+Tickitz mobile app is a mobile application for booking tickets made with react native
 
 ### Feature
 - Get All Movies
