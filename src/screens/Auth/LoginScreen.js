@@ -110,17 +110,6 @@ const LoginScreen = () => {
               <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 {!loading ? <Text style={styles.buttonText}>Login</Text> : <ActivityIndicator size="small" color={'#fff'} />}
               </TouchableOpacity>
-            {/* {error && (
-              <Text
-                style={{
-                  color: 'red',
-                  textAlign: 'center',
-                  marginTop: 10,
-                  fontSize: 15,
-                }}>
-                {error.message}
-              </Text>
-            )} */}
           </View>
         </View>
 

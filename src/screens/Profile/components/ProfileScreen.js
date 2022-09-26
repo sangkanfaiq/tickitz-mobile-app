@@ -32,7 +32,7 @@ const ProfilePage = () => {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [refetch]);
 
   const handleDelete = (bookingID) => {
     axios({
@@ -102,7 +102,7 @@ const ProfilePage = () => {
               <Text style={{fontFamily: 'Poppins-Regular', color: '#fff', fontSize: 16, marginTop: 10}}>No order history</Text>
             </View> : orderHistory.map((item, index)=> {
               return (
-                <TouchableOpacity style={styles.cinemaBox} key={index} onLongPress={handleDelete}>
+                <TouchableOpacity style={styles.cinemaBox} key={index} onLongPress={()=> handleDelete(item.bookingID)}>
                   <View style={styles.cinemaCard}>
                     <View>
                       <Text style={styles.cinemaInfoTextActive}>{item.cinemaName}</Text>

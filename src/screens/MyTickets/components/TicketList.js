@@ -4,6 +4,7 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
+    ToastAndroid,
   } from 'react-native';
   import React, {useEffect, useState} from 'react';
   import axios from 'axios';
@@ -33,15 +34,13 @@ const TicketList = () => {
       });
   }, [refetch]);
 
-
-
   const handleDelete = (bookingID) => {
       axios({
         method: 'DELETE',
         url: `${API_URL_BOOKING}/${bookingID}`
       })
       .then(res => {
-        alert('delete success')
+        ToastAndroid.showWithGravity('Delete Successfully', ToastAndroid.SHORT, ToastAndroid.CENTER)
         setRefetch(!refetch)
       })
       .catch(err => {
