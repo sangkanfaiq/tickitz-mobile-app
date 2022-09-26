@@ -28,15 +28,22 @@
 Tickitz mobile app is a mobile application for booking tickets made with react native
 
 ### Feature
-- Get All Movies
-- Get Movie Details
-- Choose Seats
-- Select Date & Time
+- Get all movies
+- Get schedule
+- Get movie details
+- Booking (Select date&time/Select seats)
+- Payment
+- Get booking ticket
 - Order History
 - Authentication (Login/Register)
 
 ### Built with
-[React Native](https://reactnative.dev/)
+- [React Native](https://reactnative.dev/)
+- [Moment.js](https://momentjs.com/)
+- [angka-rupiah.js](https://github.com/develoka/angka-rupiah-js#readme)
+- [Redux](https://redux.js.org/introduction/getting-started)
+- [Snap Carousel](https://github.com/meliorence/react-native-snap-carousel)
+- [Axios](https://www.npmjs.com/package/axios)
 
 ## Author
 [Sangkan Faiq](https://github.com/sangkanfaiq)
