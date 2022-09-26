@@ -14,12 +14,12 @@ import Empty from '../../../assets/sad.svg'
 
 const ProfilePage = () => {
   const {data} = useSelector((state)=>state.auth)
-  console.log(data.country, 'ini country')
-  console.log(data.city, 'ini kota')
 
   const API_URL_BOOKING = `https://tickitz-backend-1st.herokuapp.com/api/v1/booking`;
 
   const [orderHistory, setOrderHistory] = useState([]);
+
+  const [ refetch, setRefetch ] = useState(false)
 
   useEffect(() => {
     axios({
@@ -33,6 +33,20 @@ const ProfilePage = () => {
         console.log(err);
       });
   }, []);
+
+  const handleDelete = (bookingID) => {
+    axios({
+      method: 'DELETE',
+      url: `${API_URL_BOOKING}/${bookingID}`
+    })
+    .then(res => {
+      alert('delete success')
+      setRefetch(!refetch)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
 
   return (
     <ScrollView style={{paddingHorizontal: 30}} showsVerticalScrollIndicator={false}>
@@ -88,7 +102,7 @@ const ProfilePage = () => {
               <Text style={{fontFamily: 'Poppins-Regular', color: '#fff', fontSize: 16, marginTop: 10}}>No order history</Text>
             </View> : orderHistory.map((item, index)=> {
               return (
-                <TouchableOpacity style={styles.cinemaBox} key={index}>
+                <TouchableOpacity style={styles.cinemaBox} key={index} onLongPress={handleDelete}>
                   <View style={styles.cinemaCard}>
                     <View>
                       <Text style={styles.cinemaInfoTextActive}>{item.cinemaName}</Text>
@@ -115,59 +129,6 @@ const ProfilePage = () => {
                 </TouchableOpacity>
               )
           })}
-
-          {/* Ticket history inactive #1*/}
-          {/* <TouchableOpacity style={styles.cinemaBox}>
-            <View style={styles.cinemaCard}>
-              <View>
-                <Text style={styles.cinemaInfoTextInactive}>CGV Blitz</Text>
-                <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
-                  <Location name='location-outline' size={10} color={'gray'} style={{marginRight: 5}}/>
-                  <Text style={styles.cinemaInfoTextInactive}>BEC (Bandung)</Text>
-                </View>
-              </View>
-              <View>
-                <Text style={styles.cinemaTextInactiveCGV}>CGV</Text>
-              </View>
-            </View>
-            <View style={{height: 0.5, width: '100%', backgroundColor: 'rgba(255,255,255,0.3)', marginVertical: 20}}></View>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <View>
-                <Text style={{fontFamily: 'Poppins-Regular', color: 'gray'}}>The Lost City ( 2022 )</Text>
-                <Text style={{fontFamily: 'Poppins-Regular', color: 'gray', fontSize: 14}}>19:00</Text>
-                <Text style={{fontFamily: 'Poppins-Regular', color: 'gray', fontSize: 14}}>Friday, 15 2022</Text>
-              </View>
-              <View style={{paddingRight: 15}}>
-                <View style={{height: 15, width: 15, borderRadius: 30, backgroundColor: 'darkred'}}></View>
-              </View>
-            </View>
-          </TouchableOpacity> */}
-          {/* Ticket history inactive #2*/}
-          {/* <TouchableOpacity style={styles.cinemaBox}>
-            <View style={styles.cinemaCard}>
-              <View>
-                <Text style={styles.cinemaInfoTextInactive}>XXI Premiere</Text>
-                <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
-                  <Location name='location-outline' size={10} color={'gray'} style={{marginRight: 5}}/>
-                  <Text style={styles.cinemaInfoTextInactive}>Bandung Indah Plaza (Bandung)</Text>
-                </View>
-              </View>
-              <View>
-                <Text style={styles.cinemaTextInactiveXXI}>XXI</Text>
-              </View>
-            </View>
-            <View style={{height: 0.5, width: '100%', backgroundColor: 'rgba(255,255,255,0.3)', marginVertical: 20}}></View>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <View>
-                <Text style={{fontFamily: 'Poppins-Regular', color: 'gray'}}>Uncharted ( 2022 )</Text>
-                <Text style={{fontFamily: 'Poppins-Regular', color: 'gray', fontSize: 14}}>18:30</Text>
-                <Text style={{fontFamily: 'Poppins-Regular', color: 'gray', fontSize: 14}}>Sunday, 08 2022</Text>
-              </View>
-              <View style={{paddingRight: 15}}>
-                <View style={{height: 15, width: 15, borderRadius: 30, backgroundColor: 'darkred'}}></View>
-              </View>
-            </View>
-          </TouchableOpacity> */}
         </View>
       </View>
     </ScrollView>
@@ -180,7 +141,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 15,
     borderRadius: 20,
-    marginTop: 20
+    marginTop: 20,
   },
   cinemaCard: {
     flexDirection: 'row', 

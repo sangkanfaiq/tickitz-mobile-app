@@ -1,7 +1,5 @@
 import {
-  SafeAreaView,
-  FlatList,
-  View,
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 import {commonStyle} from '../../utils/commonStyle';
@@ -10,18 +8,12 @@ import TicketList from './components/TicketList';
 
 const MyTicketScreen = () => {
   return (
-    <View style={{backgroundColor: commonStyle.bgPrimary, flex: 1}}>
-    <FlatList
-    data={['']} showsVerticalScrollIndicator={false} renderItem={()=> {
-      return (
-        <>
+      <>
+        <ScrollView style={{backgroundColor: commonStyle.bgPrimary, flex: 1}}>
           <Header />
           <TicketList />
-        </>
-      )
-    }}
-    />
-  </View>
+        </ScrollView>
+      </>
   );
 };
 

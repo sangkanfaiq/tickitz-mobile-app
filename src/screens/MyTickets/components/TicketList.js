@@ -3,7 +3,6 @@ import {
     Text,
     StyleSheet,
     Image,
-    FlatList,
     TouchableOpacity,
   } from 'react-native';
   import React, {useEffect, useState} from 'react';
@@ -17,7 +16,9 @@ import {
 const TicketList = () => {
   const API_URL_BOOKING = `https://tickitz-backend-1st.herokuapp.com/api/v1/booking`;
   const API_URL = `https://tickitz-backend-1st.herokuapp.com`;
+
   const [showTicket, setShowTicket] = useState([]);
+  const [ refetch, setRefetch ] = useState(false)
 
   useEffect(() => {
     axios({
@@ -30,55 +31,58 @@ const TicketList = () => {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [refetch]);
 
+
+
+  const handleDelete = (bookingID) => {
+      axios({
+        method: 'DELETE',
+        url: `${API_URL_BOOKING}/${bookingID}`
+      })
+      .then(res => {
+        alert('delete success')
+        setRefetch(!refetch)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   return (
-    <View style={{}}>
-      {!showTicket?.length ? (
+    <View style={{paddingBottom: 20}}>
+      {!showTicket.length ? 
         <View style={styles.noDataContainer}>
           <Empty width={200} height={200} />
           <Text style={styles.noDataTxt}>You don't have any tickets</Text>
-        </View>
-      ) : (
-        <FlatList
-          data={showTicket}
-          showsVerticalScrollIndicator={false}
-          style={{paddingBottom: 30}}
-          renderItem={({item, index}) => {
-            return (
-              <View style={{}}>
-                <View style={{marginHorizontal: 20}}>
-                  <TouchableOpacity style={styles.ticketCard} key={index}>
-                    <View style={{flexDirection: 'row', alignItems: 'center', paddingVertical: 10}}>
-                        <Image
-                          source={{uri: `${API_URL}/uploads/${item.cover}`}} style={styles.imageSize}
-                        />
+        </View> : showTicket.map((item, index)=> {
+          return (
+            <View key={index} style={{paddingHorizontal: 20}}>
+              <TouchableOpacity style={styles.ticketCard} onLongPress={()=> handleDelete(item.bookingID)}>
+                  <View style={{flexDirection: 'row', alignItems: 'center', paddingVertical: 10}}>
+                      <Image source={{uri: `${API_URL}/uploads/${item.cover}`}} style={styles.imageSize}/>
                         <View style={{marginLeft: 10}}>
-                          <Text style={styles.title}>{item.title} {`(${moment(item.releaseDate).format('YYYY')})`}</Text>
-                          <View style={{flexDirection: 'row', marginVertical: 7}}>
-                              <Star name="star" size={12} color={'darkorange'} style={{marginRight: 5}}/>
-                              <Star name="star" size={12} color={'darkorange'} style={{marginRight: 5}}/>
-                              <Star name="star" size={12} color={'darkorange'} style={{marginRight: 5}}/>
-                              <Star name="star" size={12} color={'darkorange'} style={{marginRight: 5}}/>
-                              <HalfStar name="star-half-empty" size={12}  color={'darkorange'}/>
-                              <Text style={styles.ratingText}>{`( ${item.rating} )`}</Text>
-                          </View>
-                          <Text style={styles.duration}>{item.durationHours} hour {item.durationMinute} minute</Text>
-                          <Text style={styles.createdAt}>{item.cinemaName} {item.locationName}</Text>
-                          <Text style={styles.releaseDate}>{moment().format('DD/MM/YYYY • LT')}</Text>
+                            <Text style={styles.title}>{item.title}</Text>
+                            <View style={{flexDirection: 'row', marginVertical: 7}}>
+                                <Star name="star" size={12} color={'darkorange'} style={{marginRight: 5}}/>
+                                <Star name="star" size={12} color={'darkorange'} style={{marginRight: 5}}/>
+                                <Star name="star" size={12} color={'darkorange'} style={{marginRight: 5}}/>
+                                <Star name="star" size={12} color={'darkorange'} style={{marginRight: 5}}/>
+                                <HalfStar name="star-half-empty" size={12}  color={'darkorange'}/>
+                                <Text style={styles.ratingText}>{`( ${item.rating} )`}</Text>
+                            </View>
+                            <Text style={styles.duration}>{item.durationHours} hour {item.durationMinute} minute</Text>
+                            <Text style={styles.cinemaName}>{item.cinemaName} {item.locationName}</Text>
+                            <Text style={styles.releaseDate}>{moment(item.created_at).format('DD/MM/YYYY • LT')}</Text>
                         </View>
-                    </View>
-                    <View style={styles.ticketContainer}>
-                      <Image source={require('../../../assets/ticket.png')} style={styles.imageTicket}/>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            );
-          }}
-        />
-      )}
+                  </View>
+                  <View style={styles.ticketContainer}>
+                    <Image source={require('../../../assets/ticket.png')} style={styles.imageTicket}/>
+                  </View>
+              </TouchableOpacity>
+            </View>
+          )
+      })}
     </View>
   )
 }
@@ -92,8 +96,7 @@ const styles = StyleSheet.create({
       width: '20%',
       justifyContent: 'center', 
       alignItems: 'center', 
-      // flexDirection: 'row', 
-      paddingHorizontal: 10,
+      flexDirection: 'row', 
     },
     ticketCard: {
       flexDirection: 'row', 
@@ -101,7 +104,6 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       backgroundColor: commonStyle.bgFourth,
       borderRadius: 10,
-      // paddingVertical: 10,
       paddingLeft: 10,
       marginTop: 20
     },
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
       fontSize: 10,
       marginVertical: 2,
     },
-    createdAt: {
+    cinemaName: {
       fontFamily: 'Nunito-Regular',
       color: 'gray',
       letterSpacing: 1,
@@ -155,7 +157,7 @@ const styles = StyleSheet.create({
     noDataContainer: {
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: 100
+      marginTop: 120
     },
     headerContainer: {
       height: 70,
