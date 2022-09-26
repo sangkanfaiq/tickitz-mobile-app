@@ -2,7 +2,6 @@ import {
   View,
   Text,
   SafeAreaView,
-  ScrollView,
   FlatList
 } from 'react-native';
 import React from 'react';

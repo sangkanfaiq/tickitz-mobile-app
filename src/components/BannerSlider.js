@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 const BannerSlider = ({item}) => {
   const navigation = useNavigation();
   const {data} = useSelector((state)=> state.auth)
+
+  const API_URL = `https://tickitz-backend-1st.herokuapp.com`
   
   return (
     <TouchableOpacity onPress={()=> navigation.navigate('MovieDetails', {
@@ -23,17 +25,20 @@ const BannerSlider = ({item}) => {
       cast: item.cast,
       time: item.time,
       locationName: item.locationName,
+      cinemaID: item.cinemaID,
       cinemaName: item.cinemaName,
       cinemaShortname: item.cinemaShortname,
       description: item.description,
       cover: item.cover,
       cinemaCover: item.cinemaCover,
+      cinemaPlace: item.cinemaPlace,
       cinemaAddress: item.cinemaAddress,
       price: item.price,
       firstName: data.firstName,
-      lastName: data.lastName
+      lastName: data.lastName,
+      user_id: data.user_id,
   })}>
-      <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${item.cover}`}} style={styles.imageSize}/>
+      <Image source={{uri: `${API_URL}/uploads/${item.cover}`}} style={styles.imageSize}/>
       <View style={styles.container}>
         <Text style={styles.title}>{item.title}</Text>
         <View style={{flexDirection: 'row', marginTop: 5}}>

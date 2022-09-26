@@ -1,23 +1,22 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
-import {commonStyle} from '../../../utils/commonStyle';
+import { commonStyle } from '../../../utils/commonStyle';
 
 const Header = () => {
-
   return (
-    <View style={styles.background}>
-      <Text style={styles.headerText}>Movies</Text>
+    <View style={styles.headerContainer}>
+      <Text style={styles.headerText}>My Tickets</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  background: {
+  headerContainer: {
     height: 70,
     backgroundColor: commonStyle.bgPrimary,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   headerText: {
     fontFamily: 'Poppins-SemiBold',

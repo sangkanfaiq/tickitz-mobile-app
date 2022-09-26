@@ -28,12 +28,16 @@ const DateAndTime = ({route}) => {
     price,
     firstName,
     lastName,
+    scheduleID,
+    user_id,
+    cinemaID,
+    cinemaPlace
   } = route.params
-  
-  console.log(firstName, 'date time')
+
   const [ selectDate, setSelectDate ] = useState('')
+
   const [ selectTime, setSelectTime ] = useState({})
-  console.log(selectTime, '<- dari date & time')
+
   // const [date, setDate] = useState(new Date())
   // const [open, setOpen] = useState(false)
 
@@ -44,6 +48,7 @@ const DateAndTime = ({route}) => {
       setSelectDate(item);
     }
   };
+
   const onSelectTime = item => {
     if (selectTime === item) {
       setSelectTime('');
@@ -51,6 +56,8 @@ const DateAndTime = ({route}) => {
       setSelectTime(item);
     }
   };
+
+  const API_URL = `https://tickitz-backend-1st.herokuapp.com`
 
 
   return (
@@ -64,7 +71,7 @@ const DateAndTime = ({route}) => {
       </View>
         <View style={{flexDirection: 'row', marginHorizontal: 30, marginTop: 30}}>
           <View style={styles.imageCard}>
-            <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${cover}`}} style={styles.imageSize}/>
+            <Image source={{uri: `${API_URL}/uploads/${cover}`}} style={styles.imageSize}/>
           </View>
           <View style={styles.details}>
             <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>{title}</Text>
@@ -154,7 +161,7 @@ const DateAndTime = ({route}) => {
         <View>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('SelectSeats', {
-              selectTime, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName, time
+              selectTime, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName, scheduleID, user_id, cinemaID, cinemaPlace
             })}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>

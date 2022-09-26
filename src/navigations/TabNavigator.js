@@ -6,9 +6,9 @@ import ProfileScreen from '../screens/Profile';
 import Home from 'react-native-vector-icons/Ionicons';
 import Movie from 'react-native-vector-icons/MaterialCommunityIcons';
 import User from 'react-native-vector-icons/Feather';
-import Theater from 'react-native-vector-icons/MaterialCommunityIcons'
-import TheaterScreen from '../screens/Theater';
 import { commonStyle } from '../utils/commonStyle';
+import MyTicketScreen from '../screens/MyTickets';
+import Ticket from 'react-native-vector-icons/Fontisto'
 
 const Tab = createBottomTabNavigator();
 const tabNavigatorOptions = {
@@ -40,7 +40,7 @@ const TabNavigator = () => {
           tabBarInactiveTintColor: 'lightgray',
         }}
       />
-      <Tab.Screen  name="Movies" component={MoviesScreen}
+      <Tab.Screen name="Movies" component={MoviesScreen}
         options={{
           tabBarLabel: 'Movies',
           tabBarLabelStyle: {
@@ -66,9 +66,9 @@ const TabNavigator = () => {
           tabBarInactiveTintColor: 'lightgray',
         }}
       />
-      <Tab.Screen  name="Theater" component={TheaterScreen}
+      <Tab.Screen name="MyTickets" component={MyTicketScreen}
         options={{
-          tabBarLabel: 'Cinema',
+          tabBarLabel: 'My Tickets',
           tabBarLabelStyle: {
             fontSize: 10,
             fontFamily: 'Poppins-Regular',
@@ -76,7 +76,7 @@ const TabNavigator = () => {
           },
           headerShown: false,
           tabBarIcon: ({focused}) => (
-            <Theater name="theater" size={20} color={focused ? '#db1a41' : 'lightgray' }/>
+            <Ticket name="ticket" size={20} color={focused ? '#db1a41' : 'lightgray' }/>
           ),
           tabBarActiveTintColor: commonStyle.bgThird,
           tabBarInactiveTintColor: 'lightgray',

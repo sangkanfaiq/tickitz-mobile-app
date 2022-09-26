@@ -1,11 +1,13 @@
 const initialState = {
   loading: false,
   data: {
-    "userID": null,
+    "user_id": null,
     "firstName": null,
     "token": null,
     "lastName": null,
     "phoneNumber": null,
+    "city": null,
+    "country": null,
   },
   error: null,
   isLogin: false,
@@ -20,7 +22,7 @@ const Auth = (state=initialState, action={})=> {
         case "LOGIN_SUCCESS":
             return {...state, loading: false, data: action.payload, error: null, isLogin: true}
         case "AUTH_LOGOUT":
-            return {loading: false, data: {"userID": null, "firstName": null, "token": null }, error: null, isLogin: false}
+            return {loading: false, data: {"user_id": null, "firstName": null, "token": null }, error: null, isLogin: false}
         default:
             return state
     }

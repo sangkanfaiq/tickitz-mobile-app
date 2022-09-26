@@ -13,7 +13,9 @@ import Modal from 'react-native-modal'
 
 
 const MovieDetails = ({route}) => {
+  
   const {isLogin} = useSelector((state)=> state.auth)
+
   const {
     scheduleID,
     title, 
@@ -36,6 +38,9 @@ const MovieDetails = ({route}) => {
     price,
     firstName,
     lastName,
+    user_id,
+    cinemaID,
+    cinemaPlace
   } = route.params
   const [ wishlist, setWishlist ] = useState(false)
   const navigation = useNavigation();
@@ -45,7 +50,7 @@ const MovieDetails = ({route}) => {
       navigation.navigate('Home', {screen: 'Movies'})
   };
 
-  console.log(firstName, lastName, 'movie details')
+  const API_URL = `https://tickitz-backend-1st.herokuapp.com`
 
   return (
     <ScrollView style={{backgroundColor: commonStyle.bgFourth}}>
@@ -53,7 +58,7 @@ const MovieDetails = ({route}) => {
           <TouchableOpacity style={styles.backIconBox} onPress={() => navigation.goBack()}>
             <BackIcon name='chevron-left' size={25} color={'#fff'} style={{marginLeft: -2}}/>
           </TouchableOpacity>
-          <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${cover}`}} style={styles.image}/>
+          <Image source={{uri: `${API_URL}/uploads/${cover}`}} style={styles.image}/>
         </View>
 
       {/* Details */}
@@ -144,6 +149,10 @@ const MovieDetails = ({route}) => {
             price,
             firstName,
             lastName,
+            scheduleID,
+            user_id,
+            cinemaID,
+            cinemaPlace
           }) :  setModal(true)}}>
             <Modal 
               isVisible={modal} 

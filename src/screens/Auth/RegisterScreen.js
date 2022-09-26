@@ -7,6 +7,7 @@ import {
   ScrollView,
   ToastAndroid,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import React, { useState} from 'react';
 import Logo from '../../assets/images/registerBg.svg';
@@ -25,6 +26,8 @@ const RegisterScreen = () => {
     firstName: '',
     lastName: '',
     phoneNumber: '',
+    city: '',
+    country: '',
     email: '',
     password: '',
   });
@@ -103,6 +106,36 @@ const RegisterScreen = () => {
               }}
             />
           </View>
+          <Text style={styles.label}>City</Text>
+          <View style={styles.customInput}>
+            <TextInput
+              placeholder="Enter your city"
+              placeholderTextColor={'#888'}
+              style={styles.input}
+              autoCapitalize="none"
+              onChangeText={e => {
+                setRegister(prevData => ({
+                  ...prevData,
+                  city: e,
+                }));
+              }}
+            />
+          </View>
+          <Text style={styles.label}>Country</Text>
+          <View style={styles.customInput}>
+            <TextInput
+              placeholder="Enter your country"
+              placeholderTextColor={'#888'}
+              style={styles.input}
+              autoCapitalize="none"
+              onChangeText={e => {
+                setRegister(prevData => ({
+                  ...prevData,
+                  country: e,
+                }));
+              }}
+            />
+          </View>
           <Text style={styles.label}>Email</Text>
           <View style={styles.customInput}>
             <TextInput
@@ -146,7 +179,7 @@ const RegisterScreen = () => {
           </View>
           <TouchableOpacity style={styles.button} onPress={handleRegister}>
             {loading ? (
-              <Text style={styles.buttonText}>Loading...</Text>
+              <ActivityIndicator size="small" color={'#fff'} />
             ) : (
               <Text style={styles.buttonText}>Register</Text>
             )}

@@ -15,15 +15,36 @@ import Star from 'react-native-vector-icons/FontAwesome';
 import HalfStar from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment'
 import Modal from 'react-native-modal'
+import toRupiah from '@develoka/angka-rupiah-js';
+import axios from 'axios'
 
 const PaymentScreen = ({route}) => {
+
+  const API_URL = `https://tickitz-backend-1st.herokuapp.com`
+  const API_URL_PAYMENT = `https://tickitz-backend-1st.herokuapp.com/api/v1/payment`
+
   const navigation = useNavigation()
-  const { selectTime, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName, selectSeats, subTotal } = route.params
- 
-  console.log(selectSeats, '<- dari payment')
-  console.log(price, '<- dari payment')
-  console.log(subTotal, '<- dari payment')
+  const { selectTime, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName, selectSeats, subTotal, cinemaPlace, user_id, id } = route.params
+
   const [ modal, setModal ] = useState(false)
+
+  const handlePayment = () => {
+      axios({
+        method: "POST",
+        url: `${API_URL_PAYMENT}`,
+        data: {
+          id: id
+        }
+      })
+        .then((res) => {
+          setModal(true)
+          navigation.replace('Home', {screen: 'MyTickets'})
+        })
+        .catch((err) => {
+          ToastAndroid.showWithGravity(err.response.data.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+        });
+    
+  };
 
   return (
     <ScrollView style={{backgroundColor: commonStyle.bgPrimary}}>
@@ -36,10 +57,10 @@ const PaymentScreen = ({route}) => {
         <Text style={styles.headerText}>Payment</Text>
       </View>
 
-      <View style={{backgroundColor: commonStyle.bgFourth, padding: 20, marginHorizontal: 30, marginTop: 30, borderRadius: 20}}>
+      <View style={{backgroundColor: commonStyle.bgFourth, padding: 20, marginHorizontal: 30, marginTop: 30, borderRadius: 15}}>
         <View style={{flexDirection: 'row' }}>
             <View style={styles.imageCard}>
-              <Image source={{uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${cover}`}} style={styles.pictureSize}/>
+              <Image source={{uri: `${API_URL}/uploads/${cover}`}} style={styles.pictureSize}/>
             </View>
             <View style={styles.details}>
               <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>{title}</Text>
@@ -56,58 +77,68 @@ const PaymentScreen = ({route}) => {
               <Text style={styles.textDetails}>{genre}</Text>
             </View>
         </View>
-        {/* Booking Info */}
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, paddingHorizontal: 5}}>
+      </View>
+      {/* Summary */}
+      <View style={{marginTop: 30, marginHorizontal: 30}}>
+        <Text style={{fontFamily: 'Poppins-Medium', color: 'lightgray', fontSize: 16}}>Summary</Text>
+      </View>
+
+      {/* Booking details info */}
+      <View style={{backgroundColor: commonStyle.bgFourth, paddingVertical: 20, paddingHorizontal: 10,marginHorizontal: 30, marginTop: 10,borderRadius: 15}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5}}>
           <Text style={{fontFamily: 'Poppins-Medium', color: 'gray', fontSize: 12}}>Name</Text>
           <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 12, textTransform: 'capitalize'}}>{firstName} {lastName}</Text>
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
+        {/* <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
           <Text style={styles.bookingInfoTextLeft}>Date</Text>
           <Text style={styles.bookingInfoTextRight}>Sat, Sept 12, 2022</Text>
-        </View>
+        </View> */}
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
           <Text style={styles.bookingInfoTextLeft}>Time</Text>
           <Text style={styles.bookingInfoTextRight}>{selectTime}</Text>
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
-          <Text style={styles.bookingInfoTextLeft}>Selected Seats</Text>
-          <Text style={styles.bookingInfoTextRightSeats}>{selectSeats}</Text>
+          <Text style={styles.bookingInfoTextLeft}>Selected seats</Text>
+          <Text style={styles.bookingInfoTextRightSeats}>{selectSeats.join(', ')}</Text>
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 5}}>
-          <Text style={styles.bookingInfoTextLeft}>Ticket Fee</Text>
-          <Text style={styles.bookingInfoTextRight}>{price}</Text>
+          <Text style={styles.bookingInfoTextLeft}>Ticket fee</Text>
+          <Text style={styles.bookingInfoTextRight}>{toRupiah(price, {floatingPoint: 0, formal: false, symbol: ''})}</Text>
         </View>
+      </View>
 
-        <View style={{width: '100%', height: 1, backgroundColor: 'rgba(255,255,255,0.3)', marginVertical: 30}}></View>
-
-        {/* Cinema Info */}
-        <View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5}}>
+      {/* Cinema info */}
+      <View style={{backgroundColor: commonStyle.bgFourth, paddingVertical: 20, paddingHorizontal: 10,marginHorizontal: 30, marginTop: 20,borderRadius: 15}}>
+        <View style={{paddingHorizontal: 5}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={{fontFamily: 'Poppins-Regular', fontSize: 12, color: 'gray'}}>Cinema</Text>
             <Text style={styles.cinemaName}>{cinemaName}</Text>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Text style={{fontFamily: 'Poppins-Regular', fontSize: 12, color: 'gray', marginTop: 15}}>Cinema place</Text>
+            <Text style={styles.cinemaAddress}>{cinemaPlace}</Text>
+          </View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={{fontFamily: 'Poppins-Regular', fontSize: 12, color: 'gray', marginTop: 15}}>Address</Text>
             <Text style={styles.cinemaAddress}>{cinemaAddress}</Text>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={{fontFamily: 'Poppins-Regular', fontSize: 12, color: 'gray', marginTop: 15}}>Location</Text>
             <Text style={styles.locationName}>{locationName}</Text>
           </View>
         </View>
-
-        {/* Total */}
-        <View style={styles.totalCost}>
-          <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>Total Cost</Text>
-          <Text style={{fontFamily: 'Poppins-Medium', color: '#fff', fontSize: 16}}>{subTotal}</Text>
-        </View>
       </View>
+
+        <View style={styles.totalCost}>
+          <Text style={{fontFamily: 'Poppins-Medium', color: commonStyle.bgFifth, fontSize: 16}}>Total cost</Text>
+          <Text style={{fontFamily: 'Poppins-Medium', color: commonStyle.bgFifth, fontSize: 20}}>{toRupiah(subTotal, {symbol: 'IDR', floatingPoint: 0})}</Text>
+        </View>
 
       {/* Button payment */}
       <View style={{marginTop: 100}}>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={styles.button} onPress={()=> setModal(true)}>
-              <Text style={styles.buttonText}>Pay - {subTotal}</Text>
+              <Text style={styles.buttonText}>Pay {toRupiah(subTotal, {symbol: 'IDR', floatingPoint: 0})}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -126,17 +157,18 @@ const PaymentScreen = ({route}) => {
                   <View style={{marginTop: 70}}>
                     <View style={{alignItems: 'center'}}>
                       <Text style={styles.modalTitle}>Congratulations</Text>
-                      <Text style={styles.modalSubtitle}>Your payment was successful</Text>
+                      <Text style={styles.modalSubtitle}>Your payment was successfully</Text>
+                      <Text style={styles.modalTxt}>Take a break, grab some foods, enjoy the movie</Text>
                     </View>
                   </View>
-                  <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 60}}>
-                    <TouchableOpacity style={styles.modalOKBtn} onPress={()=> navigation.navigate('Home')}>
+                  <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <TouchableOpacity style={styles.modalOKBtn} onPress={handlePayment}>
                       <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>OK</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
               </View>
-            </Modal>
+        </Modal>
     </ScrollView>
     
   );
@@ -171,6 +203,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginTop: 3
   },
+  modalTxt: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Italic',
+    fontSize: 14,
+    color: '#fff',
+    marginVertical: 30,
+  },
   modalOKBtn: {
     backgroundColor: commonStyle.bgThird, 
     borderRadius: 30,
@@ -180,11 +219,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   totalCost: {
-    flexDirection: 'row', 
-    marginTop: 50, justifyContent: 'space-between', 
-    backgroundColor: commonStyle.bgPrimary,
-    padding: 15,
-    borderRadius: 10
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center', 
+    backgroundColor: commonStyle.bgFourth,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    marginHorizontal: 30,
+    marginTop: 20
+
   },
   locationName: {
     fontFamily: 'Poppins-Medium', 

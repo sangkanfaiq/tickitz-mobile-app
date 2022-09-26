@@ -42,6 +42,8 @@ const MovieList = () => {
     dispatch(GetMovies(params));
   }, [params.title, params.genre]);
 
+  const API_URL = `https://tickitz-backend-1st.herokuapp.com`
+
   return (
     <View style={{marginLeft: 20, marginTop: 30}}>
       {/* Genre list */}
@@ -67,24 +69,7 @@ const MovieList = () => {
             Upcoming
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={
-            selectGenre === 'Horror'
-              ? styles.categoriesCardSelected
-              : styles.categoriesCard
-          }
-          onPress={() => {
-            setParams({title: '', genre: 'Horror'}), onSelectGenre('Horror');
-          }}>
-          <Text
-            style={
-              selectGenre === 'Horror'
-                ? styles.categoriesTextSelected
-                : styles.categoriesText
-            }>
-            Horror
-          </Text>
-        </TouchableOpacity>
+
         <TouchableOpacity
           style={
             selectGenre === 'Action'
@@ -103,6 +88,7 @@ const MovieList = () => {
             Action
           </Text>
         </TouchableOpacity>
+        
         <TouchableOpacity
           style={
             selectGenre === 'Adventure'
@@ -122,6 +108,7 @@ const MovieList = () => {
             Adventure
           </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={
             selectGenre === 'Fantasy'
@@ -138,6 +125,63 @@ const MovieList = () => {
                 : styles.categoriesText
             }>
             Fantasy
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={
+            selectGenre === 'Horror'
+              ? styles.categoriesCardSelected
+              : styles.categoriesCard
+          }
+          onPress={() => {
+            setParams({title: '', genre: 'Horror'}), onSelectGenre('Horror');
+          }}>
+          <Text
+            style={
+              selectGenre === 'Horror'
+                ? styles.categoriesTextSelected
+                : styles.categoriesText
+            }>
+            Horror
+          </Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity
+          style={
+            selectGenre === 'Romance'
+              ? styles.categoriesCardSelected
+              : styles.categoriesCard
+          }
+          onPress={() => {
+            setParams({title: '', genre: 'Romance'}), onSelectGenre('Romance');
+          }}>
+          <Text
+            style={
+              selectGenre === 'Romance'
+                ? styles.categoriesTextSelected
+                : styles.categoriesText
+            }>
+            Romance
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={
+            selectGenre === 'Thriller'
+              ? styles.categoriesCardSelected
+              : styles.categoriesCard
+          }
+          onPress={() => {
+            setParams({title: '', genre: 'Thriller'}), onSelectGenre('Thriller');
+          }}>
+          <Text
+            style={
+              selectGenre === 'Thriller'
+                ? styles.categoriesTextSelected
+                : styles.categoriesText
+            }>
+            Thriller
           </Text>
         </TouchableOpacity>
       </ScrollView>
@@ -214,7 +258,7 @@ const MovieList = () => {
                   <View style={styles.imageBox}>
                     <Image
                       source={{
-                        uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${item.cover}`,
+                        uri: `${API_URL}/uploads/${item.cover}`,
                       }}
                       style={styles.imageSize}
                     />
@@ -256,8 +300,7 @@ const MovieList = () => {
                         size={12}
                         color={'darkorange'}
                       />
-                      <Text
-                        style={styles.ratingText}>{`( ${item.rating} )`}</Text>
+                      <Text style={styles.ratingText}>{`( ${item.rating} )`}</Text>
                     </View>
                     <Text
                       style={{

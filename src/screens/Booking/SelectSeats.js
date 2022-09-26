@@ -3,43 +3,71 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Pressable,
   ScrollView,
   ToastAndroid,
+  Image,
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'react-native-vector-icons/Feather';
 import {commonStyle} from '../../utils/commonStyle';
 import {useState} from 'react';
-import { seatsALeft, seatsARight, seatsBLeft, seatsBRight, seatsCLeft, seatsCRight, seatsDLeft, seatsDRight, seatsELeft, seatsERight, seatsFLeft, seatsFRight } from '../../model/data';
+import { seatsALeft, seatsARight, seatsBLeft, seatsBRight, seatsCLeft, seatsCRight, seatsDLeft, seatsDRight, seatsELeft, seatsERight, seatsFLeft, seatsFRight, seatsGLeft, seatsGRight, seatsHLeft, seatsHRight } from '../../model/data';
+import axios from 'axios'
+import { useSelector } from 'react-redux';
+import Modal from 'react-native-modal'
+import toRupiah from '@develoka/angka-rupiah-js';
 
 const SelectSeats = ({route}) => {
-  const navigation = useNavigation();
-  const {selectTime, time, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName} = route.params;
+  const API_URL_BOOKING = `https://tickitz-backend-1st.herokuapp.com/api/v1/booking`
 
-  console.log(selectTime, '<- dari select seats')
+  const navigation = useNavigation();
+
+  const {selectTime, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName, scheduleID, user_id, cinemaPlace } = route.params;
+
+  const [ modal, setModal ] = useState(false)
 
   const [ selectSeats, setSelectSeats ] = useState([])
-  console.log(selectSeats, '<- select seats')
 
   const onSelectSeats = item => {
-    if (selectSeats === item) {
-      if(selectSeats){
-        seatSelected+=1
-      }
-      setSelectSeats('')
+    if (selectSeats.includes(item)) {
+      const seat = selectSeats.filter(x => {
+        return x !== item
+      })
+      setSelectSeats(seat)
     } else {
-      setSelectSeats(item);
+      setSelectSeats([...selectSeats, item]);
     }
-   
   }
-  
-  let seatSelected = 0
-  seatSelected = selectSeats.length ? 1 : 0
 
+  const [id, setId] = useState('')
+
+  const handleBooking = () => {
+    if(!seatSelected) {
+      setModal(true)
+    } else {
+      axios({
+        method: "POST",
+        url: `${API_URL_BOOKING}`,
+        data: {
+          scheduleID: scheduleID,
+          user_id: user_id,
+          seats: selectSeats,
+          selected_time: selectTime
+        }
+      })
+        .then((res) => {
+          setModal(true)
+          setId(res.data.data.id)
+        })
+        .catch((err) => {
+          ToastAndroid.showWithGravity(err.response.data.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+        });
+    }
+  };
+  
+  let seatSelected = selectSeats.length 
   let subTotal = seatSelected * price
-  console.log(seatSelected, '<- banyaknya seats')
 
   return (
     <ScrollView style={{backgroundColor: commonStyle.bgPrimary}}>
@@ -52,23 +80,8 @@ const SelectSeats = ({route}) => {
         <Text style={styles.headerText}>Select Seats</Text>
       </View>
 
-      <ScrollView
-        style={{flexDirection: 'row', marginLeft: 30, marginTop: 30}}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        >
-        {time.split(',').map((item, index) => {
-          return (
-            <View style={selectTime ?  styles.timeCardSelected : styles.timeCardDefault} key={index}>
-              <Text style={selectTime ? styles.timeCardtextSelected : styles.timeCardtextDefault}>
-                {item}
-              </Text>
-            </View>
-          );
-        })}
-      </ScrollView>
-      <View style={{marginHorizontal: 30}}>
-        <View style={{width: '100%', height: 1, backgroundColor: 'rgba(255,255,255,0.3)', marginVertical: 20}}></View>
+      <View style={{marginHorizontal: 30, marginTop: 40}}>
+        {/* <View style={{width: '100%', height: 1, backgroundColor: 'rgba(255,255,255,0.3)', marginVertical: 20}}></View> */}
         <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <View style={{width: 17, height: 17, backgroundColor: commonStyle.bgFourth, marginRight: 5, borderRadius: 5}}></View>
@@ -84,17 +97,17 @@ const SelectSeats = ({route}) => {
             </View>
         </View>
 
-        {/* Seats */}
-
-        <View style={{width: '100%', alignItems: 'center', marginTop: 50, marginBottom: 30}}>
+        {/* Screen */}
+        <View style={{width: '100%', alignItems: 'center', marginTop: 40, marginBottom: 30}}>
+            <Text style={{color: 'lightgray', fontFamily: 'Poppins-Regular', fontSize: 12, marginBottom: 10}}>Screen</Text>
             <View style={{width: '80%', height: 8, backgroundColor: commonStyle.bgFourth, borderRadius: 10, marginBottom: 10}}></View>
         </View>
-
+        {/* Seats */}
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
             {seatsALeft.map((item, index)=> {
               return (
                   <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                      <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
                   </View>
               )
             })}
@@ -102,7 +115,7 @@ const SelectSeats = ({route}) => {
              {seatsARight.map((item, index)=> {
               return (
                   <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                      <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
                   </View>
               )
             })}
@@ -111,7 +124,7 @@ const SelectSeats = ({route}) => {
             {seatsBLeft.map((item, index)=> {
               return (
                   <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                      <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
                   </View>
               )
             })}
@@ -119,7 +132,7 @@ const SelectSeats = ({route}) => {
              {seatsBRight.map((item, index)=> {
               return (
                   <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                      <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
                   </View>
               )
             })}
@@ -128,7 +141,7 @@ const SelectSeats = ({route}) => {
             {seatsCLeft.map((item, index)=> {
               return (
                   <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                      <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
                   </View>
               )
             })}
@@ -136,7 +149,7 @@ const SelectSeats = ({route}) => {
              {seatsCRight.map((item, index)=> {
               return (
                   <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                      <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
                   </View>
               )
             })}
@@ -145,97 +158,220 @@ const SelectSeats = ({route}) => {
             {seatsDLeft.map((item, index)=> {
               return (
                   <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                      <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
                   </View>
               )
             })}
              <View style={{width: '4%', backgroundColor: commonStyle.bgPrimary}}></View>
              {seatsDRight.map((item, index)=> {
               return (
-                  <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
-                  </View>
+                <View key={index}>
+                    <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                </View>
               )
             })}
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 12}}>
             {seatsELeft.map((item, index)=> {
               return (
-                  <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
-                  </View>
+                <View key={index}>
+                    <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                </View>
               )
             })}
              <View style={{width: '4%', backgroundColor: commonStyle.bgPrimary}}></View>
              {seatsERight.map((item, index)=> {
               return (
-                  <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
-                  </View>
+                <View key={index}>
+                    <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                </View>
               )
             })}
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 12}}>
             {seatsFLeft.map((item, index)=> {
               return (
-                  <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
-                  </View>
+                <View key={index}>
+                    <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                </View>
               )
             })}
              <View style={{width: '4%', backgroundColor: commonStyle.bgPrimary}}></View>
              {seatsFRight.map((item, index)=> {
               return (
-                  <View key={index}>
-                      <Text style={selectSeats === item ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
-                  </View>
+                <View key={index}>
+                    <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                </View>
               )
             })}
         </View>
-        <View style={{width: '100%', height: 1, backgroundColor: 'rgba(255,255,255,0.3)', marginTop: 50}}></View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 30}}>
-            <Text style={{color: 'lightgray', fontFamily: 'Poppins-Medium', fontSize: 14}}>Selected Seats</Text>
-            <Text style={{color:'#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>{selectSeats}</Text>
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 12}}>
+            {seatsGLeft.map((item, index)=> {
+              return (
+                <View key={index}>
+                    <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                </View>
+              )
+            })}
+             <View style={{width: '4%', backgroundColor: commonStyle.bgPrimary}}></View>
+             {seatsGRight.map((item, index)=> {
+              return (
+                <View key={index}>
+                    <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                </View>
+              )
+            })}
         </View>
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 12}}>
+            {seatsHLeft.map((item, index)=> {
+              return (
+                <View key={index}>
+                    <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                </View>
+              )
+            })}
+             <View style={{width: '4%', backgroundColor: commonStyle.bgPrimary}}></View>
+             {seatsHRight.map((item, index)=> {
+              return (
+                <View key={index}>
+                    <Text style={selectSeats.includes(item) ? styles.seatsSelected : styles.seats} onPress={()=> onSelectSeats(item)}>{item.seats}</Text>
+                </View>
+              )
+            })}
+        </View>
+
+        <View style={{width: '100%', height: 1, backgroundColor: 'rgba(255,255,255,0.2)', marginTop: 50}}></View>
+
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 30}}>
+            <Text style={{color: 'lightgray', fontFamily: 'Poppins-Medium', fontSize: 14, width: '50%'}}>Selected Seats</Text>
+            {!selectSeats.length ? <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>None</Text> : <Text style={{color:'#fff', fontFamily: 'Poppins-Medium', fontSize: 14, width: '50%', textAlign: 'right'}}>{selectSeats.join(', ')}</Text> }
+        </View>
+        
         <View style={{flexDirection: 'row', marginTop: 10, justifyContent: 'space-between', alignItems: 'center', paddingBottom: 50}}>
             <View style={{flexDirection: 'row'}}>
-                <Text style={{color:'lightgray', fontFamily: 'Poppins-Medium', fontSize: 14}}>Rp {price}</Text>
+                <Text style={{color:'lightgray', fontFamily: 'Poppins-Medium', fontSize: 14}}>{toRupiah(price, {symbol: 'IDR', floatingPoint: 0})}</Text>
                 <Text style={{color: 'lightgray', fontFamily: 'Poppins-Medium', fontSize: 14, marginHorizontal: 10}}>x</Text>
                 <Text style={{color: 'lightgray', fontFamily: 'Poppins-Medium', fontSize: 14}}>{seatSelected}</Text>
             </View>
             <View>
-                <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 16}}>Rp {subTotal}</Text>
+                <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 16}}>{toRupiah(subTotal, {symbol: 'IDR', floatingPoint: 0})}</Text>
             </View>
         </View>
       </View>
 
       <View style={{marginTop: 80}}>
           <View style={{backgroundColor: commonStyle.bgSecondary, height: 90, justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Payment', {
-              selectTime, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName, selectSeats, subTotal
-            })}>
-              <Text style={styles.buttonText}>Next</Text>
+            <TouchableOpacity style={styles.button} onPress={handleBooking}>
+              <Text style={styles.buttonText}>Book Now</Text>
             </TouchableOpacity>
           </View>
+          {/* Conditional rendering modal booking */}
+          {!seatSelected ? <Modal isVisible={modal} transparent style={{margin: 0, justifyContent: 'flex-end'}} onBackButtonPress={()=> setModal(false)}>
+              <View style={{}}>
+                <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30}}>
+                  <View style={styles.modalBox}>
+                    <Image source={require('../../assets/warning.png')} style={styles.modalImage}/>
+                  </View>
+                  <View style={{marginTop: 65}}>
+                    <View style={{alignItems: 'center'}}>
+                      <Text style={styles.modalTitle}>Oops Sorry</Text>
+                      <Text style={styles.modalSubtitle}>Seats can't be empty</Text>
+                      <Text style={styles.modalTxt}>Please select your seats to continue the next step</Text>
+                    </View>
+                  </View>
+                  <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
+                    <TouchableOpacity style={styles.modalOKBtn} onPress={()=> setModal(false)}>
+                      <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>OK</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+          </Modal> : <Modal isVisible={modal} transparent style={{margin: 0, justifyContent: 'flex-end'}}>
+              <View style={{}}>
+                <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30}}>
+                  <View style={styles.modalBox}>
+                    <Image source={require('../../assets/checked.png')} style={styles.modalImage}/>
+                  </View>
+                  <View style={{marginTop: 65}}>
+                    <View style={{alignItems: 'center'}}>
+                      <Text style={styles.modalTitle}>Booking Successfully</Text>
+                      <Text style={styles.modalSubtitle}>Your booking at {cinemaName} {locationName} is successful</Text>
+                      <Text style={styles.modalTxt}>Click button below for your final step</Text>
+                    </View>
+                  </View>
+                  <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
+                    <TouchableOpacity style={styles.modalOKBtn} onPress={()=> navigation.replace('Payment', {
+                        selectTime, cinemaName, price, cover, title, rating, durationHours, durationMinute, genre, releaseDate, cinemaAddress, locationName, firstName, lastName, selectSeats, subTotal, user_id, id, cinemaPlace
+                      })}>
+                      <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>OK</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+          </Modal> }
+          
         </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  modalBox: {
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    width: 140, 
+    height: 140, 
+    borderRadius: 75, 
+    position: 'absolute', 
+    top: -60, 
+    alignSelf: 'center',
+    backgroundColor: commonStyle.bgFourth
+  },
+  modalImage: {
+    width: '100%',
+    height: '100%',
+  },
+  modalTitle: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Medium',
+    fontSize: 24,
+    color: '#fff',
+  },
+  modalSubtitle: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Regular',
+    marginTop: 5,
+    fontSize: 14,
+    color: 'lightgray',
+  },
+  modalTxt: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 13,
+    color: '#f0f0f0',
+    marginTop: 20
+  },
+  modalOKBtn: {
+    backgroundColor: commonStyle.bgThird, 
+    borderRadius: 30,
+    width: '30%', 
+    paddingVertical: 10,
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
   seats: {
-    width: 35, 
-    height: 35, 
+    width: 25, 
+    height: 25, 
     backgroundColor: commonStyle.bgFourth,
-    borderRadius: 8,
+    borderRadius: 5,
     marginHorizontal: 6,
     color: '#fff'
   },
   seatsSelected: {
-    width: 35, 
-    height: 35, 
+    width: 25, 
+    height: 25, 
     backgroundColor: commonStyle.bgThird,
-    borderRadius: 8,
+    borderRadius: 5,
     marginHorizontal: 6,
     fontSize: 12,
     justifyContent: 'center',
@@ -254,40 +390,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
     fontSize: 14,
     color: '#fff',
-  },
-  timeCardtextDefault: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 12,
-    color: '#fff',
-    letterSpacing: 1,
-  },
-  timeCardtextSelected: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 12,
-    color: commonStyle.bgThird,
-    letterSpacing: 1,
-  },
-  timeCardDefault: {
-    width: 80,
-    height: 45,
-    backgroundColor: commonStyle.bgFourth,
-    marginRight: 10,
-    marginVertical: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-  },
-  timeCardSelected: {
-    width: 80,
-    height: 45,
-    backgroundColor: commonStyle.bgFourth,
-    marginRight: 10,
-    marginVertical: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: commonStyle.bgThird,
   },
   header: {
     height: 70,

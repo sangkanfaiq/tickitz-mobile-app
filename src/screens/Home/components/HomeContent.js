@@ -29,6 +29,9 @@ const HomeContent = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [movieSchedule, setMovieSchedule] = useState([]);
+  
+  const API_URL_SCHEDULE = `https://tickitz-backend-1st.herokuapp.com/api/v1/schedule`
+  const API_URL = `https://tickitz-backend-1st.herokuapp.com`
 
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -45,7 +48,7 @@ const HomeContent = () => {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: `https://tickitz-backend-1st.herokuapp.com/api/v1/schedule`,
+      url: `${API_URL_SCHEDULE}`,
     })
       .then(res => {
         setMovieSchedule(res.data.data);
@@ -201,7 +204,7 @@ const HomeContent = () => {
                           <View style={styles.imageCard}>
                             <Image
                               source={{
-                                uri: `https://tickitz-backend-1st.herokuapp.com/uploads/${item.cover}`,
+                                uri: `${API_URL}/uploads/${item.cover}`,
                               }}
                               style={styles.imageSize}
                             />

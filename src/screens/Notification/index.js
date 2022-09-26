@@ -3,7 +3,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'react-native-vector-icons/Feather';
 import { commonStyle } from '../../utils/commonStyle';
-import Empty from '../../assets/empty.svg'
+import Empty from '../../assets/sad.svg'
 
 const NotificationScreen = () => {
   const navigation = useNavigation();

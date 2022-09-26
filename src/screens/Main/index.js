@@ -1,5 +1,7 @@
 import { View, Text, ImageBackground, StyleSheet } from 'react-native'
 import React, { useEffect } from 'react'
+import { commonStyle } from '../../utils/commonStyle'
+import Ticket from 'react-native-vector-icons/Fontisto'
 
 
 const MainScreen = ({navigation}) => {
@@ -9,12 +11,15 @@ const MainScreen = ({navigation}) => {
     }, 2000)
   }, [navigation])
   return (
-    <ImageBackground source={require('../../assets/dark.jpg')} style={styles.container}>
+    <View style={styles.container}>
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{color: '#fff', fontSize: 40, fontFamily: 'Poppins-SemiBold'}}>Tickitz</Text>
-        <Text style={{color: '#fff', fontSize: 18, fontFamily: 'Poppins-Regular'}}>Cinema Booking App</Text>
+        <Text style={{color: '#fff', fontSize: 20, fontFamily: 'Poppins-Medium'}}>Tickitz</Text>
+        <View style={{marginVertical: 20}}>
+            <Ticket name='ticket' color={'#fff'} size={25}/>
+        </View>
+        <Text style={{color: '#fff', fontSize: 20, fontFamily: 'Poppins-Regular'}}>Cinema Booking App</Text>
       </View>
-    </ImageBackground>
+    </View>
   )
 }
 
@@ -22,8 +27,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        paddingVertical: 100,    
+        alignItems: 'center', 
+        backgroundColor: commonStyle.bgPrimary
     },
 })
 

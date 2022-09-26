@@ -1,14 +1,3 @@
-export const timeShow = [
-  {time: '12:00'},
-  {time: '12:30'},
-  {time: '14:00'},
-  {time: '16:00'},
-  {time: '16:30'},
-  {time: '18:00'},
-  {time: '20:00'},
-  {time: '22:00'},
-]
-
 export const paymentMethod = [
   {
     id: 1,
@@ -108,5 +97,11 @@ export const seatsDLeft = ['D1','D2','D3','D4']
 export const seatsDRight = ['D5','D6','D7','D8']
 export const seatsELeft = ['E1','E2','E3','E4']
 export const seatsERight = ['E5','E6','E7','E8']
-export const seatsFLeft = ['F1','F2','F3']
-export const seatsFRight = ['F5','F6','F7']
+export const seatsFLeft = ['F1','F2','F3','F4']
+export const seatsFRight = ['F5','F6','F7','F8']
+export const seatsGLeft = ['G1','G2','G3','G4']
+export const seatsGRight = ['G5','G6','G7','G8']
+export const seatsHLeft = ['H1','H2','H3']
+export const seatsHRight = ['H4','H5','H6']
+
+export const balance = [10000000]
