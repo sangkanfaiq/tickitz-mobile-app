@@ -13,13 +13,18 @@ import {
   import HalfStar from 'react-native-vector-icons/FontAwesome';
   import Empty from '../../../assets/sad.svg';
   import moment from 'moment';
+  import Modal from 'react-native-modal'
 
 const TicketList = () => {
   const API_URL_BOOKING = `https://tickitz-backend-1st.herokuapp.com/api/v1/booking`;
+
   const API_URL = `https://tickitz-backend-1st.herokuapp.com`;
 
   const [showTicket, setShowTicket] = useState([]);
+
   const [ refetch, setRefetch ] = useState(false)
+
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     axios({
@@ -42,6 +47,7 @@ const TicketList = () => {
       .then(res => {
         ToastAndroid.showWithGravity('Delete Successfully', ToastAndroid.SHORT, ToastAndroid.CENTER)
         setRefetch(!refetch)
+        setShowModal(false)
       })
       .catch(err => {
         console.log(err)
@@ -57,7 +63,7 @@ const TicketList = () => {
         </View> : showTicket.map((item, index)=> {
           return (
             <View key={index} style={{paddingHorizontal: 20}}>
-              <TouchableOpacity style={styles.ticketCard} onLongPress={()=> handleDelete(item.bookingID)}>
+              <TouchableOpacity style={styles.ticketCard} onLongPress={()=> setShowModal(true)}>
                   <View style={{flexDirection: 'row', alignItems: 'center', paddingVertical: 10}}>
                       <Image source={{uri: `${API_URL}/uploads/${item.cover}`}} style={styles.imageSize}/>
                         <View style={{marginLeft: 10}}>
@@ -79,6 +85,21 @@ const TicketList = () => {
                     <Image source={require('../../../assets/ticket.png')} style={styles.imageTicket}/>
                   </View>
               </TouchableOpacity>
+
+              <Modal isVisible={showModal}>
+                <View style={{padding: 20, backgroundColor: commonStyle.bgFourth, borderRadius: 10, marginHorizontal: 20}}>
+                  <Text style={{textAlign: 'center', fontFamily: 'Poppins-Medium', fontSize: 20, color: '#fff'}}>Delete this item?</Text>
+                  <View style={{justifyContent: 'center', flexDirection: 'row', marginTop: 50}}>
+                    <TouchableOpacity style={{backgroundColor: commonStyle.bgFifth, paddingHorizontal: 20, paddingVertical: 7, borderRadius: 10, marginHorizontal: 5}} onPress={()=> handleDelete(item.bookingID)}>
+                      <Text style={{fontFamily: 'Poppin-Medium', color: commonStyle.bgPrimary, fontSize: 14}}>YES</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{backgroundColor: commonStyle.bgThird, paddingHorizontal: 20, paddingVertical: 7, borderRadius: 10, marginHorizontal: 5}} onPress={()=> setShowModal(false)}>
+                      <Text style={{fontFamily: 'Poppin-Medium', color: '#fff', fontSize: 14}}>NO</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Modal>
+
             </View>
           )
       })}

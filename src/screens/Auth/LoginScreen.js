@@ -8,7 +8,6 @@ import {
   ScrollView,
   ActivityIndicator,
   Image,
-  ToastAndroid
 } from 'react-native';
 import React, {useState} from 'react';
 import Logo from '../../assets/images/loginRed.svg';
@@ -24,7 +23,7 @@ const LoginScreen = () => {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
-  const {error, loading, isLogin} = useSelector(state => state.auth);
+  const {loading, isLogin} = useSelector(state => state.auth);
   const [formLogin, setFormLogin] = useState({
     email: '',
     password: '',
@@ -124,6 +123,7 @@ const LoginScreen = () => {
               Register here
             </Text>
         </View>
+       
       </ScrollView>
     </SafeAreaView>
   );

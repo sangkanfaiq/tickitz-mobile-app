@@ -16,12 +16,14 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import { commonStyle } from '../../utils/commonStyle';
 import BackIcon from 'react-native-vector-icons/Feather'
+import Modal from 'react-native-modal'
 
 const RegisterScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation();
 
   const {error, loading} = useSelector(state => state.register);
+  const [ modal, setModal ] = useState(false)
   const [register, setRegister] = useState({
     firstName: '',
     lastName: '',
@@ -39,8 +41,9 @@ const RegisterScreen = () => {
       data: register
     })
       .then((res) => {
-        ToastAndroid.showWithGravity('Register Successfully', ToastAndroid.SHORT, ToastAndroid.CENTER)
-        navigation.navigate('Login')
+        // ToastAndroid.showWithGravity('Register Successfully', ToastAndroid.SHORT, ToastAndroid.CENTER)
+        // navigation.navigate('Login')
+        setModal(true)
       })
       .catch((err) => {
         ToastAndroid.showWithGravity(err.response.data.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
@@ -196,14 +199,75 @@ const RegisterScreen = () => {
             {' '}
             Login here
           </Text>
-         
         </Text>
       </View>
+      <Modal isVisible={modal} transparent style={{margin: 0, justifyContent: 'flex-end'}}>
+              <View style={{}}>
+                <View style={{backgroundColor: commonStyle.bgFourth, paddingHorizontal: 20, paddingVertical: 30}}>
+                  <View style={styles.modalBox}>
+                    <Image source={require('../../assets/checked.png')} style={styles.modalImage}/>
+                  </View>
+                  <View style={{marginTop: 65}}>
+                    <View style={{alignItems: 'center', marginBottom: 40}}>
+                      <Text style={styles.modalTitle}>Register Successfully</Text>
+                    </View>
+                  </View>
+                  <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
+                    <TouchableOpacity style={styles.modalOKBtn} onPress={()=> navigation.navigate('Login')}>
+                      <Text style={{color: '#fff', fontFamily: 'Poppins-Medium', fontSize: 14}}>OK</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+        </Modal>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  modalBox: {
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    width: 140, 
+    height: 140, 
+    borderRadius: 75, 
+    position: 'absolute', 
+    top: -60, 
+    alignSelf: 'center',
+    backgroundColor: commonStyle.bgFourth
+  },
+  modalImage: {
+    width: '100%',
+    height: '100%',
+  },
+  modalTitle: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Medium',
+    fontSize: 24,
+    color: '#fff',
+  },
+  modalSubtitle: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Regular',
+    marginTop: 5,
+    fontSize: 14,
+    color: 'lightgray',
+  },
+  modalTxt: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 13,
+    color: '#f0f0f0',
+    marginTop: 20
+  },
+  modalOKBtn: {
+    backgroundColor: commonStyle.bgThird, 
+    borderRadius: 30,
+    width: '30%', 
+    paddingVertical: 10,
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
   header: {
     height: 70, 
     backgroundColor: 

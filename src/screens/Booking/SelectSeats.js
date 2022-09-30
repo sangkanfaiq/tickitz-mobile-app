@@ -7,7 +7,7 @@ import {
   ToastAndroid,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useNavigation} from '@react-navigation/native';
 import BackIcon from 'react-native-vector-icons/Feather';
 import {commonStyle} from '../../utils/commonStyle';

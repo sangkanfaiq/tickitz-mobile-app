@@ -40,7 +40,7 @@ const ProfilePage = () => {
       url: `${API_URL_BOOKING}/${bookingID}`
     })
     .then(res => {
-      alert('delete success')
+      alert('Delete Successfully')
       setRefetch(!refetch)
     })
     .catch(err => {
