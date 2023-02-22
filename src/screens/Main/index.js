@@ -15,7 +15,7 @@ const MainScreen = ({navigation}) => {
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{color: '#fff', fontSize: 20, fontFamily: 'Poppins-Medium'}}>Tickitz</Text>
         <View style={{marginVertical: 20}}>
-            <Ticket name='ticket' color={'#fff'} size={25}/>
+            <Ticket name='ticket' color={'#000'} size={25}/>
         </View>
         <Text style={{color: '#fff', fontSize: 20, fontFamily: 'Poppins-Regular'}}>Cinema Booking App</Text>
       </View>

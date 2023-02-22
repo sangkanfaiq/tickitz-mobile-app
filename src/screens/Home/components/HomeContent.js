@@ -107,7 +107,7 @@ const HomeContent = () => {
                     data={movieSchedule}
                     renderItem={renderBanner}
                     sliderWidth={windowWidth}
-                    itemWidth={370}
+                    itemWidth={400}
                     enableSnap={true}
                     loop={true}
                     autoplay={true}
